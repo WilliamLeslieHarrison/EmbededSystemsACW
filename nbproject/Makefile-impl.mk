@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=EmbededSystems.X
+PROJECTNAME=EmbededSystemsACW
 
 # Active Configuration
 DEFAULTCONF=default
