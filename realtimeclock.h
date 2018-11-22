@@ -8,6 +8,9 @@
 #ifndef REALTIMECLOCK_H
 #define	REALTIMECLOCK_H
 
+#define SCLK RB0
+#define IO RB4
+#define RST RB5
 
 
 #endif	/* REALTIMECLOCK_H */
