@@ -1,11 +1,7 @@
 #include <pic.h>
 #include "LCD.h" //Including the header in this source file
 
-#define LCD_data    PORTD //LCD 8 bit data port
-#define LCD_DB7     RD7 //busy flag in
-#define LCD_rs      RA1
-#define LCD_rw      RA2
-#define LCD_en      RA3
+
 
 void LCD_busy(){
     TRISD    = 0xFF;    //PORTD as i
@@ -24,8 +20,7 @@ void LCD_init()
 {    
     TRISD = 0x00;
     TRISA = 0x00; 
-    ADCON1 = 0x06;
-    
+    ADCON1 = 0x06;   
 }
 
 void LCD_command(unsigned char c){
@@ -54,7 +49,7 @@ void LCD_senddata(unsigned char c){
 void LCD_sendstring(const char *string){
     for (int i = 0; string[i]!='\0'; i++)           //till the string ends
     {
-        LCD_senddata(*string);//send characters one by one
+        LCD_senddata(*string);//send characters one by one       
         string++;
     }
 }

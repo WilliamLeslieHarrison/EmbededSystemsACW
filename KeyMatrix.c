@@ -1,15 +1,6 @@
 #include <pic.h>
 #include "KeyMatrix.h"
 
-#define clmn4  RC0
-#define clmn3  RC1
-#define clmn2 RC2
-#define clmn1 RC3
-#define row1 RC4
-#define row2 RC5
-#define row3  RC6
-#define row4  RC7
-
 void key_delay(int k){
     unsigned int i,j;
     for (i= 0; i < k; i++)
