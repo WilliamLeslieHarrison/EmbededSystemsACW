@@ -7,3 +7,22 @@ Reece:
 Temperature Sensor
 Input Switches
 ?
+Reeces PORTS:
+LCD 1602:
+PORTA - RA1, RA2, RA3
+PORTD - RD0, RD1, RD2, RD3, RD4, RD5, RD6, RD7
+LCD 12864:
+PORTA - RA0, RA1, RA2, RA3, RA4, RA5
+PORTD - RD0, RD1, RD2, RD3, RD4, RD5, RD6, RD7
+KeyMatrix:
+PORTC - RC0, RC1, RC2, RC3, RC4, RC5, RC6, RC7
+Thermometer:
+PORTA- RA0 (Able to change the I/O Port)
+Sounder:
+PORTC - RC2 (Able to change I/O Port)
+Wills PORTS:
+Real Time Clock:
+PORTB - RB0, RB4, RB5
+I/O Ports:
+Change the Thermometer Port I/O
+Change the Sounder Port I/O
