@@ -1,12 +1,12 @@
 Shit to do:
+LCD 12864 instead of the LCD1602
 Will:
 Real time Clock drivers
 I/O Ports
-?
 Reece:
 Temperature Sensor
 Input Switches
-Sounder = RC2 (or whatever pin we choose) to output
+Sounder = RC2 (or whatever pin we choose) to output and possibly get it to sound something different.
 Reeces PORTS:
 LCD 1602:
 PORTA - RA1, RA2, RA3
