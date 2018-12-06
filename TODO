@@ -6,7 +6,7 @@ I/O Ports
 Reece:
 Temperature Sensor
 Input Switches
-?
+Sounder = RC2 (or whatever pin we choose) to output
 Reeces PORTS:
 LCD 1602:
 PORTA - RA1, RA2, RA3
