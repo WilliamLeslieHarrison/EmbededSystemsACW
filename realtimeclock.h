@@ -8,9 +8,18 @@
 #ifndef REALTIMECLOCK_H
 #define	REALTIMECLOCK_H
 
-#define SCLK RB0
-#define IO RB4
-#define RST RB5
+#define i_o   RB4                      //1302I_O           
+#define sclk  RB0                      //1302 clock        
+#define rst   RB5                      //1302 enable bit   
+ 
+
+ unsigned char time_rx;
+
+void ds1302_init();                             //DS1302 initilize subroutine.
+void set_time();                                //set time subroutine.
+void get_time();                                //get time subroutine.
+void time_write_byte(unsigned char time_tx);    //write one byte subroutine.
+unsigned char  time_read_byte();                //read one byte subroutine.
 
 
 #endif	/* REALTIMECLOCK_H */
