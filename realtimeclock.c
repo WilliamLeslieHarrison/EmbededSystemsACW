@@ -39,7 +39,7 @@ void RealTimeClock_get_time(unsigned char* time) {
     rst = 1;
     RealTimeClock_write_byte(0xbf);
     for(int i = 0; i < 7; ++i) {
-        time[i] = RealTimeClock_read_byte();
+        RealTimeClock_read_byte(time[i]);
     }
     rst = 0;
 }

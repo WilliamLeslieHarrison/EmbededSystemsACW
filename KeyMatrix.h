@@ -18,13 +18,13 @@
 #define row4  RC7
 
 #endif	/* KEYMATRIX_H */
-void key_delay(int k);
+void Key_Delay(int k);
 
-void InitKeypad();
+void Init_Keypad(void);
 
-char keypad_scan();
+char Keypad_Scan(void);
 
-char switch_scan();
+char Switch_Scan(void);
 
 
 

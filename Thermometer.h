@@ -16,16 +16,16 @@
 
 #endif
 
-void delay(char x, char y);
+void Delay(char x, char y);
 
-void display();
+void Display(void);
 
-void ThermometerInit();
+void Thermometer_Init(void);
 
-reset(void);
+void Reset(void);
 
-void write_byte(uch val);
+void Write_Byte(uch val);
 
-uch read_byte(void);
+uch Read_Byte(void);
 
-void get_temp();
+void Get_Temp(void);

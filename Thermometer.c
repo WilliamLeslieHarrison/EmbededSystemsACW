@@ -1,25 +1,30 @@
-
 #include<xc.h>
 #include"LCD.h"
 #include"Thermometer.h"
-                   
-unsigned char  TLV=0 ;                      //temperature high byte                     
-unsigned char  THV=0;                       //temperature low byte                      
-unsigned char TZ=0;                         //temperature integer after convert         
-unsigned char TX=0;                         //temperature decimal  after convert        
-unsigned int wd;                            //temperature BCD code  after convert       
-                                                                                         
-unsigned char tenbit;                           //integer ten bit                           
-unsigned char intent;                            //integer Entries bit                       
-unsigned char tencent;                        //ten cent bit                              
-unsigned char hundredcent;                        //hundred cent bit                          
-unsigned char thousandcent;                       //thousand cent bit                         
-unsigned char countlesscent;                        //myriad cent bit                           
+            
+//Temperature low byte 
+unsigned char  TLB=0 ;                                     
+//Temperature high byte
+unsigned char  THB=0;                                            
+//The temperature interger after conversion 
+unsigned char TempInt=0;                                 
+//The temperature decimal after conversion
+unsigned char TempDec=0;                                 
+//Temperature binary-coded decimal after conversion
+unsigned int TempBCD;                                   
+//Ten bit                                                                                         
+unsigned char tenbit;                                                
+//Int entry bit
+unsigned char intent;
+//Tenth bit
+unsigned char tenthbit;                        
+//Hundredth bit
+unsigned char hundredthbit;                                                                    
 unsigned char table2[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
                               
 //-----------------------------------------------------------
 //delay function              
-void delay(char x,char y) 
+void Delay(char x,char y) 
 {
   char z;
   do{
@@ -33,31 +38,34 @@ void delay(char x,char y)
                                                                                                                         
 //--------------------------------------------------                                                                    
 //display function
-void display()
+void Display(void)
 {
-    LCD_busy();    
-    LCD_senddata(table2[tenbit]);
-    LCD_busy();
-    LCD_senddata(table2[intent]);
-    LCD_busy();
-    LCD_senddata('.');
-    LCD_busy();
-    LCD_senddata(table2[tencent]);
-    LCD_busy();
-    LCD_senddata(table2[hundredcent]);
-    LCD_busy();
-    LCD_senddata(table2[thousandcent]);
-    LCD_busy();
-    LCD_senddata(table2[countlesscent]);
-    LCD_busy();
-    LCD_senddata(0xDF);
-    LCD_busy();
-    LCD_senddata('C');
+    LCD_Busy();    
+    //This is the ten decimal digit for the temp
+    LCD_SendData(table2[tenbit]); 
+    LCD_Busy();
+    //This is the one decimal digit for the temp
+    LCD_SendData(table2[intent]); 
+    LCD_Busy();
+    //This adds a decimal point for the temp
+    LCD_SendData('.'); 
+    LCD_Busy();
+    //This is the tenth place digit for the temp
+    LCD_SendData(table2[tenthbit]); 
+    LCD_Busy();
+    //This is the hundredth place digit for the temp
+    LCD_SendData(table2[hundredthbit]); 
+    LCD_Busy();
+    //This is a degree symbol for the temp
+    LCD_SendData(0xDF);
+    LCD_Busy();
+    //This is showing it is done in Celsius
+    LCD_SendData('C');
 }
 
 //------------------------------------------------
 //system initialize function           
-void ThermometerInit()
+void Thermometer_Init(void)
 {
   ADCON1=0X07;                                //set A PORT general data PORT   
   TRISA=0X00;                                 //set A PORT direct OUTPUT       
@@ -65,49 +73,61 @@ void ThermometerInit()
 }
 
 //-----------------------------------------------
-//reset DS18B20 function   
-reset(void)
+//reset thermometer   
+void Reset(void)
 {
   char presence=1;
   while(presence)
   { 
-    DQ_LOW() ;                                //MAIN MCU PULL LOW                                                                       
-    delay(2,70);                              //delay 503us                                                                             
-    DQ_HIGH();                                //release general line and wait for resistance pull high general line and keep 15~60us    
-    delay(2,8);                               //delay 70us                                                                              
-    if(DQ==1) presence=1;                     // not receive responsion signal,continue reset                                           
-    else presence=0;                          //receive responsion signal                                                               
-    delay(2,60);                              //delay 430us                                                                             
+     //Pull low
+    DQ_LOW() ;  
+    //Delay for 503 us
+    Delay(2,70); 
+    //release general line and wait for resistance pull high general line and keep 15-60us
+    DQ_HIGH();                                
+    //Delay for 70us
+    Delay(2,8);                                                                  
+    // did not receive response signal so continue reset 
+    if(DQ==1) presence=1;                     
+    //have received the response signal
+    else presence=0;                          
+    //Delay 430us
+    Delay(2,60);                                                                                                       
    }
   }
 
 //-----------------------------------------------
-//write 18b20 one byte function     
-void write_byte(uch val)
+//write to the thermometer   
+void Write_Byte(uch val)
 {
- uch i;
+ uch i; 
  uch temp;
  for(i=8;i>0;i--)
  {
-   temp=val&0x01;                             //shift the lowest bit                   
+   //Shift the lowest bit
+   temp=val&0x01;         
+   //Pull high to low and produce write time
    DQ_LOW();                                                                           
    NOP();                                                                              
    NOP();                                                                              
    NOP();                                                                              
    NOP();                                                                              
-   NOP();                                     //pull high to low,produce write time    
-   if(temp==1)  DQ_HIGH();                    //if write 1,pull high                   
-   delay(2,7);                                //delay 63us                             
+   NOP();      
+   //if write is equal to 1 pull high
+   if(temp==1)  DQ_HIGH();        
+   //Delay for 63 us
+   Delay(2,7);                                                             
    DQ_HIGH();                                                                          
    NOP();                                                                              
-   NOP();                                                                              
+   NOP();           
+   //right shift a bit from val
    val=val>>1;                                //right shift a bit                      
   }
 }
 
 //------------------------------------------------
 //18b20 read a byte function  
-uch read_byte(void)
+uch Read_Byte(void)
 {
  uch i;
  uch value=0;                                 //read temperature         
@@ -130,46 +150,44 @@ uch read_byte(void)
    NOP();                                   //4us               
    j=DQ;                                                        
    if(j) value|=0x80;                                           
-   delay(2,7);                              //63us              
+   Delay(2,7);                              //63us              
   }
   return(value);
 }
 
 //-------------------------------------------------
 //start temperature convert function   
-void get_temp()
+void Get_Temp(void)
 { 
 int i;
 DQ_HIGH();
-reset();                              //reset,wait for  18b20 responsion                                                                                                               
-write_byte(0XCC);                     //ignore ROM matching                                                                                                                            
-write_byte(0X44);                     //send  temperature convert command                                                                                                              
+Reset();                              //reset,wait for  18b20 responsion                                                                                                               
+Write_Byte(0XCC);                     //ignore ROM matching                                                                                                                            
+Write_Byte(0X44);                     //send  temperature convert command                                                                                                              
 /*for(i=20;i>0;i--)                                                                                                                                                                      
     {                                                                                                                                                                                  
                                                                                                                                                                                        
         display();                    //call some display function,insure the time of convert temperature                                                                              
     }           */
-display();
-delay(10,70);
-reset();                              //reset again,wait for 18b20 responsion                                                                                                          
-write_byte(0XCC);                     //ignore ROM matching                                                                                                                            
-write_byte(0XBE);                     //send read temperature command                                                                                                                  
-TLV=read_byte();                      //read temperature low byte                                                                                                                      
-THV=read_byte();                      //read temperature high byte                                                                                                                     
+Display();
+Delay(10,70);
+Reset();                              //reset again,wait for 18b20 responsion                                                                                                          
+Write_Byte(0XCC);                     //ignore ROM matching                                                                                                                            
+Write_Byte(0XBE);                     //send read temperature command                                                                                                                  
+TLB = Read_Byte();                      //read temperature low byte                                                                                                                      
+THB = Read_Byte();                      //read temperature high byte                                                                                                                     
 DQ_HIGH();                            //release general line   +                                                                                                                        
-TZ=(TLV>>4)|(THV<<4)&0X3f;            //temperature integer                                                                                                                            
-TX=TLV<<4;                            //temperature decimal                                                                                                                            
-if(TZ>100) TZ/100;                    //not display hundred bit                                                                                                                        
-intent=TZ%10;                     //integer Entries bit                                                                                                                            
-tenbit=TZ/10;                    //integer ten bit                                                                                                                                
-wd=0;                                                                                                                                                                                  
-if (TX & 0x80) wd=wd+5000;
-if (TX & 0x40) wd=wd+2500;
-if (TX & 0x20) wd=wd+1250;
-if (TX & 0x10) wd=wd+625;                //hereinbefore four instructions are turn  decimal into BCD code                         
-tencent=wd/1000;                          //ten cent bit                                                                           
-hundredcent=(wd%1000)/100;                    //hundred cent bit                                                                       
-thousandcent=(wd%100)/10;                     //thousand cent bit                                                                      
-countlesscent=wd%10;                            //myriad cent bit                                                                        
+TempInt=(TLB>>4)|(THB<<4)&(0X3f);            //temperature integer                                                                                                                            
+TempDec=TLB<<4;                            //temperature decimal                                                                                                                            
+if(TempInt>100) TempInt = TempInt/100;                    //not display hundred bit                                                                                                                        
+intent=TempInt%10;                     //integer Entries bit                                                                                                                            
+tenbit=TempInt/10;                    //integer ten bit                                                                                                                                
+TempBCD=0;                                                                                                                                                                                  
+if (TempDec & 0x80) TempBCD=TempBCD+5000;
+if (TempDec & 0x40) TempBCD=TempBCD+2500;
+if (TempDec & 0x20) TempBCD=TempBCD+1250;
+if (TempDec & 0x10) TempBCD=TempBCD+625;                //hereinbefore four instructions are turn  decimal into BCD code                         
+tenthbit=TempBCD/1000;                          //ten cent bit                                                                           
+hundredthbit=(TempBCD%1000)/100;                    //hundred cent bit                                                                                                                                            
 NOP();                                                                                                                            
 }            

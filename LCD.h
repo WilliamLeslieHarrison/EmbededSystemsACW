@@ -16,17 +16,17 @@
 
 #endif
 
-void LCD_busy(); //Declaring the LCD_busy function
+void LCD_Busy(void); //Declaring the LCD_busy function
 
-void LCD_init(); //Declaring the initialization for the LCD's
+void LCD_Init(void); //Declaring the initialization for the LCD's
 
-void LCD_command(unsigned char c); //Declaring the commands for the LCDs
+void LCD_Command(unsigned char c); //Declaring the commands for the LCDs
 
-void LCD_secondline();
+void LCD_SecondLine(void);
 
-void LCD_senddata(unsigned char c); //Declaring the method for sending data
+void LCD_SendData(unsigned char c); //Declaring the method for sending data
 
-void LCD_sendstring(const char *string); //Declaring the send string function
+void LCD_SendString(const char *string); //Declaring the send string function
 
 
 
