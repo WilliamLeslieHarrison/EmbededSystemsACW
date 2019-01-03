@@ -204,10 +204,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f877a.h: 2363: __asm("EECON2 equ 018Dh");
 [; <" EECON2 equ 018Dh ;# ">
 "6 LCD.c
-[; ;LCD.c: 6: void LCD_busy(){
-[v _LCD_busy `(v ~T0 @X0 1 ef ]
+[; ;LCD.c: 6: void LCD_Busy(void){
+[v _LCD_Busy `(v ~T0 @X0 1 ef ]
 {
-[e :U _LCD_busy ]
+[e :U _LCD_Busy ]
 [f ]
 "7
 [; ;LCD.c: 7:     TRISD = 0xFF;
@@ -250,12 +250,12 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :UE 95 ]
 }
 "19
-[; ;LCD.c: 19: void LCD_init()
-[v _LCD_init `(v ~T0 @X0 1 ef ]
+[; ;LCD.c: 19: void LCD_Init(void)
+[v _LCD_Init `(v ~T0 @X0 1 ef ]
 "20
 [; ;LCD.c: 20: {
 {
-[e :U _LCD_init ]
+[e :U _LCD_Init ]
 [f ]
 "21
 [; ;LCD.c: 21:     TRISD = 0x00;
@@ -271,10 +271,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :UE 99 ]
 }
 "26
-[; ;LCD.c: 26: void LCD_command(unsigned char c){
-[v _LCD_command `(v ~T0 @X0 1 ef1`uc ]
+[; ;LCD.c: 26: void LCD_Command(unsigned char c){
+[v _LCD_Command `(v ~T0 @X0 1 ef1`uc ]
 {
-[e :U _LCD_command ]
+[e :U _LCD_Command ]
 [v _c `uc ~T0 @X0 1 r1 ]
 [f ]
 "27
@@ -293,32 +293,32 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;LCD.c: 31:     RA3 = 0;
 [e = _RA3 -> -> 0 `i `b ]
 "32
-[; ;LCD.c: 32:     LCD_busy();
-[e ( _LCD_busy ..  ]
+[; ;LCD.c: 32:     LCD_Busy();
+[e ( _LCD_Busy ..  ]
 "33
 [; ;LCD.c: 33: }
 [e :UE 100 ]
 }
 "35
-[; ;LCD.c: 35: void LCD_secondline()
-[v _LCD_secondline `(v ~T0 @X0 1 ef ]
+[; ;LCD.c: 35: void LCD_SecondLine(void)
+[v _LCD_SecondLine `(v ~T0 @X0 1 ef ]
 "36
 [; ;LCD.c: 36: {
 {
-[e :U _LCD_secondline ]
+[e :U _LCD_SecondLine ]
 [f ]
 "37
-[; ;LCD.c: 37:     LCD_command(0xc0);
-[e ( _LCD_command (1 -> -> 192 `i `uc ]
+[; ;LCD.c: 37:     LCD_Command(0xc0);
+[e ( _LCD_Command (1 -> -> 192 `i `uc ]
 "38
 [; ;LCD.c: 38: }
 [e :UE 101 ]
 }
 "40
-[; ;LCD.c: 40: void LCD_senddata(unsigned char c){
-[v _LCD_senddata `(v ~T0 @X0 1 ef1`uc ]
+[; ;LCD.c: 40: void LCD_SendData(unsigned char c){
+[v _LCD_SendData `(v ~T0 @X0 1 ef1`uc ]
 {
-[e :U _LCD_senddata ]
+[e :U _LCD_SendData ]
 [v _c `uc ~T0 @X0 1 r1 ]
 [f ]
 "41
@@ -337,17 +337,17 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;LCD.c: 45:     RA3 = 0;
 [e = _RA3 -> -> 0 `i `b ]
 "46
-[; ;LCD.c: 46:     LCD_busy();
-[e ( _LCD_busy ..  ]
+[; ;LCD.c: 46:     LCD_Busy();
+[e ( _LCD_Busy ..  ]
 "47
 [; ;LCD.c: 47: }
 [e :UE 102 ]
 }
 "49
-[; ;LCD.c: 49: void LCD_sendstring(const char *string){
-[v _LCD_sendstring `(v ~T0 @X0 1 ef1`*Cuc ]
+[; ;LCD.c: 49: void LCD_SendString(const char *string){
+[v _LCD_SendString `(v ~T0 @X0 1 ef1`*Cuc ]
 {
-[e :U _LCD_sendstring ]
+[e :U _LCD_SendString ]
 [v _string `*Cuc ~T0 @X0 1 r1 ]
 [f ]
 "50
@@ -361,8 +361,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;LCD.c: 51:     {
 {
 "52
-[; ;LCD.c: 52:         LCD_senddata(string[i]);
-[e ( _LCD_senddata (1 -> *U + _string * -> _i `x -> -> # *U _string `i `x `uc ]
+[; ;LCD.c: 52:         LCD_SendData(string[i]);
+[e ( _LCD_SendData (1 -> *U + _string * -> _i `x -> -> # *U _string `i `x `uc ]
 "53
 [; ;LCD.c: 53:     }
 }

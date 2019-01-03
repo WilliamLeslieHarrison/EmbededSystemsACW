@@ -1724,137 +1724,139 @@ extern __bank0 __bit __timeout;
 
 # 1 "./KeyMatrix.h" 1
 # 21 "./KeyMatrix.h"
-void key_delay(int k);
+void Key_Delay(int k);
 
-void InitKeypad();
+void Init_Keypad(void);
 
-char keypad_scan();
+char Keypad_Scan(void);
 
-char switch_scan();
+char Switch_Scan(void);
 # 2 "KeyMatrix.c" 2
 
 
-void key_delay(int k){
+
+void Key_Delay(int k){
     unsigned int i,j;
     for (i= 0; i < k; i++)
         for(j = 0; j < 100; j++);
 }
 
-void InitKeypad()
+void Init_Keypad(void)
 {
     PORTC = 0x00;
     TRISC = 0xF;
 }
-char keypad_scan()
+
+char Keypad_Scan(void)
 {
     RC4 = 1; RC5 = 0; RC6 = 0; RC7 = 0;
     if(RC3 == 1)
     {
-        key_delay(50);
+        Key_Delay(50);
         while(RC3 == 1)
             return '1';
     }
     if(RC2 == 1)
     {
-       key_delay(50);
+       Key_Delay(50);
        while(RC2 == 1)
             return '2';
     }
     if(RC1 == 1)
     {
-        key_delay(50);
+        Key_Delay(50);
         while(RC1 == 1)
             return '3';
     }
     if(RC0 == 1)
     {
-        key_delay(50);
+        Key_Delay(50);
         while(RC0 == 1)
-            return 'A';
+            return '4';
     }
     RC4 = 0; RC5 = 1; RC6 = 0; RC7 = 0;
     if(RC3 == 1)
     {
-        key_delay(50);
+        Key_Delay(50);
         while(RC3 == 1)
-            return '4';
+            return '5';
     }
     if(RC2 == 1)
     {
-        key_delay(50);
+        Key_Delay(50);
         while(RC2 == 1)
-            return '5';
+            return '6';
     }
     if(RC1 == 1)
     {
-        key_delay(50);
+        Key_Delay(50);
         while(RC1 == 1)
-            return '6';
+            return '7';
     }
     if(RC0 == 1)
     {
-        key_delay(50);
+        Key_Delay(50);
         while(RC0 == 1)
-            return 'B';
+            return '8';
     }
     RC4 = 0; RC5 = 0; RC6 = 1; RC7 = 0;
     if(RC3 == 1)
     {
-        key_delay(50);
+        Key_Delay(50);
         while(RC3 == 1)
-            return '7';
-    }
-    if(RC2 == 1)
-    {
-        key_delay(50);
-        while(RC2 == 1)
-            return '8';
-    }
-    if(RC1 == 1)
-    {
-        key_delay(50);
-        while(RC1 == 1)
             return '9';
     }
-    if(RC0 == 1)
-    {
-        key_delay(50);
-        while(RC0 == 1)
-            return 'C';
-    }
-    RC4 = 0; RC5 = 0; RC6 = 0; RC7 = 1;
-    if(RC3 == 1)
-    {
-        key_delay(50);
-        while(RC3 == 1)
-            return '*';
-    }
     if(RC2 == 1)
     {
-        key_delay(50);
+        Key_Delay(50);
         while(RC2 == 1)
             return '0';
     }
     if(RC1 == 1)
     {
-        key_delay(50);
+        Key_Delay(50);
         while(RC1 == 1)
-            return '#';
+            return 'a';
     }
     if(RC0 == 1)
     {
-        key_delay(50);
+        Key_Delay(50);
         while(RC0 == 1)
-            return 'D';
+            return 'b';
+    }
+    RC4 = 0; RC5 = 0; RC6 = 0; RC7 = 1;
+    if(RC3 == 1)
+    {
+        Key_Delay(50);
+        while(RC3 == 1)
+            return 'c';
+    }
+    if(RC2 == 1)
+    {
+        Key_Delay(50);
+        while(RC2 == 1)
+            return 'd';
+    }
+    if(RC1 == 1)
+    {
+        Key_Delay(50);
+        while(RC1 == 1)
+            return 'e';
+    }
+    if(RC0 == 1)
+    {
+        Key_Delay(50);
+        while(RC0 == 1)
+            return 'f';
     }
 
-    return 'n';
+        return 'n';
 }
 
-char switch_scan()
+char Switch_Scan(void)
 {
     char key = 'n';
     while(key == 'n')
-        key = keypad_scan();
+        key = Keypad_Scan();
     return key;
 }

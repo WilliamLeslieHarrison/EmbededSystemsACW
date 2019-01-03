@@ -47,7 +47,7 @@ void RealTimeClock_get_time(unsigned char* time) {
 void RealTimeClock_init(void) {
     TRISB = 0x00;
     sclk = 0;
-    rst = 0;
+    rst = 1;
     RealTimeClock_write_byte(0x8e);   
     RealTimeClock_write_byte(0x00);
     rst = 0;

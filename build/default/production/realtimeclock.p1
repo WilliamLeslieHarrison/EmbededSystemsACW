@@ -1,4 +1,19 @@
 Version 4.0 HI-TECH Software Intermediate Code
+"2686 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f877a.h
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f877a.h: 2686: extern volatile __bit RB4 __attribute__((address(0x34)));
+[v _RB4 `Vb ~T0 @X0 0 e@52 ]
+"2674
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f877a.h: 2674: extern volatile __bit RB0 __attribute__((address(0x30)));
+[v _RB0 `Vb ~T0 @X0 0 e@48 ]
+"2947
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f877a.h: 2947: extern volatile __bit TRISB4 __attribute__((address(0x434)));
+[v _TRISB4 `Vb ~T0 @X0 0 e@1076 ]
+"2689
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f877a.h: 2689: extern volatile __bit RB5 __attribute__((address(0x35)));
+[v _RB5 `Vb ~T0 @X0 0 e@53 ]
+"1375
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f877a.h: 1375: extern volatile unsigned char TRISB __attribute__((address(0x086)));
+[v _TRISB `Vuc ~T0 @X0 0 e@134 ]
 "54 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f877a.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f877a.h: 54: __asm("INDF equ 00h");
 [; <" INDF equ 00h ;# ">
@@ -180,12 +195,209 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f877a.h: 2363: __asm("EECON2 equ 018Dh");
 [; <" EECON2 equ 018Dh ;# ">
 "4 realtimeclock.c
-[; ;realtimeclock.c: 4: void RealTimeClock_init(void) {
+[; ;realtimeclock.c: 4: void RealTimeClock_write_byte(unsigned char time_tx) {
+[v _RealTimeClock_write_byte `(v ~T0 @X0 1 ef1`uc ]
+{
+[e :U _RealTimeClock_write_byte ]
+[v _time_tx `uc ~T0 @X0 1 r1 ]
+[f ]
+"5
+[; ;realtimeclock.c: 5:     for(int i = 0; i < 8; ++i) {
+{
+[v _i `i ~T0 @X0 1 a ]
+[e = _i -> 0 `i ]
+[e $ < _i -> 8 `i 96  ]
+[e $U 97  ]
+[e :U 96 ]
+{
+"6
+[; ;realtimeclock.c: 6:         RB4 = 0;
+[e = _RB4 -> -> 0 `i `b ]
+"7
+[; ;realtimeclock.c: 7:         RB0 = 0;
+[e = _RB0 -> -> 0 `i `b ]
+"8
+[; ;realtimeclock.c: 8:         if (time_tx&0x01) {
+[e $ ! != & -> _time_tx `i -> 1 `i -> 0 `i 99  ]
+{
+"9
+[; ;realtimeclock.c: 9:             RB4 = 1;
+[e = _RB4 -> -> 1 `i `b ]
+"10
+[; ;realtimeclock.c: 10:         }
+}
+[e :U 99 ]
+"11
+[; ;realtimeclock.c: 11:         time_tx = time_tx >> 1;
+[e = _time_tx -> >> -> _time_tx `i -> 1 `i `uc ]
+"12
+[; ;realtimeclock.c: 12:         RB0 = 1;
+[e = _RB0 -> -> 1 `i `b ]
+"13
+[; ;realtimeclock.c: 13:     }
+}
+[e =+ _i -> 1 `i ]
+[e $ < _i -> 8 `i 96  ]
+[e :U 97 ]
+}
+"14
+[; ;realtimeclock.c: 14:     RB0 = 0;
+[e = _RB0 -> -> 0 `i `b ]
+"15
+[; ;realtimeclock.c: 15: }
+[e :UE 95 ]
+}
+"17
+[; ;realtimeclock.c: 17: void RealTimeClock_read_byte(unsigned char time_rx) {
+[v _RealTimeClock_read_byte `(v ~T0 @X0 1 ef1`uc ]
+{
+[e :U _RealTimeClock_read_byte ]
+[v _time_rx `uc ~T0 @X0 1 r1 ]
+[f ]
+"18
+[; ;realtimeclock.c: 18:     TRISB4 = 1;
+[e = _TRISB4 -> -> 1 `i `b ]
+"19
+[; ;realtimeclock.c: 19:     for(int i = 0; i < 8; ++i) {
+{
+[v _i `i ~T0 @X0 1 a ]
+[e = _i -> 0 `i ]
+[e $ < _i -> 8 `i 101  ]
+[e $U 102  ]
+[e :U 101 ]
+{
+"20
+[; ;realtimeclock.c: 20:         RB0 = 0;
+[e = _RB0 -> -> 0 `i `b ]
+"21
+[; ;realtimeclock.c: 21:         time_rx = time_rx >> 1;
+[e = _time_rx -> >> -> _time_rx `i -> 1 `i `uc ]
+"22
+[; ;realtimeclock.c: 22:         time_rx = time_rx | (((unsigned char)RB4) << 7);
+[e = _time_rx -> | -> _time_rx `i << -> -> _RB4 `uc `i -> 7 `i `uc ]
+"23
+[; ;realtimeclock.c: 23:         RB0 = 1;
+[e = _RB0 -> -> 1 `i `b ]
+"24
+[; ;realtimeclock.c: 24:     }
+}
+[e =+ _i -> 1 `i ]
+[e $ < _i -> 8 `i 101  ]
+[e :U 102 ]
+}
+"25
+[; ;realtimeclock.c: 25:     TRISB4 = 0;
+[e = _TRISB4 -> -> 0 `i `b ]
+"26
+[; ;realtimeclock.c: 26:     RB0 = 0;
+[e = _RB0 -> -> 0 `i `b ]
+"27
+[; ;realtimeclock.c: 27: }
+[e :UE 100 ]
+}
+"29
+[; ;realtimeclock.c: 29: void RealTimeClock_set_time(unsigned char* time) {
+[v _RealTimeClock_set_time `(v ~T0 @X0 1 ef1`*uc ]
+{
+[e :U _RealTimeClock_set_time ]
+[v _time `*uc ~T0 @X0 1 r1 ]
+[f ]
+"30
+[; ;realtimeclock.c: 30:     RB5 = 1;
+[e = _RB5 -> -> 1 `i `b ]
+"31
+[; ;realtimeclock.c: 31:     RealTimeClock_write_byte(0xbe);
+[e ( _RealTimeClock_write_byte (1 -> -> 190 `i `uc ]
+"32
+[; ;realtimeclock.c: 32:     for(int i = 0; i < 8; ++i) {
+{
+[v _i `i ~T0 @X0 1 a ]
+[e = _i -> 0 `i ]
+[e $ < _i -> 8 `i 105  ]
+[e $U 106  ]
+[e :U 105 ]
+{
+"33
+[; ;realtimeclock.c: 33:         RealTimeClock_write_byte(time[i]);
+[e ( _RealTimeClock_write_byte (1 *U + _time * -> _i `x -> -> # *U _time `i `x ]
+"34
+[; ;realtimeclock.c: 34:     }
+}
+[e =+ _i -> 1 `i ]
+[e $ < _i -> 8 `i 105  ]
+[e :U 106 ]
+}
+"35
+[; ;realtimeclock.c: 35:     RB5 = 0;
+[e = _RB5 -> -> 0 `i `b ]
+"36
+[; ;realtimeclock.c: 36: }
+[e :UE 104 ]
+}
+"38
+[; ;realtimeclock.c: 38: void RealTimeClock_get_time(unsigned char* time) {
+[v _RealTimeClock_get_time `(v ~T0 @X0 1 ef1`*uc ]
+{
+[e :U _RealTimeClock_get_time ]
+[v _time `*uc ~T0 @X0 1 r1 ]
+[f ]
+"39
+[; ;realtimeclock.c: 39:     RB5 = 1;
+[e = _RB5 -> -> 1 `i `b ]
+"40
+[; ;realtimeclock.c: 40:     RealTimeClock_write_byte(0xbf);
+[e ( _RealTimeClock_write_byte (1 -> -> 191 `i `uc ]
+"41
+[; ;realtimeclock.c: 41:     for(int i = 0; i < 7; ++i) {
+{
+[v _i `i ~T0 @X0 1 a ]
+[e = _i -> 0 `i ]
+[e $ < _i -> 7 `i 109  ]
+[e $U 110  ]
+[e :U 109 ]
+{
+"42
+[; ;realtimeclock.c: 42:         RealTimeClock_read_byte(time[i]);
+[e ( _RealTimeClock_read_byte (1 *U + _time * -> _i `x -> -> # *U _time `i `x ]
+"43
+[; ;realtimeclock.c: 43:     }
+}
+[e =+ _i -> 1 `i ]
+[e $ < _i -> 7 `i 109  ]
+[e :U 110 ]
+}
+"44
+[; ;realtimeclock.c: 44:     RB5 = 0;
+[e = _RB5 -> -> 0 `i `b ]
+"45
+[; ;realtimeclock.c: 45: }
+[e :UE 108 ]
+}
+"47
+[; ;realtimeclock.c: 47: void RealTimeClock_init(void) {
 [v _RealTimeClock_init `(v ~T0 @X0 1 ef ]
 {
 [e :U _RealTimeClock_init ]
 [f ]
-"6
-[; ;realtimeclock.c: 6: }
-[e :UE 95 ]
+"48
+[; ;realtimeclock.c: 48:     TRISB = 0x00;
+[e = _TRISB -> -> 0 `i `uc ]
+"49
+[; ;realtimeclock.c: 49:     RB0 = 0;
+[e = _RB0 -> -> 0 `i `b ]
+"50
+[; ;realtimeclock.c: 50:     RB5 = 1;
+[e = _RB5 -> -> 1 `i `b ]
+"51
+[; ;realtimeclock.c: 51:     RealTimeClock_write_byte(0x8e);
+[e ( _RealTimeClock_write_byte (1 -> -> 142 `i `uc ]
+"52
+[; ;realtimeclock.c: 52:     RealTimeClock_write_byte(0x00);
+[e ( _RealTimeClock_write_byte (1 -> -> 0 `i `uc ]
+"53
+[; ;realtimeclock.c: 53:     RB5 = 0;
+[e = _RB5 -> -> 0 `i `b ]
+"54
+[; ;realtimeclock.c: 54: }
+[e :UE 112 ]
 }

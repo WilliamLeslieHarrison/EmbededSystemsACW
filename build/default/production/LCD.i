@@ -1724,23 +1724,23 @@ extern __bank0 __bit __timeout;
 
 # 1 "./LCD.h" 1
 # 19 "./LCD.h"
-void LCD_busy();
+void LCD_Busy(void);
 
-void LCD_init();
+void LCD_Init(void);
 
-void LCD_command(unsigned char c);
+void LCD_Command(unsigned char c);
 
-void LCD_secondline();
+void LCD_SecondLine(void);
 
-void LCD_senddata(unsigned char c);
+void LCD_SendData(unsigned char c);
 
-void LCD_sendstring(const char *string);
+void LCD_SendString(const char *string);
 # 2 "LCD.c" 2
 
 
 
 
-void LCD_busy(){
+void LCD_Busy(void){
     TRISD = 0xFF;
     RA3 = 1;
     RA1 = 0;
@@ -1753,39 +1753,39 @@ void LCD_busy(){
     TRISD = 0x00;
 }
 
-void LCD_init()
+void LCD_Init(void)
 {
     TRISD = 0x00;
     TRISA = 0x00;
     ADCON1 = 0x06;
 }
 
-void LCD_command(unsigned char c){
+void LCD_Command(unsigned char c){
     RA1 = 0;
     RA2 = 0;
     RA3 = 1;
     PORTD = c;
     RA3 = 0;
-    LCD_busy();
+    LCD_Busy();
 }
 
-void LCD_secondline()
+void LCD_SecondLine(void)
 {
-    LCD_command(0xc0);
+    LCD_Command(0xc0);
 }
 
-void LCD_senddata(unsigned char c){
+void LCD_SendData(unsigned char c){
     RA1 = 1;
     RA2 = 0;
     RA3 = 1;
     PORTD = c;
     RA3 = 0;
-    LCD_busy();
+    LCD_Busy();
 }
 
-void LCD_sendstring(const char *string){
+void LCD_SendString(const char *string){
     for (int i = 0; string[i]!='\0'; ++i)
     {
-        LCD_senddata(string[i]);
+        LCD_SendData(string[i]);
     }
 }

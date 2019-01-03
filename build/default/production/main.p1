@@ -1,14 +1,35 @@
 Version 4.0 HI-TECH Software Intermediate Code
+"20 ./realtimeclock.h
+[; ;./realtimeclock.h: 20: void RealTimeClock_get_time(unsigned char* time);
+[v _RealTimeClock_get_time `(v ~T0 @X0 0 ef1`*uc ]
 [p mainexit ]
+"1375 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f877a.h
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f877a.h: 1375: extern volatile unsigned char TRISB __attribute__((address(0x086)));
+[v _TRISB `Vuc ~T0 @X0 0 e@134 ]
 "21 ./LCD.h
-[; ;./LCD.h: 21: void LCD_init();
-[v _LCD_init `(v ~T0 @X0 0 e? ]
-"23
-[; ;./LCD.h: 23: void LCD_command(unsigned char c);
-[v _LCD_command `(v ~T0 @X0 0 ef1`uc ]
+[; ;./LCD.h: 21: void LCD_Init(void);
+[v _LCD_Init `(v ~T0 @X0 0 ef ]
+"23 ./KeyMatrix.h
+[; ;./KeyMatrix.h: 23: void Init_Keypad(void);
+[v _Init_Keypad `(v ~T0 @X0 0 ef ]
+"21 ./realtimeclock.h
+[; ;./realtimeclock.h: 21: void RealTimeClock_init(void);
+[v _RealTimeClock_init `(v ~T0 @X0 0 ef ]
+"23 ./LCD.h
+[; ;./LCD.h: 23: void LCD_Command(unsigned char c);
+[v _LCD_Command `(v ~T0 @X0 0 ef1`uc ]
 "29
-[; ;./LCD.h: 29: void LCD_sendstring(const char *string);
-[v _LCD_sendstring `(v ~T0 @X0 0 ef1`*Cuc ]
+[; ;./LCD.h: 29: void LCD_SendString(const char *string);
+[v _LCD_SendString `(v ~T0 @X0 0 ef1`*Cuc ]
+"25
+[; ;./LCD.h: 25: void LCD_SecondLine(void);
+[v _LCD_SecondLine `(v ~T0 @X0 0 ef ]
+"31 ./Thermometer.h
+[; ;./Thermometer.h: 31: void Get_Temp(void);
+[v _Get_Temp `(v ~T0 @X0 0 ef ]
+"14 ./Buzzer.h
+[; ;./Buzzer.h: 14: void Sound(char Mask);
+[v _Sound `(v ~T0 @X0 0 ef1`uc ]
 "54 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f877a.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f877a.h: 54: __asm("INDF equ 00h");
 [; <" INDF equ 00h ;# ">
@@ -189,41 +210,117 @@ Version 4.0 HI-TECH Software Intermediate Code
 "2363
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f877a.h: 2363: __asm("EECON2 equ 018Dh");
 [; <" EECON2 equ 018Dh ;# ">
-"16 main.c
+"17 main.c
+[; ;main.c: 17:     int test[2];
 [p x FOSC = HS ]
-"17
-[p x WDTE = OFF ]
 "18
-[p x PWRTE = ON ]
+[; ;main.c: 18:     char Key = 'n';
+[p x WDTE = OFF ]
 "19
-[p x BOREN = OFF ]
+[; ;main.c: 19:     char* Date = "Date: ";
+[p x PWRTE = ON ]
 "20
+[; ;main.c: 20:     LCD_Command(0xc);
+[p x BOREN = OFF ]
+"21
+[; ;main.c: 21:     LCD_Command(0x01);
 [p x LVP = OFF ]
+"27
+[; ;main.c: 27:     LCD_Command(0x03);
+[v _get_date_time `(v ~T0 @X0 1 ef1`*ui ]
+{
+[e :U _get_date_time ]
+[v _date_time `*ui ~T0 @X0 1 r1 ]
+[f ]
+"28
+[; ;main.c: 28:     LCD_SendString(Date);
+[v _time `uc ~T0 @X0 -> 7 `i a ]
+"29
+[; ;main.c: 29:     LCD_Command(0x14);
+[e ( _RealTimeClock_get_time (1 &U _time ]
+"30
+[; ;main.c: 30:     get_date_time(test);
+[e = *U + _date_time * -> -> 0 `i `x -> -> # *U _date_time `i `x + * -> >> & -> *U + &U _time * -> -> -> 0 `i `ui `ux -> -> # *U &U _time `ui `ux `i -> 112 `i -> 4 `i `ui -> -> 10 `i `ui -> & -> *U + &U _time * -> -> -> 0 `i `ui `ux -> -> # *U &U _time `ui `ux `i -> 15 `i `ui ]
+"31
+[; ;main.c: 31:     char* secs;
+[e = *U + _date_time * -> -> 1 `i `x -> -> # *U _date_time `i `x + * -> >> & -> *U + &U _time * -> -> -> 1 `i `ui `ux -> -> # *U &U _time `ui `ux `i -> 112 `i -> 4 `i `ui -> -> 10 `i `ui -> & -> *U + &U _time * -> -> -> 1 `i `ui `ux -> -> # *U &U _time `ui `ux `i -> 15 `i `ui ]
+"32
+[; ;main.c: 32:     char* mins;
+[e :UE 95 ]
+}
 [v $root$_main `(v ~T0 @X0 0 e ]
-"25
+"34
+[; ;main.c: 34:     mins = test[1];
 [v _main `(v ~T0 @X0 1 ef ]
 {
 [e :U _main ]
 [f ]
-"26
-[e ( _LCD_init ..  ]
-"27
-[v _c `*uc ~T0 @X0 1 a ]
-[e = _c :s 1C ]
-"28
-[e ( _LCD_command (1 -> -> 14 `i `uc ]
-"29
-[e ( _LCD_command (1 -> -> 1 `i `uc ]
-"32
-[e ( _LCD_sendstring (1 -> _c `*Cuc ]
-"33
-[e :U 97 ]
-{
-}
-[e :U 96 ]
-[e $U 97  ]
+"36
+[; ;main.c: 36:     LCD_SendString(mins);
+[e = _TRISB -> -> 0 `i `uc ]
+"37
+[; ;main.c: 37:     LCD_SecondLine();
+[e ( _LCD_Init ..  ]
+"38
+[; ;main.c: 38:     Get_Temp();
+[e ( _Init_Keypad ..  ]
+"39
+[; ;main.c: 39:     Sound(0b00000001);
+[e ( _RealTimeClock_init ..  ]
+"40
+[; ;main.c: 40:     }
+[v _test `i ~T0 @X0 -> 2 `i a ]
+"41
+[; ;main.c: 41: }
+[v _Key `uc ~T0 @X0 1 a ]
+[e = _Key -> -> 110 `ui `uc ]
+"42
+[v _Date `*uc ~T0 @X0 1 a ]
+[e = _Date :s 1C ]
+"43
+[e ( _LCD_Command (1 -> -> 12 `i `uc ]
+"44
+[e ( _LCD_Command (1 -> -> 1 `i `uc ]
+"45
+[e ( _LCD_Command (1 -> -> 3 `i `uc ]
+"46
+[e ( _LCD_Command (1 -> -> 56 `i `uc ]
+"47
 [e :U 98 ]
-"34
-[e :UE 95 ]
+"48
+{
+"50
+[e ( _LCD_Command (1 -> -> 3 `i `uc ]
+"51
+[e ( _LCD_SendString (1 -> _Date `*Cuc ]
+"52
+[e ( _LCD_Command (1 -> -> 20 `i `uc ]
+"53
+[e ( _get_date_time (1 -> &U _test `*ui ]
+"54
+[v _secs `*uc ~T0 @X0 1 a ]
+"55
+[v _mins `*uc ~T0 @X0 1 a ]
+"56
+[e = _secs -> *U + &U _test * -> -> -> 0 `i `ui `ux -> -> # *U &U _test `ui `ux `*uc ]
+"57
+[e = _mins -> *U + &U _test * -> -> -> 1 `i `ui `ux -> -> # *U &U _test `ui `ux `*uc ]
+"58
+[e ( _LCD_SendString (1 -> _secs `*Cuc ]
+"59
+[e ( _LCD_SendString (1 -> _mins `*Cuc ]
+"60
+[e ( _LCD_SecondLine ..  ]
+"61
+[e ( _Get_Temp ..  ]
+"62
+[e ( _Sound (1 -> -> 1 `i `uc ]
+"63
 }
-[a 1C 104 101 108 108 111 0 ]
+[e :U 97 ]
+[e $U 98  ]
+[e :U 99 ]
+"64
+[e :UE 96 ]
+}
+[a 1C 68 97 116 101 58 32 0 ]

@@ -1732,47 +1732,62 @@ extern __bank0 __bit __timeout;
 
 # 1 "./LCD.h" 1
 # 19 "./LCD.h"
-void LCD_busy();
+void LCD_Busy(void);
 
-void LCD_init();
+void LCD_Init(void);
 
-void LCD_command(unsigned char c);
+void LCD_Command(unsigned char c);
 
-void LCD_secondline();
+void LCD_SecondLine(void);
 
-void LCD_senddata(unsigned char c);
+void LCD_SendData(unsigned char c);
 
-void LCD_sendstring(const char *string);
+void LCD_SendString(const char *string);
 # 10 "main.c" 2
 
 # 1 "./KeyMatrix.h" 1
 # 21 "./KeyMatrix.h"
-void key_delay(int k);
+void Key_Delay(int k);
 
-void InitKeypad();
+void Init_Keypad(void);
 
-char keypad_scan();
+char Keypad_Scan(void);
 
-char switch_scan();
+char Switch_Scan(void);
 # 11 "main.c" 2
 
 # 1 "./Thermometer.h" 1
 # 19 "./Thermometer.h"
-void delay(char x, char y);
+void Delay(char x, char y);
 
-void display();
+void Display(void);
 
-void ThermometerInit();
+void Thermometer_Init(void);
 
-reset(void);
+void Reset(void);
 
-void write_byte(unsigned char val);
+void Write_Byte(unsigned char val);
 
-unsigned char read_byte(void);
+unsigned char Read_Byte(void);
 
-void get_temp();
+void Get_Temp(void);
 # 12 "main.c" 2
 
+# 1 "./realtimeclock.h" 1
+# 17 "./realtimeclock.h"
+void RealTimeClock_write_byte(unsigned char time_tx);
+void RealTimeClock_set_time(unsigned char* time);
+void RealTimeClock_read_byte(unsigned char time_rx);
+void RealTimeClock_get_time(unsigned char* time);
+void RealTimeClock_init(void);
+# 13 "main.c" 2
+
+# 1 "./Buzzer.h" 1
+# 12 "./Buzzer.h"
+void Init_Buzzer(char* Port);
+
+void Sound(char Mask);
+# 14 "main.c" 2
 
 
 
@@ -1785,13 +1800,42 @@ void get_temp();
 
 
 
+
+void get_date_time(unsigned int* date_time) {
+    unsigned char time[7];
+    RealTimeClock_get_time(time);
+    date_time[0] = ((unsigned int)((time[0] & 0b01110000) >> 4) * 10) + (unsigned int)(time[0] & 0b00001111);
+    date_time[1] = ((unsigned int)((time[1] & 0b01110000) >> 4) * 10) + (unsigned int)(time[1] & 0b00001111);
+}
+
 void main() {
-    LCD_init();
-    char* c = "hello";
-    LCD_command(0x0e);
-    LCD_command(0x01);
 
+    TRISB = 0x00;
+    LCD_Init();
+    Init_Keypad();
+    RealTimeClock_init();
+    int test[2];
+    char Key = 'n';
+    char* Date = "Date: ";
+    LCD_Command(0xc);
+    LCD_Command(0x01);
+    LCD_Command(0x03);
+    LCD_Command(0x38);
+    while(1)
+    {
 
-    LCD_sendstring(c);
-    while(1){};
+    LCD_Command(0x03);
+    LCD_SendString(Date);
+    LCD_Command(0x14);
+    get_date_time(test);
+    char* secs;
+    char* mins;
+    secs = test[0];
+    mins = test[1];
+    LCD_SendString(secs);
+    LCD_SendString(mins);
+    LCD_SecondLine();
+    Get_Temp();
+    Sound(0b00000001);
+    }
 }
