@@ -1773,16 +1773,6 @@ unsigned char read_byte(void);
 void get_temp();
 # 12 "main.c" 2
 
-# 1 "./realtimeclock.h" 1
-# 16 "./realtimeclock.h"
- unsigned char time_rx;
-
-void ds1302_init();
-void set_time(char *table);
-void get_time(char *table);
-void time_write_byte(unsigned char time_tx);
-unsigned char time_read_byte();
-# 13 "main.c" 2
 
 
 
@@ -1798,9 +1788,10 @@ unsigned char time_read_byte();
 void main() {
     LCD_init();
     char* c = "hello";
-    LCD_command(0x0f);
+    LCD_command(0x0e);
     LCD_command(0x01);
-    LCD_command(0x03);
+
+
     LCD_sendstring(c);
     while(1){};
 }

@@ -7,15 +7,6 @@
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
 # 1 "realtimeclock.c" 2
-# 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\pic.h" 1 3
-
-
-
-
-# 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\htc.h" 1 3
-
-
-
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\xc.h" 1 3
 # 18 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -34,7 +25,15 @@ extern void __builtin_software_breakpoint(void);
 
 
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\pic.h" 1 3
-# 27 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\xc.h" 2 3
+
+
+
+
+# 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\htc.h" 1 3
+
+
+
+# 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\xc.h" 1 3
 # 4 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\htc.h" 2 3
 # 5 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\pic.h" 2 3
 
@@ -1720,98 +1719,15 @@ extern __attribute__((nonreentrant)) void _delaywdt(unsigned long);
 extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
+# 27 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\xc.h" 2 3
 # 1 "realtimeclock.c" 2
 
 # 1 "./realtimeclock.h" 1
-# 16 "./realtimeclock.h"
- unsigned char time_rx;
-
-void ds1302_init();
-void set_time(char *table);
-void get_time(char *table);
-void time_write_byte(unsigned char time_tx);
-unsigned char time_read_byte();
+# 15 "./realtimeclock.h"
+void RealTimeClock_init(void);
 # 2 "realtimeclock.c" 2
 
 
+void RealTimeClock_init(void) {
 
-void ds1302_init()
-  {
-   TRISA = 0x00;
-   TRISD = 0X00;
-   ADCON1 = 0X06;
-   RB0 = 0;
-   RB5 = 0;
-   RB5 = 1;
-   time_write_byte(0x8e);
-   time_write_byte(0);
-   RB5 = 0;
-  }
-
-
-
-void set_time(char *table)
-  {
-   int i;
-   RB5=1;
-   time_write_byte(0xbe);
-   for(i=0;i<8;i++)
-     {
-       time_write_byte(table[i]);
-     }
-   RB5=0;
-   }
-
-
-
-void get_time(char *table)
- {
-   int i;
-   RB5=1;
-   time_write_byte(0xbf);
-   for(i=0;i<7;i++)
-     {
-        table[i]=time_read_byte();
-     }
-    RB5=0;
- }
-
-
-
-void time_write_byte(unsigned char time_tx)
- {
-    int j;
-    for(j=0;j<8;j++)
-      {
-        RB4=0;
-        RB0=0;
-        if(time_tx&0x01)
-          {
-            RB4=1;
-          }
-        time_tx=time_tx>>1;
-        RB0=1;
-       }
-      RB0=0;
-  }
-
-
-
-unsigned char time_read_byte()
- {
-   int j;
-   TRISB4=1;
-   for(j=0;j<8;j++)
-      {
-        RB0=0;
-        time_rx=time_rx>>1;
-
-        if(RB4)time_rx = time_rx | 0x80;
-
-
-       RB0=1;
-      }
-    TRISB4=0;
-    RB0=0;
-    return(time_rx);
-  }
+}

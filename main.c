@@ -10,7 +10,7 @@
 #include "LCD.h"//Declaring the header here
 #include "KeyMatrix.h"
 #include "Thermometer.h"
-#include "realtimeclock.h"
+//#include "realtimeclock.h"
 
 //begin config
 #pragma config FOSC = HS // Oscillator Selection bits (HS oscillator)
@@ -23,11 +23,5 @@ programming)*/
 //end config
 
 void main() {               
-    LCD_init();
-    char* c = "hello";
-    LCD_command(0x0f);
-    LCD_command(0x01);
-    LCD_command(0x03);
-    LCD_sendstring(c);
-    while(1){};
+    for(;;);
 }                      
