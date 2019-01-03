@@ -1,4 +1,4 @@
-# 1 "main.c"
+# 1 "Buzzer.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,14 +6,7 @@
 # 1 "<built-in>" 2
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "main.c" 2
-
-
-
-
-
-
-
+# 1 "Buzzer.c" 2
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\xc.h" 1 3
 # 18 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -1727,112 +1720,28 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 27 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\xc.h" 2 3
-# 8 "main.c" 2
-
-# 1 "./LCD.h" 1
-# 19 "./LCD.h"
-void LCD_Busy(void);
-
-void LCD_Init(void);
-
-void LCD_Command(unsigned char c);
-
-void LCD_SecondLine(void);
-
-void LCD_SendData(unsigned char c);
-
-void LCD_SendString(const char *string);
-# 9 "main.c" 2
-
-# 1 "./KeyMatrix.h" 1
-# 21 "./KeyMatrix.h"
-void Key_Delay(int k);
-
-void Init_Keypad(void);
-
-char Keypad_Scan(void);
-
-char Switch_Scan(void);
-# 10 "main.c" 2
-
-# 1 "./Thermometer.h" 1
-# 19 "./Thermometer.h"
-void Delay(char x, char y);
-
-void Display(void);
-
-void Thermometer_Init(void);
-
-void Reset(void);
-
-void Write_Byte(unsigned char val);
-
-unsigned char Read_Byte(void);
-
-void Get_Temp(void);
-# 11 "main.c" 2
-
-# 1 "./realtimeclock.h" 1
-# 19 "./realtimeclock.h"
-void RealTimeClock_write_byte(unsigned char time_tx);
-void RealTimeClock_set_time(unsigned char* time);
-void RealTimeClock_read_byte(unsigned char time_rx);
-void RealTimeClock_get_time(unsigned char* time);
-void RealTimeClock_init(void);
-# 12 "main.c" 2
+# 1 "Buzzer.c" 2
 
 # 1 "./Buzzer.h" 1
 # 12 "./Buzzer.h"
 void Init_Buzzer(char* Port);
 
 void Sound(char Mask);
-# 13 "main.c" 2
+# 2 "Buzzer.c" 2
 
 
-
-#pragma config FOSC = HS
-#pragma config WDTE = OFF
-#pragma config PWRTE = ON
-#pragma config BOREN = OFF
-#pragma config LVP = OFF
+char* PORT;
 
 
-
-
-
-void get_date_time(char* date_time) {
-    unsigned char time[7];
-    RealTimeClock_get_time(time);
-    date_time[0] = 48 + (char)((time[0] & 0b01110000) >> 4);
-    date_time[1] = 48 + (char)(time[0] & 0b00001111);
-
+void Init_Buzzer(char* Port)
+{
+    *Port = 0x00;
+    *PORT = *Port;
 }
 
-void main() {
-    Init_Buzzer(&PORTB);
-    TRISB = 0x00;
-    LCD_Init();
-    Init_Keypad();
-    RealTimeClock_init();
-    char test[3];
-    test[2] = '\0';
-    char Key = 'n';
-    char* Date = "Date: ";
-    LCD_Command(0xc);
-    LCD_Command(0x01);
-    LCD_Command(0x03);
-    LCD_Command(0x38);
-    while(1)
-    {
 
-    LCD_Command(0x03);
-    LCD_SendString(Date);
-    LCD_Command(0x14);
-    get_date_time(test);
-
-    LCD_SendString(test);
-
-
-
-    }
+void Sound(char Mask)
+{
+    *PORT = Mask;
+    *PORT = ~Mask;
 }

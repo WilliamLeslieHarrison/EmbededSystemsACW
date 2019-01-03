@@ -6,7 +6,6 @@
  */
 
 #include <xc.h>
-#include <pic.h>
 #include "LCD.h"
 #include "KeyMatrix.h"
 #include "Thermometer.h"
@@ -24,11 +23,12 @@ programming)*/
 //end config
 
 
-void get_date_time(int* date_time) {
+void get_date_time(char* date_time) {
     unsigned char time[7];
     RealTimeClock_get_time(time);
-    date_time[0] = ((int)((time[0] & 0b01110000) >> 4) * 10) + (int)(time[0] & 0b00001111);
-    date_time[1] = ((int)((time[1] & 0b01110000) >> 4) * 10) + (int)(time[1] & 0b00001111);    
+    date_time[0] = 48 + (char)((time[0] & 0b01110000) >> 4);
+    date_time[1] = 48 + (char)(time[0] & 0b00001111);
+    //date_time[1] = ((int)((time[1] & 0b01110000) >> 4) * 10) + (int)(time[1] & 0b00001111);    
 }
 
 void main() {      
@@ -37,7 +37,8 @@ void main() {
     LCD_Init();
     Init_Keypad();
     RealTimeClock_init();
-    int test[2];
+    char test[3];
+    test[2] = '\0';
     char Key = 'n';
     char* Date = "Date: ";
     LCD_Command(0xc);
@@ -51,14 +52,10 @@ void main() {
     LCD_SendString(Date);  
     LCD_Command(0x14);
     get_date_time(test);
-    char* secs;
-    char* mins;
-    secs = test[0];
-    mins = test[1];
-    LCD_SendString(secs);
-    LCD_SendString(mins);
-    LCD_SecondLine();
-    Get_Temp();
-    Sound(0b00000001);       
+
+    LCD_SendString(test);
+    //LCD_SecondLine();
+    //Get_Temp();
+    //Sound(0b00000001);       
     }
 }           

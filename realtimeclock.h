@@ -8,6 +8,8 @@
 #ifndef REALTIMECLOCK_H
 #define	REALTIMECLOCK_H
 
+#include <xc.h>
+
 #define i_o   RB4                      //1302I_O           
 #define sclk  RB0                      //1302 clock        
 #define rst   RB5
