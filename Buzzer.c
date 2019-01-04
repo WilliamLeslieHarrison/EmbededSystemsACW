@@ -14,5 +14,5 @@ void Init_Buzzer(char* Port)
 void Sound(char Mask)
 {
     *PORT = Mask;
-    *PORT = ~Mask;
+    PORT = ~*PORT;
 }

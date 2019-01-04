@@ -22,9 +22,8 @@ void Key_Delay(int k);
 
 void Init_Keypad(void);
 
-char Keypad_Scan(void);
+int Keypad_Scan(void);
 
-char Switch_Scan(void);
 
 
 

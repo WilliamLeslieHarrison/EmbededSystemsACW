@@ -18,7 +18,7 @@
 
 void Delay(char x, char y);
 
-void Display(void);
+//void Display(void);
 
 void Thermometer_Init(void);
 
@@ -28,4 +28,4 @@ void Write_Byte(uch val);
 
 uch Read_Byte(void);
 
-void Get_Temp(void);
+void Get_Temp(char* buffer);
