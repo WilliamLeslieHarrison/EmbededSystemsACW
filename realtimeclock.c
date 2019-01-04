@@ -14,16 +14,18 @@ void RealTimeClock_write_byte(unsigned char time_tx) {
     sclk = 0;
 }
 
-void RealTimeClock_read_byte(unsigned char time_rx) {
+unsigned char RealTimeClock_read_byte(void) {
+    unsigned char time_rx;
     TRISB4 = 1;
     for(int i = 0; i < 8; ++i) {
         sclk = 0;
-        time_rx = time_rx  >> 1;
-        time_rx = time_rx | (((unsigned char)i_o) << 7);
+        //time_rx = time_rx  >> 1;
+        time_rx = time_rx | (((unsigned char)i_o) << i);
         sclk = 1;
     }
-    TRISB4 = 0;
     sclk = 0;
+    TRISB4 = 0;
+    return time_rx;
 }
 
 void RealTimeClock_set_time(unsigned char* time) {
@@ -35,20 +37,23 @@ void RealTimeClock_set_time(unsigned char* time) {
     rst = 0;  
 }
 
-void RealTimeClock_get_time(unsigned char* time) {
+unsigned char* RealTimeClock_get_time(void) {
     rst = 1;
     RealTimeClock_write_byte(0xbf);
     for(int i = 0; i < 7; ++i) {
-        RealTimeClock_read_byte(time[i]);
+        RealTimeClock_buff[i] = RealTimeClock_read_byte();
     }
     rst = 0;
+    return RealTimeClock_buff;
 }
 
 void RealTimeClock_init(void) {
-    TRISB = 0x00;
+    TRISB0 = 0;
+    TRISB4 = 0;
+    TRISB5 = 0;
     sclk = 0;
     rst = 1;
-    RealTimeClock_write_byte(0x8e);   
+    RealTimeClock_write_byte(0x8e);
     RealTimeClock_write_byte(0x00);
     rst = 0;
 }
