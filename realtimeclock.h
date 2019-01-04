@@ -10,16 +10,16 @@
 
 #include <xc.h>
 
-#define i_o   RB4                      //1302I_O           
-#define sclk  RB0                      //1302 clock        
-#define rst   RB5
+#define sclk    RB0
+#define i_o     RB4
+#define rst     RB5
 
-#define BURST_MODE_READ 0xbf;
+unsigned char RealTimeClock_buff[7];
 
 void RealTimeClock_write_byte(unsigned char time_tx);
 void RealTimeClock_set_time(unsigned char* time);
-void RealTimeClock_read_byte(unsigned char time_rx);
-void RealTimeClock_get_time(unsigned char* time);
+unsigned char RealTimeClock_read_byte(void);
+unsigned char* RealTimeClock_get_time(void);
 void RealTimeClock_init(void);
 
 #endif	/* REALTIMECLOCK_H */
