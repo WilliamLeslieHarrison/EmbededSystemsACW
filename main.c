@@ -24,6 +24,8 @@ programming)*/
 
 int IsHeatingOn;
 char tempBuffer[6] = {'0', '0', '0', '0', '0', '\0'};
+char timeDisplayer[9] = {'0', '0', ':', '0', '0', '.','0', '0', '\0'};
+int timeBuffer[7] = {0, 0, 0, 0, 0, 0, 0};
 int previousTemp[3] = {0,0,0};
 int triggerTemp[2] = {28, 0};
 int triggerTempChange[2] = {0, 0};
@@ -33,6 +35,23 @@ void Main_Delay(int k)
     int i,j;
     for (i= 0; i < k; i++)
         for(j = 0; j < 100; j++);
+}
+
+void DisplayTime(int* timeBuffer)
+{
+    timeBuffer = RealTimeClock_get_burst_time();
+    int sec = timeBuffer[0];
+    int min = timeBuffer[1];
+    int hour = timeBuffer[2];
+    timeDisplayer[6] = sec % 10 + 48;
+    sec /= 10;
+    timeDisplayer[5] = sec % 10 + 48;
+    timeDisplayer[4] = min % 10 + 48;
+    min /= 10;
+    timeDisplayer[3] = min % 10 + 48;
+    LCD_SendData(timeDisplayer[3]);
+    LCD_Busy();
+    LCD_SendData(timeDisplayer[4]);
 }
 
 //Displaying the temp
@@ -57,8 +76,7 @@ void MainScreen(void)
     char* Temp = "Temp:";   
     LCD_SendString(Time);  
     LCD_Command(0x14);
-    //get_date_time(test);
-    //LCD_SendString(test);
+    DisplayTime(timeBuffer);
     //Jump to second line of the LCD
     LCD_SecondLine();
     //Send a string to show that this next set of numbers are the temperature
@@ -72,10 +90,12 @@ void MainScreen(void)
 void ChangeTrigger(char Key)
 {
     //Clear the entire display
-        LCD_Command(0x01);
-        //Int for allowing to see what digit you want to change
-        int i = 0;        
-        while(1)
+    LCD_Command(0x01);
+    //Int for allowing to see what digit you want to change
+    int i = 0;    
+    char* Trigger = "Trigger:";
+    char* TriggerSet = "Trigger Set";
+    while(1)
         {   
             //To display decimal place
             char decimal;
@@ -83,11 +103,20 @@ void ChangeTrigger(char Key)
             char digits[3];         
             //Set to home
             LCD_Command(0x03);
+            //Allowing to user to see what the new trigger will be
+            LCD_SendString(Trigger);
             //Check to see what key has been pressed
             Key = Keypad_Scan();
             //If changing triggerTemp button is repressed exit this function
             if(Key == 1)
+            {
+                LCD_Command(0x01);
+                LCD_Command(0x03);
+                LCD_SendString(TriggerSet);
+                Main_Delay(200);
+                LCD_Command(0x01);
                 break;
+            }
             //Switch with all keys
             switch(Key)
             {
@@ -248,7 +277,7 @@ void DateDayScreen(int Key)
 
 void get_date_time(char* date_time) {
     unsigned char time[7];
-    RealTimeClock_get_time(time);
+    //RealTimeClock_get_time(time);
     date_time[0] = 48 + (char)((time[0] & 0b01110000) >> 4);
     date_time[1] = 48 + (char)(time[0] & 0b00001111);
     //date_time[1] = ((int)((time[1] & 0b01110000) >> 4) * 10) + (int)(time[1] & 0b00001111);    
@@ -265,9 +294,7 @@ void main() {
     LCD_Init();
     Init_Keypad();
     Thermometer_Init();
-    //RealTimeClock_init();
-    //char test[3];
-    //test[2] = '\0';
+    RealTimeClock_init();
     int Key = 0;
     int DisableAlarm = 0;
     int temp, temp2, temp3, tempdec, tempdectenth;
