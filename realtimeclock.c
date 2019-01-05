@@ -1,6 +1,28 @@
 #include <xc.h>
 #include "realtimeclock.h"
 
+
+int __hex_to_int(unsigned char hex) {
+    int t = 0;
+    for(int i = 0; i < hex; ++i) {
+        ++t;
+        if(t && t % 10 == 0)
+            i+=6;
+    }
+    return t;
+}
+
+unsigned char __int_to_hex(int integer) {
+    int t = 0;
+    for(int i = 0; i < integer; ++i) {
+        ++t;
+        if(i && i % 10 == 0) {
+            t+=6;
+        }
+    }
+    return t;
+}
+
 void RealTimeClock_write_byte(unsigned char time_tx) {
     for(int i = 0; i < 8; ++i) {
         i_o = 0;
@@ -28,26 +50,27 @@ unsigned char RealTimeClock_read_byte(void) {
     return time_rx;
 }
 
-void RealTimeClock_set_time(unsigned char* time) {
+void RealTimeClock_set_burst_time(int* time) {
     rst = 1;
     RealTimeClock_write_byte(0xbe);
     for(int i = 0; i < 8; ++i) {
-        RealTimeClock_write_byte(time[i]);
+        RealTimeClock_write_byte(__int_to_hex(time[i]));
     }
     rst = 0;  
 }
 
-unsigned char* RealTimeClock_get_time(void) {
+int* RealTimeClock_get_burst_time(void) {
     rst = 1;
     RealTimeClock_write_byte(0xbf);
     for(int i = 0; i < 7; ++i) {
-        RealTimeClock_buff[i] = RealTimeClock_read_byte();
+        __RealTimeClock_buff[i] = __hex_to_int(RealTimeClock_read_byte());
     }
     rst = 0;
-    return RealTimeClock_buff;
+    return __RealTimeClock_buff;
 }
 
 void RealTimeClock_init(void) {
+    ADCON1 = 0x06;
     TRISB0 = 0;
     TRISB4 = 0;
     TRISB5 = 0;
@@ -56,4 +79,10 @@ void RealTimeClock_init(void) {
     RealTimeClock_write_byte(0x8e);
     RealTimeClock_write_byte(0x00);
     rst = 0;
+}
+
+int RealTimeClock_get_seconds(void) {
+    RealTimeClock_write_byte(0x80);
+    unsigned char c = RealTimeClock_read_byte();
+    return __hex_to_int(c);
 }
