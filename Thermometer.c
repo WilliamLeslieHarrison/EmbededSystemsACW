@@ -18,8 +18,10 @@ unsigned char intent;
 //Tenth bit
 unsigned char tenthbit;                        
 //Hundredth bit
-unsigned char hundredthbit;                                                                    
+unsigned char hundredthbit;      
+//A simple number table to allow for accurate representation of the temp
 unsigned char numberTable[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+//A simple array for the temp to be stored
 char Temp[5];
                               
 //Delay function              

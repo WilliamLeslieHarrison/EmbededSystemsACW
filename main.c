@@ -355,14 +355,6 @@ void SetDate(int Key)
     //This will set the new date as well as the day of the week
 }
 
-void get_date_time(char* date_time) {
-    unsigned char time[7];
-    //RealTimeClock_get_time(time);
-    date_time[0] = 48 + (char)((time[0] & 0b01110000) >> 4);
-    date_time[1] = 48 + (char)(time[0] & 0b00001111);
-    //date_time[1] = ((int)((time[1] & 0b01110000) >> 4) * 10) + (int)(time[1] & 0b00001111);    
-}
-
 //If the saved temp is higher than the current temp turn alarm on have button to turn it off
 //Weekdays the heating should be on between 6:30 - 10:30 and off otherwise
 //Weekends it is between 7:00 - 11:00

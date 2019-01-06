@@ -10,9 +10,9 @@
 #define buzzer RB1
 #endif	/* BUZZER_H */
 
-void Buzzer_Init();
+void Buzzer_Init(void);
 
-void SoundOn();
+void SoundOn(void);
 
-void SoundOff();
+void SoundOff(void);
 
