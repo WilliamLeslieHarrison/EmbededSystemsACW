@@ -1,6 +1,6 @@
 /* 
  * File:   LCD.h
- * Author: reece
+ * Author: Reece Thompson
  *
  * Created on 07 November 2018, 15:30
  */

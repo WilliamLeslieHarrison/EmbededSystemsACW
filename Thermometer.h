@@ -1,6 +1,6 @@
 /* 
  * File:   Thermometer.h
- * Author: reece
+ * Author: Reece Thompson
  *
  * Created on 01 December 2018, 18:53
  */

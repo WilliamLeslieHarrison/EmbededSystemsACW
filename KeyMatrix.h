@@ -1,6 +1,6 @@
 /* 
  * File:   KeyMatrix.h
- * Author: reece
+ * Author: Reece Thompson
  *
  * Created on 12 November 2018, 16:34
  */

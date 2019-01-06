@@ -82,8 +82,9 @@ void RealTimeClock_init(void) {
 }
 
 int RealTimeClock_get_seconds(void) {
-    RealTimeClock_write_byte(0x81);
-    return __hex_to_int(RealTimeClock_read_byte());
+    RealTimeClock_write_byte(0x80);
+    unsigned char c = RealTimeClock_read_byte();
+    return __hex_to_int(c);
 }
 
 int RealTimeClock_get_minutes(void) {
@@ -95,4 +96,3 @@ int RealTimeClock_get_hours(void) {
     RealTimeClock_write_byte(0x85);
     return __hex_to_int(RealTimeClock_read_byte());
 }
-

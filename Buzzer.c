@@ -1,18 +1,21 @@
 #include<xc.h>
 #include"Buzzer.h"
 
-char* PORT;
 
 //Initialise the buzzer by passing through a PORT the user wants to use
-void Init_Buzzer(char* Port)
+void Buzzer_Init()
 {
-    *Port = 0x00;    
-    *PORT = *Port;       
+    TRISB1 = 0;
 }
 
-//Change the sound to be on or off (depending what the previous state was)
-void Sound(char Mask)
+//Change the sound to be on
+void SoundOn()
 {
-    *PORT = Mask;
-    PORT = ~*PORT;
+    buzzer = 1;
+}
+
+//Change the sound to be off
+void SoundOff()
+{
+    buzzer = 0;
 }

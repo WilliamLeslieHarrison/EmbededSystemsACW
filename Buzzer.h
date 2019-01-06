@@ -1,15 +1,18 @@
 /* 
  * File:   Buzzer.h
- * Author: reece
+ * Author: Reece Thompson
  *
  * Created on 12 December 2018, 00:17
  */
 
 #ifndef BUZZER_H
 #define	BUZZER_H
+#define buzzer RB1
 #endif	/* BUZZER_H */
 
-void Init_Buzzer(char* Port);
+void Buzzer_Init();
 
-void Sound(char Mask);
+void SoundOn();
+
+void SoundOff();
 
