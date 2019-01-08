@@ -44,7 +44,7 @@ int RealTimeClock_get_month(void);
 void RealTimeClock_set_month(int month);
 
 int RealTimeClock_get_day_of_week(void);
-void RealTimeClock_set_day_of_week(int day_of_week);
+void RealTimeClock_set_day_of_week(int day);
 
 int RealTimeClock_get_year(void);
 void RealTimeClock_set_year(int year);
