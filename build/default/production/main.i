@@ -1854,7 +1854,7 @@ int triggerTemp[2] = {28, 0};
 
 int triggerTempChange[2] = {0, 0};
 
-int start_date[8] = {59,59,23,31,12,5,99,0};
+int start_date[8] = {59,42,14,8,2,2,19,0};
 
 
 void Main_Delay(int k)
@@ -2570,7 +2570,7 @@ void main() {
     Init_Keypad();
     Thermometer_Init();
     RealTimeClock_init();
-    RealTimeClock_set_burst_time(start_date);
+
 
 
     Buzzer_Init();

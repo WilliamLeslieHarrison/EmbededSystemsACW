@@ -44,8 +44,8 @@ void Thermometer_Init(void)
 //Reset thermometer   
 void Reset(void)
 {
-  char presence=1;
-  while(presence)
+  //char presence=1;
+    for(int i = 0; i < 100; ++i)
   { 
      //Pull low
     DQ_LOW();  
@@ -56,9 +56,8 @@ void Reset(void)
     //Delay for 70us
     Delay(2,8);                                                                  
     //We did not receive response signal so continue reset 
-    if(DQ==1) presence=1;                     
     //We have received the response signal
-    else presence=0;                          
+    if(!DQ) break;
     //Delay 430us
     Delay(2,60);                                                                                                       
    }

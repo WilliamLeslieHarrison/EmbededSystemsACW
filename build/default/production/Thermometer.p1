@@ -325,14 +325,14 @@ Version 4.0 HI-TECH Software Intermediate Code
 {
 [e :U _Reset ]
 [f ]
-"47
-[; ;Thermometer.c: 47:   char presence=1;
-[v _presence `uc ~T0 @X0 1 a ]
-[e = _presence -> -> 1 `i `uc ]
 "48
-[; ;Thermometer.c: 48:   while(presence)
-[e $U 104  ]
-[e :U 105 ]
+[; ;Thermometer.c: 48:     for(int i = 0; i < 100; ++i)
+{
+[v _i `i ~T0 @X0 1 a ]
+[e = _i -> 0 `i ]
+[e $ < _i -> 100 `i 104  ]
+[e $U 105  ]
+[e :U 104 ]
 "49
 [; ;Thermometer.c: 49:   {
 {
@@ -349,67 +349,64 @@ Version 4.0 HI-TECH Software Intermediate Code
 "57
 [; ;Thermometer.c: 57:     Delay(2,8);
 [e ( _Delay (2 , -> -> 2 `i `uc -> -> 8 `i `uc ]
-"59
-[; ;Thermometer.c: 59:     if(RA0==1) presence=1;
-[e $ ! == -> _RA0 `i -> 1 `i 107  ]
-[e = _presence -> -> 1 `i `uc ]
-[e $U 108  ]
-"61
-[; ;Thermometer.c: 61:     else presence=0;
+"60
+[; ;Thermometer.c: 60:     if(!RA0) break;
+[e $ ! ! _RA0 107  ]
+[e $U 105  ]
 [e :U 107 ]
-[e = _presence -> -> 0 `i `uc ]
-[e :U 108 ]
-"63
-[; ;Thermometer.c: 63:     Delay(2,60);
+"62
+[; ;Thermometer.c: 62:     Delay(2,60);
 [e ( _Delay (2 , -> -> 2 `i `uc -> -> 60 `i `uc ]
-"64
-[; ;Thermometer.c: 64:    }
+"63
+[; ;Thermometer.c: 63:    }
 }
-[e :U 104 ]
-"48
-[; ;Thermometer.c: 48:   while(presence)
-[e $ != -> _presence `i -> 0 `i 105  ]
-[e :U 106 ]
-"65
-[; ;Thermometer.c: 65:   }
+[e =+ _i -> 1 `i ]
+[e $ < _i -> 100 `i 104  ]
+[e :U 105 ]
+}
+"64
+[; ;Thermometer.c: 64:   }
 [e :UE 103 ]
 }
-"68
-[; ;Thermometer.c: 68: void Write_Byte(unsigned char val)
+"67
+[; ;Thermometer.c: 67: void Write_Byte(unsigned char val)
 [v _Write_Byte `(v ~T0 @X0 1 ef1`uc ]
-"69
-[; ;Thermometer.c: 69: {
+"68
+[; ;Thermometer.c: 68: {
 {
 [e :U _Write_Byte ]
-"68
-[; ;Thermometer.c: 68: void Write_Byte(unsigned char val)
+"67
+[; ;Thermometer.c: 67: void Write_Byte(unsigned char val)
 [v _val `uc ~T0 @X0 1 r1 ]
-"69
-[; ;Thermometer.c: 69: {
+"68
+[; ;Thermometer.c: 68: {
 [f ]
-"70
-[; ;Thermometer.c: 70:  unsigned char i;
+"69
+[; ;Thermometer.c: 69:  unsigned char i;
 [v _i `uc ~T0 @X0 1 a ]
-"71
-[; ;Thermometer.c: 71:  unsigned char temp;
+"70
+[; ;Thermometer.c: 70:  unsigned char temp;
 [v _temp `uc ~T0 @X0 1 a ]
-"72
-[; ;Thermometer.c: 72:  for(i=8;i>0;i--)
+"71
+[; ;Thermometer.c: 71:  for(i=8;i>0;i--)
 {
 [e = _i -> -> 8 `i `uc ]
-[e $ > -> _i `i -> 0 `i 110  ]
-[e $U 111  ]
-[e :U 110 ]
-"73
-[; ;Thermometer.c: 73:  {
+[e $ > -> _i `i -> 0 `i 109  ]
+[e $U 110  ]
+[e :U 109 ]
+"72
+[; ;Thermometer.c: 72:  {
 {
-"75
-[; ;Thermometer.c: 75:    temp=val&0x01;
+"74
+[; ;Thermometer.c: 74:    temp=val&0x01;
 [e = _temp -> & -> _val `i -> 1 `i `uc ]
-"77
-[; ;Thermometer.c: 77:    RA0 = 0; TRISA0 = 0;
+"76
+[; ;Thermometer.c: 76:    RA0 = 0; TRISA0 = 0;
 [e = _RA0 -> -> 0 `i `b ]
 [e = _TRISA0 -> -> 0 `i `b ]
+"77
+[; ;Thermometer.c: 77:    __nop();
+[e ( ___nop ..  ]
 "78
 [; ;Thermometer.c: 78:    __nop();
 [e ( ___nop ..  ]
@@ -422,75 +419,75 @@ Version 4.0 HI-TECH Software Intermediate Code
 "81
 [; ;Thermometer.c: 81:    __nop();
 [e ( ___nop ..  ]
-"82
-[; ;Thermometer.c: 82:    __nop();
-[e ( ___nop ..  ]
-"84
-[; ;Thermometer.c: 84:    if(temp==1) TRISA0 =1;
-[e $ ! == -> _temp `i -> 1 `i 113  ]
+"83
+[; ;Thermometer.c: 83:    if(temp==1) TRISA0 =1;
+[e $ ! == -> _temp `i -> 1 `i 112  ]
 [e = _TRISA0 -> -> 1 `i `b ]
-[e :U 113 ]
-"86
-[; ;Thermometer.c: 86:    Delay(2,7);
+[e :U 112 ]
+"85
+[; ;Thermometer.c: 85:    Delay(2,7);
 [e ( _Delay (2 , -> -> 2 `i `uc -> -> 7 `i `uc ]
-"87
-[; ;Thermometer.c: 87:    TRISA0 =1;
+"86
+[; ;Thermometer.c: 86:    TRISA0 =1;
 [e = _TRISA0 -> -> 1 `i `b ]
+"87
+[; ;Thermometer.c: 87:    __nop();
+[e ( ___nop ..  ]
 "88
 [; ;Thermometer.c: 88:    __nop();
 [e ( ___nop ..  ]
-"89
-[; ;Thermometer.c: 89:    __nop();
-[e ( ___nop ..  ]
-"91
-[; ;Thermometer.c: 91:    val=val>>1;
+"90
+[; ;Thermometer.c: 90:    val=val>>1;
 [e = _val -> >> -> _val `i -> 1 `i `uc ]
-"92
-[; ;Thermometer.c: 92:   }
+"91
+[; ;Thermometer.c: 91:   }
 }
 [e -- _i -> -> 1 `i `uc ]
-[e $ > -> _i `i -> 0 `i 110  ]
-[e :U 111 ]
+[e $ > -> _i `i -> 0 `i 109  ]
+[e :U 110 ]
 }
-"93
-[; ;Thermometer.c: 93: }
-[e :UE 109 ]
+"92
+[; ;Thermometer.c: 92: }
+[e :UE 108 ]
 }
-"96
-[; ;Thermometer.c: 96: unsigned char Read_Byte(void)
+"95
+[; ;Thermometer.c: 95: unsigned char Read_Byte(void)
 [v _Read_Byte `(uc ~T0 @X0 1 ef ]
-"97
-[; ;Thermometer.c: 97: {
+"96
+[; ;Thermometer.c: 96: {
 {
 [e :U _Read_Byte ]
 [f ]
-"98
-[; ;Thermometer.c: 98:  unsigned char i;
+"97
+[; ;Thermometer.c: 97:  unsigned char i;
 [v _i `uc ~T0 @X0 1 a ]
-"99
-[; ;Thermometer.c: 99:  unsigned char value=0;
+"98
+[; ;Thermometer.c: 98:  unsigned char value=0;
 [v _value `uc ~T0 @X0 1 a ]
 [e = _value -> -> 0 `i `uc ]
-"100
-[; ;Thermometer.c: 100:  static char j;
+"99
+[; ;Thermometer.c: 99:  static char j;
 [v F885 `uc ~T0 @X0 1 s j ]
-"101
-[; ;Thermometer.c: 101:  for(i=8;i>0;i--)
+"100
+[; ;Thermometer.c: 100:  for(i=8;i>0;i--)
 {
 [e = _i -> -> 8 `i `uc ]
-[e $ > -> _i `i -> 0 `i 115  ]
-[e $U 116  ]
-[e :U 115 ]
-"102
-[; ;Thermometer.c: 102:  {
+[e $ > -> _i `i -> 0 `i 114  ]
+[e $U 115  ]
+[e :U 114 ]
+"101
+[; ;Thermometer.c: 101:  {
 {
-"103
-[; ;Thermometer.c: 103:    value>>=1;
+"102
+[; ;Thermometer.c: 102:    value>>=1;
 [e =>> _value -> -> 1 `i `uc ]
-"105
-[; ;Thermometer.c: 105:    RA0 = 0; TRISA0 = 0;
+"104
+[; ;Thermometer.c: 104:    RA0 = 0; TRISA0 = 0;
 [e = _RA0 -> -> 0 `i `b ]
 [e = _TRISA0 -> -> 0 `i `b ]
+"106
+[; ;Thermometer.c: 106:    __nop();
+[e ( ___nop ..  ]
 "107
 [; ;Thermometer.c: 107:    __nop();
 [e ( ___nop ..  ]
@@ -506,12 +503,12 @@ Version 4.0 HI-TECH Software Intermediate Code
 "111
 [; ;Thermometer.c: 111:    __nop();
 [e ( ___nop ..  ]
-"112
-[; ;Thermometer.c: 112:    __nop();
-[e ( ___nop ..  ]
-"114
-[; ;Thermometer.c: 114:    TRISA0 =1;
+"113
+[; ;Thermometer.c: 113:    TRISA0 =1;
 [e = _TRISA0 -> -> 1 `i `b ]
+"115
+[; ;Thermometer.c: 115:    __nop();
+[e ( ___nop ..  ]
 "116
 [; ;Thermometer.c: 116:    __nop();
 [e ( ___nop ..  ]
@@ -525,168 +522,165 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;Thermometer.c: 119:    __nop();
 [e ( ___nop ..  ]
 "120
-[; ;Thermometer.c: 120:    __nop();
-[e ( ___nop ..  ]
-"121
-[; ;Thermometer.c: 121:    j=RA0;
+[; ;Thermometer.c: 120:    j=RA0;
 [e = F885 -> _RA0 `uc ]
-"122
-[; ;Thermometer.c: 122:    if(j) value|=0x80;
-[e $ ! != -> F885 `i -> 0 `i 118  ]
+"121
+[; ;Thermometer.c: 121:    if(j) value|=0x80;
+[e $ ! != -> F885 `i -> 0 `i 117  ]
 [e =| _value -> -> 128 `i `uc ]
-[e :U 118 ]
-"124
-[; ;Thermometer.c: 124:    Delay(2,7);
+[e :U 117 ]
+"123
+[; ;Thermometer.c: 123:    Delay(2,7);
 [e ( _Delay (2 , -> -> 2 `i `uc -> -> 7 `i `uc ]
-"125
-[; ;Thermometer.c: 125:   }
+"124
+[; ;Thermometer.c: 124:   }
 }
 [e -- _i -> -> 1 `i `uc ]
-[e $ > -> _i `i -> 0 `i 115  ]
-[e :U 116 ]
+[e $ > -> _i `i -> 0 `i 114  ]
+[e :U 115 ]
 }
-"126
-[; ;Thermometer.c: 126:   return(value);
+"125
+[; ;Thermometer.c: 125:   return(value);
 [e ) _value ]
-[e $UE 114  ]
-"127
-[; ;Thermometer.c: 127: }
-[e :UE 114 ]
+[e $UE 113  ]
+"126
+[; ;Thermometer.c: 126: }
+[e :UE 113 ]
 }
-"130
-[; ;Thermometer.c: 130: void Get_Temp(char* buffer)
+"129
+[; ;Thermometer.c: 129: void Get_Temp(char* buffer)
 [v _Get_Temp `(v ~T0 @X0 1 ef1`*uc ]
-"131
-[; ;Thermometer.c: 131: {
+"130
+[; ;Thermometer.c: 130: {
 {
 [e :U _Get_Temp ]
-"130
-[; ;Thermometer.c: 130: void Get_Temp(char* buffer)
+"129
+[; ;Thermometer.c: 129: void Get_Temp(char* buffer)
 [v _buffer `*uc ~T0 @X0 1 r1 ]
-"131
-[; ;Thermometer.c: 131: {
+"130
+[; ;Thermometer.c: 130: {
 [f ]
-"132
-[; ;Thermometer.c: 132: int i;
+"131
+[; ;Thermometer.c: 131: int i;
 [v _i `i ~T0 @X0 1 a ]
-"133
-[; ;Thermometer.c: 133: TRISA0 =1;
+"132
+[; ;Thermometer.c: 132: TRISA0 =1;
 [e = _TRISA0 -> -> 1 `i `b ]
-"135
-[; ;Thermometer.c: 135: Reset();
+"134
+[; ;Thermometer.c: 134: Reset();
 [e ( _Reset ..  ]
-"137
-[; ;Thermometer.c: 137: Write_Byte(0XCC);
+"136
+[; ;Thermometer.c: 136: Write_Byte(0XCC);
 [e ( _Write_Byte (1 -> -> 204 `i `uc ]
-"139
-[; ;Thermometer.c: 139: Write_Byte(0X44);
+"138
+[; ;Thermometer.c: 138: Write_Byte(0X44);
 [e ( _Write_Byte (1 -> -> 68 `i `uc ]
-"141
-[; ;Thermometer.c: 141: Temp[0] = numberTable[tenbit];
+"140
+[; ;Thermometer.c: 140: Temp[0] = numberTable[tenbit];
 [e = *U + &U _Temp * -> -> -> 0 `i `ui `ux -> -> # *U &U _Temp `ui `ux -> *U + &U _numberTable * -> _tenbit `ux -> -> # *U &U _numberTable `ui `ux `uc ]
-"142
-[; ;Thermometer.c: 142: Temp[1] = numberTable[intent];
+"141
+[; ;Thermometer.c: 141: Temp[1] = numberTable[intent];
 [e = *U + &U _Temp * -> -> -> 1 `i `ui `ux -> -> # *U &U _Temp `ui `ux -> *U + &U _numberTable * -> _intent `ux -> -> # *U &U _numberTable `ui `ux `uc ]
-"143
-[; ;Thermometer.c: 143: Temp[2] = '.';
+"142
+[; ;Thermometer.c: 142: Temp[2] = '.';
 [e = *U + &U _Temp * -> -> -> 2 `i `ui `ux -> -> # *U &U _Temp `ui `ux -> -> 46 `ui `uc ]
-"144
-[; ;Thermometer.c: 144: Temp[3] = numberTable[tenthbit];
+"143
+[; ;Thermometer.c: 143: Temp[3] = numberTable[tenthbit];
 [e = *U + &U _Temp * -> -> -> 3 `i `ui `ux -> -> # *U &U _Temp `ui `ux -> *U + &U _numberTable * -> _tenthbit `ux -> -> # *U &U _numberTable `ui `ux `uc ]
-"145
-[; ;Thermometer.c: 145: Temp[4] = numberTable[hundredthbit];
+"144
+[; ;Thermometer.c: 144: Temp[4] = numberTable[hundredthbit];
 [e = *U + &U _Temp * -> -> -> 4 `i `ui `ux -> -> # *U &U _Temp `ui `ux -> *U + &U _numberTable * -> _hundredthbit `ux -> -> # *U &U _numberTable `ui `ux `uc ]
-"147
-[; ;Thermometer.c: 147: for(i = 0; i < 5; i++)
+"146
+[; ;Thermometer.c: 146: for(i = 0; i < 5; i++)
 {
 [e = _i -> 0 `i ]
-[e $ < _i -> 5 `i 120  ]
-[e $U 121  ]
-[e :U 120 ]
-"148
-[; ;Thermometer.c: 148: {
+[e $ < _i -> 5 `i 119  ]
+[e $U 120  ]
+[e :U 119 ]
+"147
+[; ;Thermometer.c: 147: {
 {
-"149
-[; ;Thermometer.c: 149:     buffer[i] = Temp[i];
+"148
+[; ;Thermometer.c: 148:     buffer[i] = Temp[i];
 [e = *U + _buffer * -> _i `x -> -> # *U _buffer `i `x *U + &U _Temp * -> -> _i `ui `ux -> -> # *U &U _Temp `ui `ux ]
-"150
-[; ;Thermometer.c: 150: }
+"149
+[; ;Thermometer.c: 149: }
 }
 [e ++ _i -> 1 `i ]
-[e $ < _i -> 5 `i 120  ]
-[e :U 121 ]
+[e $ < _i -> 5 `i 119  ]
+[e :U 120 ]
 }
-"151
-[; ;Thermometer.c: 151: Delay(10,70);
+"150
+[; ;Thermometer.c: 150: Delay(10,70);
 [e ( _Delay (2 , -> -> 10 `i `uc -> -> 70 `i `uc ]
-"153
-[; ;Thermometer.c: 153: Reset();
+"152
+[; ;Thermometer.c: 152: Reset();
 [e ( _Reset ..  ]
-"155
-[; ;Thermometer.c: 155: Write_Byte(0XCC);
+"154
+[; ;Thermometer.c: 154: Write_Byte(0XCC);
 [e ( _Write_Byte (1 -> -> 204 `i `uc ]
-"157
-[; ;Thermometer.c: 157: Write_Byte(0XBE);
+"156
+[; ;Thermometer.c: 156: Write_Byte(0XBE);
 [e ( _Write_Byte (1 -> -> 190 `i `uc ]
-"159
-[; ;Thermometer.c: 159: TLB = Read_Byte();
+"158
+[; ;Thermometer.c: 158: TLB = Read_Byte();
 [e = _TLB ( _Read_Byte ..  ]
-"161
-[; ;Thermometer.c: 161: THB = Read_Byte();
+"160
+[; ;Thermometer.c: 160: THB = Read_Byte();
 [e = _THB ( _Read_Byte ..  ]
-"163
-[; ;Thermometer.c: 163: TRISA0 =1;
+"162
+[; ;Thermometer.c: 162: TRISA0 =1;
 [e = _TRISA0 -> -> 1 `i `b ]
-"165
-[; ;Thermometer.c: 165: TempInt=(TLB>>4)|((THB<<4)&(0X3f));
+"164
+[; ;Thermometer.c: 164: TempInt=(TLB>>4)|((THB<<4)&(0X3f));
 [e = _TempInt -> | >> -> _TLB `i -> 4 `i & << -> _THB `i -> 4 `i -> 63 `i `uc ]
-"167
-[; ;Thermometer.c: 167: TempDec=TLB<<4;
+"166
+[; ;Thermometer.c: 166: TempDec=TLB<<4;
 [e = _TempDec -> << -> _TLB `i -> 4 `i `uc ]
-"169
-[; ;Thermometer.c: 169: if(TempInt>100) TempInt = TempInt/100;
-[e $ ! > -> _TempInt `i -> 100 `i 123  ]
+"168
+[; ;Thermometer.c: 168: if(TempInt>100) TempInt = TempInt/100;
+[e $ ! > -> _TempInt `i -> 100 `i 122  ]
 [e = _TempInt -> / -> _TempInt `i -> 100 `i `uc ]
-[e :U 123 ]
-"171
-[; ;Thermometer.c: 171: intent=TempInt%10;
+[e :U 122 ]
+"170
+[; ;Thermometer.c: 170: intent=TempInt%10;
 [e = _intent -> % -> _TempInt `i -> 10 `i `uc ]
-"173
-[; ;Thermometer.c: 173: tenbit=TempInt/10;
+"172
+[; ;Thermometer.c: 172: tenbit=TempInt/10;
 [e = _tenbit -> / -> _TempInt `i -> 10 `i `uc ]
-"175
-[; ;Thermometer.c: 175: TempBCD=0;
+"174
+[; ;Thermometer.c: 174: TempBCD=0;
 [e = _TempBCD -> -> 0 `i `ui ]
-"177
-[; ;Thermometer.c: 177: if (TempDec & 0x80) TempBCD=TempBCD+5000;
-[e $ ! != & -> _TempDec `i -> 128 `i -> 0 `i 124  ]
+"176
+[; ;Thermometer.c: 176: if (TempDec & 0x80) TempBCD=TempBCD+5000;
+[e $ ! != & -> _TempDec `i -> 128 `i -> 0 `i 123  ]
 [e = _TempBCD + _TempBCD -> -> 5000 `i `ui ]
+[e :U 123 ]
+"177
+[; ;Thermometer.c: 177: if (TempDec & 0x40) TempBCD=TempBCD+2500;
+[e $ ! != & -> _TempDec `i -> 64 `i -> 0 `i 124  ]
+[e = _TempBCD + _TempBCD -> -> 2500 `i `ui ]
 [e :U 124 ]
 "178
-[; ;Thermometer.c: 178: if (TempDec & 0x40) TempBCD=TempBCD+2500;
-[e $ ! != & -> _TempDec `i -> 64 `i -> 0 `i 125  ]
-[e = _TempBCD + _TempBCD -> -> 2500 `i `ui ]
+[; ;Thermometer.c: 178: if (TempDec & 0x20) TempBCD=TempBCD+1250;
+[e $ ! != & -> _TempDec `i -> 32 `i -> 0 `i 125  ]
+[e = _TempBCD + _TempBCD -> -> 1250 `i `ui ]
 [e :U 125 ]
 "179
-[; ;Thermometer.c: 179: if (TempDec & 0x20) TempBCD=TempBCD+1250;
-[e $ ! != & -> _TempDec `i -> 32 `i -> 0 `i 126  ]
-[e = _TempBCD + _TempBCD -> -> 1250 `i `ui ]
-[e :U 126 ]
-"180
-[; ;Thermometer.c: 180: if (TempDec & 0x10) TempBCD=TempBCD+625;
-[e $ ! != & -> _TempDec `i -> 16 `i -> 0 `i 127  ]
+[; ;Thermometer.c: 179: if (TempDec & 0x10) TempBCD=TempBCD+625;
+[e $ ! != & -> _TempDec `i -> 16 `i -> 0 `i 126  ]
 [e = _TempBCD + _TempBCD -> -> 625 `i `ui ]
-[e :U 127 ]
-"182
-[; ;Thermometer.c: 182: tenthbit=TempBCD/1000;
+[e :U 126 ]
+"181
+[; ;Thermometer.c: 181: tenthbit=TempBCD/1000;
 [e = _tenthbit -> / _TempBCD -> -> 1000 `i `ui `uc ]
-"184
-[; ;Thermometer.c: 184: hundredthbit=(TempBCD%1000)/100;
+"183
+[; ;Thermometer.c: 183: hundredthbit=(TempBCD%1000)/100;
 [e = _hundredthbit -> / % _TempBCD -> -> 1000 `i `ui -> -> 100 `i `ui `uc ]
-"185
-[; ;Thermometer.c: 185: __nop();
+"184
+[; ;Thermometer.c: 184: __nop();
 [e ( ___nop ..  ]
-"186
-[; ;Thermometer.c: 186: }
-[e :UE 119 ]
+"185
+[; ;Thermometer.c: 185: }
+[e :UE 118 ]
 }

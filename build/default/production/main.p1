@@ -72,9 +72,6 @@ Version 4.0 HI-TECH Software Intermediate Code
 "29 ./realtimeclock.h
 [; ;./realtimeclock.h: 29: void RealTimeClock_init(void);
 [v _RealTimeClock_init `(v ~T0 @X0 0 ef ]
-"25
-[; ;./realtimeclock.h: 25: void RealTimeClock_set_burst_time(int* time);
-[v _RealTimeClock_set_burst_time `(v ~T0 @X0 0 ef1`*i ]
 "13 ./Buzzer.h
 [; ;./Buzzer.h: 13: void Buzzer_Init(void);
 [v _Buzzer_Init `(v ~T0 @X0 0 ef ]
@@ -283,7 +280,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 28: 
 [v _DisableAlarm `i ~T0 @X0 1 e ]
 "29
-[; ;main.c: 29: int start_date[8] = {59,59,23,31,12,5,99,0};
+[; ;main.c: 29: int start_date[8] = {59,42,14,8,2,2,19,0};
 [v _day_of_week `i ~T0 @X0 1 e ]
 "30
 [; ;main.c: 30: 
@@ -414,12 +411,12 @@ Version 4.0 HI-TECH Software Intermediate Code
 [i _start_date
 :U ..
 -> 59 `i
--> 59 `i
--> 23 `i
--> 31 `i
--> 12 `i
--> 5 `i
--> 99 `i
+-> 42 `i
+-> 14 `i
+-> 8 `i
+-> 2 `i
+-> 2 `i
+-> 19 `i
 -> 0 `i
 ..
 ]
@@ -2404,7 +2401,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 744:     RealTimeClock_init();
 [e = _IsHeatingOn -> 0 `i ]
 "745
-[; ;main.c: 745:     RealTimeClock_set_burst_time(start_date);
+[; ;main.c: 745: 
 }
 [e $U 247  ]
 "746
@@ -2457,9 +2454,6 @@ Version 4.0 HI-TECH Software Intermediate Code
 "766
 [; ;main.c: 766:     CheckDay();
 [e ( _RealTimeClock_init ..  ]
-"767
-[; ;main.c: 767:     CheckTime();
-[e ( _RealTimeClock_set_burst_time (1 &U _start_date ]
 "770
 [; ;main.c: 770:     {
 [e ( _Buzzer_Init ..  ]

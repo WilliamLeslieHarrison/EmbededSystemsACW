@@ -1922,9 +1922,30 @@ void RealTimeClock_set_hours(int hours) {
     RB5 = 0;
 }
 
+void RealTimeClock_set_day_of_month(int month) {
+    RB5 = 1;
+    RealTimeClock_write_byte(0x86);
+    RealTimeClock_write_byte(__int_to_hex(month));
+    RB5 = 0;
+}
+
+void RealTimeClock_set_month(int month) {
+    RB5 = 1;
+    RealTimeClock_write_byte(0x88);
+    RealTimeClock_write_byte(__int_to_hex(month));
+}
+
+
 void RealTimeClock_set_day_of_week(int day) {
     RB5 = 1;
     RealTimeClock_write_byte(0x8a);
     RealTimeClock_write_byte(__int_to_hex(day));
+    RB5 = 0;
+}
+
+void RealTimeClock_set_year(int year) {
+    RB5 = 1;
+    RealTimeClock_write_byte(0xdc);
+    RealTimeClock_write_byte(__int_to_hex(year));
     RB5 = 0;
 }

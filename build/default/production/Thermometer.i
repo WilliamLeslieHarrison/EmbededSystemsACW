@@ -1783,8 +1783,8 @@ void Thermometer_Init(void)
 
 void Reset(void)
 {
-  char presence=1;
-  while(presence)
+
+    for(int i = 0; i < 100; ++i)
   {
 
     RA0 = 0; TRISA0 = 0;
@@ -1795,9 +1795,8 @@ void Reset(void)
 
     Delay(2,8);
 
-    if(RA0==1) presence=1;
 
-    else presence=0;
+    if(!RA0) break;
 
     Delay(2,60);
    }
