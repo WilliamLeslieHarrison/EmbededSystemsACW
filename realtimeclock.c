@@ -191,3 +191,65 @@ void RealTimeClock_set_year(int year) {
     rst = 0;
 }
 
+void RealTimeClock_set_hours_digital(unsigned char set) {
+    unsigned char hours;
+    rst = 1;
+    RealTimeClock_write_byte(0x85);
+    hours = RealTimeClock_read_byte();
+    rst = 0;
+    //if we want digital
+    if(set) {
+        //if we are analogue
+        if(hours&0x40) {
+        hours |= 0x70;
+         //if afternoon
+            if(hours&0x10) {
+                hours += 12;
+                if(hours == 24)
+                    hours = 0;
+            }
+            // morning
+            else {
+                if(hours == 12)
+                    hours = 12;
+            }
+        }
+        // we are digital already
+        else {
+            return;
+        }
+    }
+    //we want analogue
+    else {
+        //if we are analogue
+        if(hours&0x40) {
+            return;
+        }
+        //we are digital
+        else {
+            //afternoon
+            if(hours > 12) {
+                hours -= 12;
+            }
+            //morning
+            else {
+                if (!hours)
+                    hours = 12;
+            }
+            hours =| 0x50;
+        }
+    }
+    rst = 1;
+    RealTimeClock_write_byte(0x84);
+    RealTimeClock_write_byte(hours);
+    rst = 0;
+}
+
+char RealTimeClock_get_hours_digital(void) {
+    rst = 1;
+    RealTimeClock_write_byte(0x85);
+    unsigned char hours = RealTimeClock_read_byte();
+    if(hours&0x40)
+        return 0;
+    return 1;
+}

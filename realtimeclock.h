@@ -49,7 +49,8 @@ void RealTimeClock_set_day_of_week(int day);
 int RealTimeClock_get_year(void);
 void RealTimeClock_set_year(int year);
 
-
+void RealTimeClock_set_hours_digital(unsigned char set);
+char RealTimeClock_get_hours_digital(void);
 
 
 #endif	/* REALTIMECLOCK_H */
