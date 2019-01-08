@@ -162,7 +162,7 @@ THB = Read_Byte();
 //release the general line
 DQ_HIGH();                           
 //Get the temperature integer
-TempInt=(TLB>>4)|(THB<<4)&(0X3f);            
+TempInt=(TLB>>4)|((THB<<4)&(0X3f));            
 //Get the temperature decimal
 TempDec=TLB<<4;                            
 //Do not display the 100 bit
@@ -183,4 +183,4 @@ tenthbit=TempBCD/1000;
 //Hundredthbit
 hundredthbit=(TempBCD%1000)/100;                                                                                                                                                              
 NOP();                                                                                                                            
-}            
+}           
