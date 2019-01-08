@@ -173,6 +173,7 @@ void RealTimeClock_set_month(int month) {
     rst = 1;
     RealTimeClock_write_byte(0x88);
     RealTimeClock_write_byte(__int_to_hex(month));
+    rst = 0;
 }
 
 
