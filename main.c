@@ -61,25 +61,7 @@ void Main_Delay(int k)
 //Displaying the time
 void DisplayTime()
 {
-    //Sets the returned int array to our main one for displaying
-    /*timeBuffer = RealTimeClock_get_burst_time();
-    //This get the seconds
-    int sec = timeBuffer[0];
-    //This gets the minutes
-    int min = timeBuffer[1];
-    //This gets the hour
-    int hour = timeBuffer[2];
-    
-    timeDisplayer[1] = hour % 10 + 48;
-    hour /= 10;
-    timeDisplayer[0] = hour % 10 + 48;
-    timeDisplayer[4] = min % 10 + 48;
-    min /= 10;
-    timeDisplayer[3] = min % 10 + 48;
-    timeDisplayer[7] = sec % 10 + 48;
-    sec /= 10;
-    timeDisplayer[6] = sec % 10 + 48;*/
-    
+    //Sets the returned int array to our main one for displaying   
     timeSecs = RealTimeClock_get_seconds();
     timeMins = RealTimeClock_get_minutes();
     timeHours = RealTimeClock_get_hours();
@@ -102,10 +84,11 @@ void DisplayTime()
 //Displaying the date which will be on another screen
 void DisplayDate(void)
 {    
+    //Takes in the date by integers
     int month = RealTimeClock_get_month();
     int day = RealTimeClock_get_day_of_month();
     int year = RealTimeClock_get_year();
-    
+    //Then displays them via converting to a char array to be displayed
     dateDisplayer[1] = month % 10 + 48;
     month /= 10;
     dateDisplayer[0] = month % 10 + 48;
@@ -117,8 +100,10 @@ void DisplayDate(void)
     dateDisplayer[6] = year % 10 + 48;
 }
 
+//This will display the day depending which int the clock gives us
 void DisplayDay(void)
 {
+    //This will show the user which day of the week it is
     day_of_week = RealTimeClock_get_day_of_week();
     char* Monday = ("Monday");
     char* Tuesday = ("Tuesday");
@@ -413,6 +398,7 @@ void SoundAlarm(int Key, int temp, int temp2, int temp3)
     }
 }
 
+//This switches between 24 hour and 12
 void Switch24Hour(int Key)
 {
     LCD_Command(0x01);
@@ -460,39 +446,46 @@ void DateDayScreen(int Key)
     }
 }
 
-//This will allow the user to change the day
-void SetDate(int Key)
-{
-    //This will set the new date as well as the day of the week    
-}
-
+//Setting the time of the clock
 void SetTime(int Key)
 {
+    //Clear lcd
     LCD_Command(0x01);
+    //Int to determine the digit we are changing
     int i = 0;
+    //Seperate ints to allow for showing of changing time
     int hour, min, sec;
     char* Time = "Time:";
     char* TimeSet = "Time Set";
+    //Get the time from the clock
     timeSecs = RealTimeClock_get_seconds();
     timeMins = RealTimeClock_get_minutes();
     timeHours = RealTimeClock_get_hours();
+    //Array for new time to be changed
     int setTime[3];    
     setTime[0] = timeHours;
     setTime[1] = timeMins;
     setTime[2] = timeSecs;
     while(1)
     {
+        //Allow new time to be displayed like normal clock
         char digits[9] = {'0', '0', ':', '0', '0', '.', '0', '0', '\0'};
-        LCD_Command(0x03);
+        //Send cursor home
+        LCD_Command(0x03);        
         LCD_SendString(Time);
+        //Scan for button press
         Key = Keypad_Scan();
+        //if the init button is pressed return home with new time set
         if(Key == 9)
         {
+            //setting new time
             RealTimeClock_set_hours(setTime[0]);
             RealTimeClock_set_minutes(setTime[1]);
             RealTimeClock_set_seconds(setTime[2]);
+            //Clear lcd
             LCD_Command(0x01);
             LCD_Command(0x03);
+            //Tell user time has been set
             LCD_SendString(TimeSet);            
             Main_Delay(200);
             LCD_Command(0x01);
@@ -500,21 +493,27 @@ void SetTime(int Key)
         }
         switch(Key)
         {
+            //If this button is pressed swap to the next digit
             case 10:
+            //if the digit is already the seconds move back to the hours
             if(i == 2)
                 i = 0;
+            //Otherwise increment
             else
                 i++;
             break;
-            case 11:               
+            //This decrements
+            case 11:              
+                //Do different calculations if we are dealing with the hours
                 if(i == 0)
-                {
+                {   //if the clock is 24 hours allow for change between 0 to 23
                     if(is24Hour == 1)
                     {
                         if(setTime[i] == 0)
                         {
                             setTime[i] = 23;
                         }
+                        //Else just decrement it like normal
                         else
                         {
                             setTime[i] = setTime[i] - 1;
@@ -526,23 +525,29 @@ void SetTime(int Key)
                     } 
                     else
                         setTime[i] = setTime[i] - 1;
-                }               
+                }
+                //Other wise if it is minutes or seconds move from 0 to 59
                 else if(setTime[i] == 0)
                 {
                     setTime[i] = 59;
                 }          
+                //Else decrement
                 else                
                     setTime[i] = setTime[i] - 1;               
                 break;
+                //This case increments
             case 12:                
+                //If hours do different calculations
                 if(i == 0)
                 {
+                    //If 24 and at 23 allow for movement to 0
                     if(is24Hour == 1)
                     {
                         if(setTime[i] == 23)
                         {
                             setTime[i] = 0;
                         }
+                        //Else just increment
                         else
                         {
                             setTime[i] = setTime[i] + 1;
@@ -553,6 +558,7 @@ void SetTime(int Key)
                         //Do the 12 hour equilavent
                     }
                 }
+                //Else move from 59 to 0
                 else if(setTime[i] == 59) 
                 {
                     setTime[i] = 0;
@@ -561,6 +567,8 @@ void SetTime(int Key)
                     setTime[i] = setTime[i] + 1;
                 break;                
         }
+        //This allows for the user to see what digits and what time is currently
+        //being changed to
         hour = setTime[0];
         min = setTime[1];
         sec = setTime[2];
@@ -577,10 +585,13 @@ void SetTime(int Key)
     }
 }
 
+//This checks to see which day it is and where it is a weekend or weekday
 void CheckDay(void)
 {    
     switch(day_of_week)
     {
+        //Since the clock gives us days in numbers this goes through them and 
+        //changes depending what day it is
         case 1:
             isWeekDay = 1;
             break;
@@ -604,31 +615,135 @@ void CheckDay(void)
     }
 }
 
+//This will allow the user to change the day
+void SetDate(int Key)
+{
+    //This will set the new date as well as the day of the week    
+    LCD_Command(0x01);    
+    int i = 0;
+    char* Day = ("Day:");
+    char* Date = ("Date:");
+    char* DateSet = ("Date/Day Set");
+    char* Monday = ("Mon");
+    char* Tuesday = ("Tue");
+    char* Wednesday = ("Wed");
+    char* Thursday = ("Thu");
+    char* Friday = ("Fri");
+    char* Saturday = ("Sat");
+    char* Sunday = ("Sun");
+    int dayInt;    
+    dayInt = RealTimeClock_get_day_of_week();
+    while(1)
+    {
+        LCD_Command(0x03);
+        LCD_SendString(Date);
+        Key = Keypad_Scan();
+        if(Key == 13)
+        {
+            LCD_Command(0x01);
+            LCD_Command(0x03);
+            //Checks the new day to allow for checking the trigger time
+            CheckDay();
+            //Changing the global day to the new day
+            day_of_week = dayInt;
+            //Sets the day to the selected day
+            RealTimeClock_set_day_of_week(dayInt);
+            //Tell user time has been set            
+            LCD_SendString(DateSet);            
+            Main_Delay(200);
+            LCD_Command(0x01);
+            break;
+        }
+        switch(Key)
+        {
+            case 14:
+                break;
+            case 15:
+                if(i == 0)
+                {
+                    if(dayInt == 1)
+                        dayInt = 7;
+                    else
+                        dayInt = dayInt - 1;                    
+                }
+                break;
+            case 16:
+                if(i == 0)
+                {
+                    if(dayInt == 7)
+                        dayInt = 1;
+                    else
+                        dayInt = dayInt + 1;   
+                }
+                break;
+        }
+        LCD_SecondLine();
+        LCD_SendString(Day);
+        switch(dayInt)
+        {            
+            case 1:
+                LCD_SendString(Monday);
+                break;
+            case 2:
+                LCD_SendString(Tuesday);
+                break;
+            case 3:                
+                LCD_SendString(Wednesday);
+                break;
+            case 4:
+                LCD_SendString(Thursday);
+                break;
+            case 5:
+                LCD_SendString(Friday);
+                break;
+            case 6:
+                LCD_SendString(Saturday);
+                break;
+            case 7:
+                LCD_SendString(Sunday);
+                break;
+        }
+    }
+}
+
+//This checks the current time against the chosen start and end time
 void CheckTime(void)
 {
+    //If it is a weekday the time must be inbetween 06:30 and 22:30
+    //or the heating will not be on
     if (isWeekDay == 1) 
     {
         timeMins = RealTimeClock_get_minutes();
         timeHours = RealTimeClock_get_hours();        
-        if (timeHours < weekDayStart[0] && timeMins < weekDayStart[1]) {
-            IsHeatingOn = 0;
-        }
-        else if(timeHours > weekDayEnd[0] && timeMins > weekDayEnd[1])
+        if (timeHours < weekDayStart[0]) 
         {
-            IsHeatingOn = 0;
+            if(timeMins < weekDayStart[1])
+                IsHeatingOn = 0;
+            else
+                IsHeatingOn = 1;
+        }
+        else if(timeHours > weekDayEnd[0])
+        {
+            if(timeMins > weekDayEnd[1])
+                IsHeatingOn = 0;
+            else
+                IsHeatingOn = 1;
         }
         else
             IsHeatingOn = 1;
     }
+    //Otherwise the time must be inbetween 07:00 and 23:00 or the heating will
+    //be off
     else if (isWeekDay == 0) 
     {
         
         timeMins = RealTimeClock_get_minutes();
         timeHours = RealTimeClock_get_hours();
-        if (timeHours < weekEndStart[0] && timeMins < weekEndStart[1]) {
+        if (timeHours < weekEndStart[0]) 
+        {
             IsHeatingOn = 0;
         }
-        else if(timeHours > weekEndEnd[0] && timeMins > weekEndEnd[1])
+        else if(timeHours > weekEndEnd[0])
         {
             IsHeatingOn = 0;
         }
@@ -668,12 +783,14 @@ void main() {
     //Set LCD to 2 line mode
     LCD_Command(0x38);
     SoundOff();
+    //Checks day and time to allow us to set certain conditions
     day_of_week = RealTimeClock_get_day_of_week();
     CheckDay();   
     CheckTime();
     Main_Delay(50);
     while(1)
     {
+        day_of_week = RealTimeClock_get_day_of_week();
         //Each time the loop starts LCD will set back to home
         LCD_Command(0x03);
         //To allow for checking the temperature against the trigger I am converting
@@ -712,13 +829,19 @@ void main() {
         if (Key == 7) {
             SwapToHeatingDisplay(Key);
         }
-        //If the 9th button is pressed this will go into set the date function
+        //If the 9th button is pressed this will go into set the time function
         if (Key == 9) {
             SetTime(Key);
         }
+        //This key will allow the user to change from 24 hour to 12
         if(Key == 8)
         {
             Switch24Hour(Key);
+        }
+        //This key will allow the user to change the day and date
+        if(Key == 13)
+        {
+            SetDate(Key);
         }
         //If the current temp is equal to the whole number of the trigger temp set heating off
         if (temp3 >= triggerTemp[0]) {
@@ -727,7 +850,7 @@ void main() {
         }
         if (temp3 <= triggerTemp[0] && temp3 < previousTemp[0] && IsHeatingOn == 1 && DisableAlarm == 0) {
             SoundAlarm(Key, temp, temp2, temp3);
-        }
+        }        
         //If time is outside of the time needed for heating to be on then turn off                    
         CheckTime();
     }

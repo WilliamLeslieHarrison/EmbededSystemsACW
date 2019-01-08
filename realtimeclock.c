@@ -162,9 +162,9 @@ void RealTimeClock_set_hours(int hours) {
     rst = 0;   
 }
 
-void RealTimeClock_set_day_of_month(int day) {
+void RealTimeClock_set_day_of_week(int day) {
     rst = 1;
-    RealTimeClock_write_byte(0x86);
+    RealTimeClock_write_byte(0x8a);
     RealTimeClock_write_byte(__int_to_hex(day));
     rst = 0;
 }
