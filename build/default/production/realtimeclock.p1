@@ -823,52 +823,244 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;realtimeclock.c: 175:     RealTimeClock_write_byte(__int_to_hex(month));
 [e ( _RealTimeClock_write_byte (1 ( ___int_to_hex (1 _month ]
 "176
-[; ;realtimeclock.c: 176: }
+[; ;realtimeclock.c: 176:     RB5 = 0;
+[e = _RB5 -> -> 0 `i `b ]
+"177
+[; ;realtimeclock.c: 177: }
 [e :UE 137 ]
 }
-"179
-[; ;realtimeclock.c: 179: void RealTimeClock_set_day_of_week(int day) {
+"180
+[; ;realtimeclock.c: 180: void RealTimeClock_set_day_of_week(int day) {
 [v _RealTimeClock_set_day_of_week `(v ~T0 @X0 1 ef1`i ]
 {
 [e :U _RealTimeClock_set_day_of_week ]
 [v _day `i ~T0 @X0 1 r1 ]
 [f ]
-"180
-[; ;realtimeclock.c: 180:     RB5 = 1;
-[e = _RB5 -> -> 1 `i `b ]
 "181
-[; ;realtimeclock.c: 181:     RealTimeClock_write_byte(0x8a);
-[e ( _RealTimeClock_write_byte (1 -> -> 138 `i `uc ]
+[; ;realtimeclock.c: 181:     RB5 = 1;
+[e = _RB5 -> -> 1 `i `b ]
 "182
-[; ;realtimeclock.c: 182:     RealTimeClock_write_byte(__int_to_hex(day));
-[e ( _RealTimeClock_write_byte (1 ( ___int_to_hex (1 _day ]
+[; ;realtimeclock.c: 182:     RealTimeClock_write_byte(0x8a);
+[e ( _RealTimeClock_write_byte (1 -> -> 138 `i `uc ]
 "183
-[; ;realtimeclock.c: 183:     RB5 = 0;
-[e = _RB5 -> -> 0 `i `b ]
+[; ;realtimeclock.c: 183:     RealTimeClock_write_byte(__int_to_hex(day));
+[e ( _RealTimeClock_write_byte (1 ( ___int_to_hex (1 _day ]
 "184
-[; ;realtimeclock.c: 184: }
+[; ;realtimeclock.c: 184:     RB5 = 0;
+[e = _RB5 -> -> 0 `i `b ]
+"185
+[; ;realtimeclock.c: 185: }
 [e :UE 138 ]
 }
-"186
-[; ;realtimeclock.c: 186: void RealTimeClock_set_year(int year) {
+"187
+[; ;realtimeclock.c: 187: void RealTimeClock_set_year(int year) {
 [v _RealTimeClock_set_year `(v ~T0 @X0 1 ef1`i ]
 {
 [e :U _RealTimeClock_set_year ]
 [v _year `i ~T0 @X0 1 r1 ]
 [f ]
-"187
-[; ;realtimeclock.c: 187:     RB5 = 1;
-[e = _RB5 -> -> 1 `i `b ]
 "188
-[; ;realtimeclock.c: 188:     RealTimeClock_write_byte(0xdc);
-[e ( _RealTimeClock_write_byte (1 -> -> 220 `i `uc ]
+[; ;realtimeclock.c: 188:     RB5 = 1;
+[e = _RB5 -> -> 1 `i `b ]
 "189
-[; ;realtimeclock.c: 189:     RealTimeClock_write_byte(__int_to_hex(year));
-[e ( _RealTimeClock_write_byte (1 ( ___int_to_hex (1 _year ]
+[; ;realtimeclock.c: 189:     RealTimeClock_write_byte(0x8c);
+[e ( _RealTimeClock_write_byte (1 -> -> 140 `i `uc ]
 "190
-[; ;realtimeclock.c: 190:     RB5 = 0;
-[e = _RB5 -> -> 0 `i `b ]
+[; ;realtimeclock.c: 190:     RealTimeClock_write_byte(__int_to_hex(year));
+[e ( _RealTimeClock_write_byte (1 ( ___int_to_hex (1 _year ]
 "191
-[; ;realtimeclock.c: 191: }
+[; ;realtimeclock.c: 191:     RB5 = 0;
+[e = _RB5 -> -> 0 `i `b ]
+"192
+[; ;realtimeclock.c: 192: }
 [e :UE 139 ]
+}
+"194
+[; ;realtimeclock.c: 194: void RealTimeClock_set_hours_digital(unsigned char set) {
+[v _RealTimeClock_set_hours_digital `(v ~T0 @X0 1 ef1`uc ]
+{
+[e :U _RealTimeClock_set_hours_digital ]
+[v _set `uc ~T0 @X0 1 r1 ]
+[f ]
+"195
+[; ;realtimeclock.c: 195:     unsigned char hours;
+[v _hours `uc ~T0 @X0 1 a ]
+"196
+[; ;realtimeclock.c: 196:     RB5 = 1;
+[e = _RB5 -> -> 1 `i `b ]
+"197
+[; ;realtimeclock.c: 197:     RealTimeClock_write_byte(0x85);
+[e ( _RealTimeClock_write_byte (1 -> -> 133 `i `uc ]
+"198
+[; ;realtimeclock.c: 198:     hours = RealTimeClock_read_byte();
+[e = _hours ( _RealTimeClock_read_byte ..  ]
+"199
+[; ;realtimeclock.c: 199:     RB5 = 0;
+[e = _RB5 -> -> 0 `i `b ]
+"201
+[; ;realtimeclock.c: 201:     if(set) {
+[e $ ! != -> _set `i -> 0 `i 141  ]
+{
+"203
+[; ;realtimeclock.c: 203:         if(hours&0x40) {
+[e $ ! != & -> _hours `i -> 64 `i -> 0 `i 142  ]
+{
+"204
+[; ;realtimeclock.c: 204:         hours |= 0x70;
+[e =| _hours -> -> 112 `i `uc ]
+"206
+[; ;realtimeclock.c: 206:             if(hours&0x10) {
+[e $ ! != & -> _hours `i -> 16 `i -> 0 `i 143  ]
+{
+"207
+[; ;realtimeclock.c: 207:                 hours += 12;
+[e =+ _hours -> -> 12 `i `uc ]
+"208
+[; ;realtimeclock.c: 208:                 if(hours == 24)
+[e $ ! == -> _hours `i -> 24 `i 144  ]
+"209
+[; ;realtimeclock.c: 209:                     hours = 0;
+[e = _hours -> -> 0 `i `uc ]
+[e :U 144 ]
+"210
+[; ;realtimeclock.c: 210:             }
+}
+[e $U 145  ]
+"212
+[; ;realtimeclock.c: 212:             else {
+[e :U 143 ]
+{
+"213
+[; ;realtimeclock.c: 213:                 if(hours == 12)
+[e $ ! == -> _hours `i -> 12 `i 146  ]
+"214
+[; ;realtimeclock.c: 214:                     hours = 12;
+[e = _hours -> -> 12 `i `uc ]
+[e :U 146 ]
+"215
+[; ;realtimeclock.c: 215:             }
+}
+[e :U 145 ]
+"216
+[; ;realtimeclock.c: 216:         }
+}
+[e $U 147  ]
+"218
+[; ;realtimeclock.c: 218:         else {
+[e :U 142 ]
+{
+"219
+[; ;realtimeclock.c: 219:             return;
+[e $UE 140  ]
+"220
+[; ;realtimeclock.c: 220:         }
+}
+[e :U 147 ]
+"221
+[; ;realtimeclock.c: 221:     }
+}
+[e $U 148  ]
+"223
+[; ;realtimeclock.c: 223:     else {
+[e :U 141 ]
+{
+"225
+[; ;realtimeclock.c: 225:         if(hours&0x40) {
+[e $ ! != & -> _hours `i -> 64 `i -> 0 `i 149  ]
+{
+"226
+[; ;realtimeclock.c: 226:             return;
+[e $UE 140  ]
+"227
+[; ;realtimeclock.c: 227:         }
+}
+[e $U 150  ]
+"229
+[; ;realtimeclock.c: 229:         else {
+[e :U 149 ]
+{
+"231
+[; ;realtimeclock.c: 231:             if(hours > 12) {
+[e $ ! > -> _hours `i -> 12 `i 151  ]
+{
+"232
+[; ;realtimeclock.c: 232:                 hours -= 12;
+[e =- _hours -> -> 12 `i `uc ]
+"233
+[; ;realtimeclock.c: 233:             }
+}
+[e $U 152  ]
+"235
+[; ;realtimeclock.c: 235:             else {
+[e :U 151 ]
+{
+"236
+[; ;realtimeclock.c: 236:                 if (!hours)
+[e $ ! ! != -> _hours `i -> 0 `i 153  ]
+"237
+[; ;realtimeclock.c: 237:                     hours = 12;
+[e = _hours -> -> 12 `i `uc ]
+[e :U 153 ]
+"238
+[; ;realtimeclock.c: 238:             }
+}
+[e :U 152 ]
+"239
+[; ;realtimeclock.c: 239:             hours |= 0x50;
+[e =| _hours -> -> 80 `i `uc ]
+"240
+[; ;realtimeclock.c: 240:         }
+}
+[e :U 150 ]
+"241
+[; ;realtimeclock.c: 241:     }
+}
+[e :U 148 ]
+"242
+[; ;realtimeclock.c: 242:     RB5 = 1;
+[e = _RB5 -> -> 1 `i `b ]
+"243
+[; ;realtimeclock.c: 243:     RealTimeClock_write_byte(0x84);
+[e ( _RealTimeClock_write_byte (1 -> -> 132 `i `uc ]
+"244
+[; ;realtimeclock.c: 244:     RealTimeClock_write_byte(hours);
+[e ( _RealTimeClock_write_byte (1 _hours ]
+"245
+[; ;realtimeclock.c: 245:     RB5 = 0;
+[e = _RB5 -> -> 0 `i `b ]
+"246
+[; ;realtimeclock.c: 246: }
+[e :UE 140 ]
+}
+"248
+[; ;realtimeclock.c: 248: char RealTimeClock_get_hours_digital(void) {
+[v _RealTimeClock_get_hours_digital `(uc ~T0 @X0 1 ef ]
+{
+[e :U _RealTimeClock_get_hours_digital ]
+[f ]
+"249
+[; ;realtimeclock.c: 249:     RB5 = 1;
+[e = _RB5 -> -> 1 `i `b ]
+"250
+[; ;realtimeclock.c: 250:     RealTimeClock_write_byte(0x85);
+[e ( _RealTimeClock_write_byte (1 -> -> 133 `i `uc ]
+"251
+[; ;realtimeclock.c: 251:     unsigned char hours = RealTimeClock_read_byte();
+[v _hours `uc ~T0 @X0 1 a ]
+[e = _hours ( _RealTimeClock_read_byte ..  ]
+"252
+[; ;realtimeclock.c: 252:     if(hours&0x40)
+[e $ ! != & -> _hours `i -> 64 `i -> 0 `i 155  ]
+"253
+[; ;realtimeclock.c: 253:         return 0;
+[e ) -> -> 0 `i `uc ]
+[e $UE 154  ]
+[e :U 155 ]
+"254
+[; ;realtimeclock.c: 254:     return 1;
+[e ) -> -> 1 `i `uc ]
+[e $UE 154  ]
+"255
+[; ;realtimeclock.c: 255: }
+[e :UE 154 ]
 }

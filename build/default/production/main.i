@@ -1806,6 +1806,9 @@ void RealTimeClock_set_day_of_week(int day);
 
 int RealTimeClock_get_year(void);
 void RealTimeClock_set_year(int year);
+
+void RealTimeClock_set_hours_digital(unsigned char set);
+char RealTimeClock_get_hours_digital(void);
 # 12 "main.c" 2
 
 # 1 "./Buzzer.h" 1
@@ -1844,17 +1847,15 @@ int* timeBuffer;
 char tempBuffer[6] = {'0', '0', '0', '0', '0', '\0'};
 
 char timeDisplayer[9] = {'0', '0', ':', '0', '0', '.','0', '0', '\0'};
-
 char dateDisplayer[9] = {'0', '0', '/', '0', '0', '/', '0', '0', '\0'};
+
 int timeHours, timeMins, timeSecs;
+
+int month, day, year;
 
 int previousTemp[3] = {0,0,0};
 
-int triggerTemp[2] = {28, 0};
-
-int triggerTempChange[2] = {0, 0};
-
-int start_date[8] = {59,42,14,8,2,2,19,0};
+int triggerTemp[2] = {20, 0};
 
 
 void Main_Delay(int k)
@@ -1891,19 +1892,20 @@ void DisplayTime()
 void DisplayDate(void)
 {
 
-    int month = RealTimeClock_get_month();
-    int day = RealTimeClock_get_day_of_month();
-    int year = RealTimeClock_get_year();
+    month = RealTimeClock_get_month();
+    day = RealTimeClock_get_day_of_month();
+    year = RealTimeClock_get_year();
 
-    dateDisplayer[1] = month % 10 + 48;
+    dateDisplayer[4] = month % 10 + 48;
     month /= 10;
-    dateDisplayer[0] = month % 10 + 48;
-    dateDisplayer[3] = day % 10 + 48;
+    dateDisplayer[3] = month % 10 + 48;
+    dateDisplayer[1] = day % 10 + 48;
     day /= 10;
-    dateDisplayer[4] = day % 10 + 48;
+    dateDisplayer[0] = day % 10 + 48;
     dateDisplayer[7] = year % 10 + 48;
     year /= 10;
     dateDisplayer[6] = year % 10 + 48;
+    LCD_SendString(dateDisplayer);
 }
 
 
@@ -1986,6 +1988,8 @@ void ChangeTrigger(char Key)
     LCD_Command(0x01);
 
     int i = 0;
+
+    int triggerTempChange[2] = {0, 0};
     char* Trigger = "Trigger:";
     char* TriggerSet = "Trigger Set";
     while(1)
@@ -2099,120 +2103,18 @@ void SwapToHeatingDisplay(int Key)
 }
 
 
-void HeatingControlOff(int Key, int temp, int temp2, int temp3)
-{
-
-    DisableAlarm = 1;
-    SoundOff();
-    char* Off = "Heating Off";
-    char* On = "Heating On";
-
-    LCD_Command(0x01);
-
-    LCD_Command(0x03);
-
-    LCD_SendString(Off);
-
-    Main_Delay(200);
-
-    LCD_Command(0x01);
-    while(1)
-    {
-        LCD_Command(0x03);
-
-        MainScreen();
-        Key = Keypad_Scan();
-
-        if(Key == 1)
-        {
-           ChangeTrigger(Key);
-        }
-
-        if(Key == 7)
-        {
-            SwapToHeatingDisplay(Key);
-        }
-
-        Get_Temp(tempBuffer);
-
-        temp = tempBuffer[0] - 48;
-        temp2 = tempBuffer[1] - 48;
-        temp3 = (temp* 10) + temp2;
-
-        if(triggerTemp[0] > temp3)
-        {
-            LCD_Command(0x01);
-            LCD_Command(0x03);
-            LCD_SendString(On);
-
-
-            Main_Delay(200);
-            LCD_Command(0x01);
-
-            IsHeatingOn = 1;
-
-            DisableAlarm = 0;
-            break;
-        }
-    }
-}
-
-
-void SoundAlarm(int Key, int temp, int temp2, int temp3)
-{
-
-    char* Alarm = "Heating Failure";
-    DisableAlarm = 0;
-    LCD_Command(0x01);
-    while(1)
-    {
-        LCD_Command(0x03);
-        LCD_SendString(Alarm);
-
-        SoundOn();
-
-        Get_Temp(tempBuffer);
-        temp = tempBuffer[0] - 48;
-        temp2 = tempBuffer[1] - 48;
-        temp3 = (temp* 10) + temp2;
-        Key = Keypad_Scan();
-
-        if(Key == 1)
-        {
-            ChangeTrigger(Key);
-        }
-
-        if(Key == 7)
-        {
-            SwapToHeatingDisplay(Key);
-        }
-
-        if(Key == 5)
-        {
-            DisableAlarm = 1;
-            SoundOff();
-            LCD_Command(0x01);
-            break;
-        }
-
-        if(temp3 > triggerTemp[0])
-        {
-            LCD_Command(0x01);
-            HeatingControlOff(Key, temp, temp2, temp3);
-            break;
-        }
-    }
-}
-
-
 void Switch24Hour(int Key)
 {
     LCD_Command(0x01);
-    char c = is24Hour % 10;
+    char* c;
+    if(is24Hour == 1)
+    {
+        c = "24 Hour is on";
+    }
     while(1)
     {
         LCD_Command(0x03);
-        LCD_SendData(c);
+        LCD_SendString(c);
         if (Key == 8)
         {
             LCD_Command(0x01);
@@ -2226,7 +2128,7 @@ void DateDayScreen(int Key)
 {
     LCD_Command(0x01);
     char* date = ("Date: ");
-    char* day = ("Day: ");
+    char* DayDis = ("Day: ");
     while(1)
     {
         Key = Keypad_Scan();
@@ -2234,7 +2136,7 @@ void DateDayScreen(int Key)
         LCD_SendString(date);
         DisplayDate();
         LCD_SecondLine();
-        LCD_SendString(day);
+        LCD_SendString(DayDis);
         DisplayDay();
         if (Key == 1)
         {
@@ -2259,8 +2161,6 @@ void SetTime(int Key)
     LCD_Command(0x01);
 
     int i = 0;
-
-    int hour, min, sec;
     char* Time = "Time:";
     char* TimeSet = "Time Set";
 
@@ -2375,18 +2275,18 @@ void SetTime(int Key)
         }
 
 
-        hour = setTime[0];
-        min = setTime[1];
-        sec = setTime[2];
-        digits[1] = hour % 10 + 48;
-        hour /= 10;
-        digits[0] = hour % 10 + 48;
-        digits[4] = min % 10 + 48;
-        min /= 10;
-        digits[3] = min % 10 + 48;
-        digits[7] = sec % 10 + 48;
-        sec /= 10;
-        digits[6] = sec % 10 + 48;
+        timeHours = setTime[0];
+        timeMins = setTime[1];
+        timeSecs = setTime[2];
+        digits[1] = timeHours % 10 + 48;
+        timeHours /= 10;
+        digits[0] = timeHours % 10 + 48;
+        digits[4] = timeMins % 10 + 48;
+        timeMins /= 10;
+        digits[3] = timeMins % 10 + 48;
+        digits[7] = timeSecs % 10 + 48;
+        timeSecs /= 10;
+        digits[6] = timeSecs % 10 + 48;
         LCD_SendString(digits);
     }
 }
@@ -2427,88 +2327,242 @@ void SetDate(int Key)
 
     LCD_Command(0x01);
     int i = 0;
-    char* Day = ("Day:");
-    char* Date = ("Date:");
+    int thirty = 0;
+    int thirtyOne = 0;
+    int feb = 0;
+    char* DateDis = ("Date:");
     char* DateSet = ("Date/Day Set");
-    char* Monday = ("Mon");
-    char* Tuesday = ("Tue");
-    char* Wednesday = ("Wed");
-    char* Thursday = ("Thu");
-    char* Friday = ("Fri");
-    char* Saturday = ("Sat");
-    char* Sunday = ("Sun");
-    int dayInt;
-    dayInt = RealTimeClock_get_day_of_week();
+    char Date[9] = {'0', '0', '/', '0', '0', '/', '0', '0', '\0'};
+    int dateArray[3];
+
+    month = RealTimeClock_get_month();
+    day = RealTimeClock_get_day_of_month();
+    year = RealTimeClock_get_year();
+    dateArray[0] = day;
+    dateArray[1] = month;
+    dateArray[2] = year;
     while(1)
     {
         LCD_Command(0x03);
-        LCD_SendString(Date);
+        LCD_SendString(DateDis);
+        if(dateArray[1] == 2)
+        {
+            feb = 1;
+            thirty = 0;
+            thirtyOne = 0;
+            if(dateArray[0] == 31 || dateArray[0] == 30)
+                dateArray[0] = 28;
+        }
+        else if(dateArray[1] == 4 || dateArray[1] == 6 || dateArray[1] == 9 || dateArray[1] == 11)
+        {
+            feb = 0;
+            thirty = 1;
+            thirtyOne = 0;
+            if(dateArray[0] == 31)
+                dateArray[0] = 30;
+        }
+        else
+        {
+            feb = 0;
+            thirty = 0;
+            thirtyOne = 1;
+        }
+
         Key = Keypad_Scan();
         if(Key == 13)
         {
             LCD_Command(0x01);
             LCD_Command(0x03);
 
+            RealTimeClock_set_year(dateArray[2]);
+            RealTimeClock_set_month(dateArray[1]);
+            RealTimeClock_set_day_of_month(dateArray[0]);
+
+            RealTimeClock_set_day_of_week(day_of_week);
+
             CheckDay();
-
-            day_of_week = dayInt;
-
-            RealTimeClock_set_day_of_week(dayInt);
 
             LCD_SendString(DateSet);
             Main_Delay(200);
             LCD_Command(0x01);
             break;
         }
-        switch(Key)
+        if(Key == 14)
         {
-            case 14:
-                break;
-            case 15:
-                if(i == 0)
-                {
-                    if(dayInt == 1)
-                        dayInt = 7;
-                    else
-                        dayInt = dayInt - 1;
-                }
-                break;
-            case 16:
-                if(i == 0)
-                {
-                    if(dayInt == 7)
-                        dayInt = 1;
-                    else
-                        dayInt = dayInt + 1;
-                }
-                break;
+            if (i == 2)
+                i = 0;
+            else
+                i++;
         }
-        LCD_SecondLine();
-        LCD_SendString(Day);
-        switch(dayInt)
+        if(Key == 15)
         {
-            case 1:
-                LCD_SendString(Monday);
-                break;
-            case 2:
-                LCD_SendString(Tuesday);
-                break;
-            case 3:
-                LCD_SendString(Wednesday);
-                break;
-            case 4:
-                LCD_SendString(Thursday);
-                break;
-            case 5:
-                LCD_SendString(Friday);
-                break;
-            case 6:
-                LCD_SendString(Saturday);
-                break;
-            case 7:
-                LCD_SendString(Sunday);
-                break;
+            if (i == 0)
+            {
+                if (thirtyOne == 1)
+                {
+                    if (dateArray[i] == 1)
+                    {
+                        dateArray[i] = 31;
+                        if (day_of_week == 1)
+                            day_of_week = 7;
+                        else
+                            day_of_week = day_of_week - 1;
+                    }
+                    else
+                    {
+                        dateArray[i] = dateArray[i] - 1;
+                        if (day_of_week == 1)
+                            day_of_week = 7;
+                        else
+                            day_of_week = day_of_week - 1;
+                    }
+                }
+                else if (thirty == 1)
+                {
+                    if (dateArray[i] == 1) {
+                        dateArray[i] = 30;
+                        if (day_of_week == 1)
+                            day_of_week = 7;
+                        else
+                            day_of_week = day_of_week - 1;
+                    } else {
+                        dateArray[i] = dateArray[i] - 1;
+                        if (day_of_week == 1)
+                            day_of_week = 7;
+                        else
+                            day_of_week = day_of_week - 1;
+                    }
+                }
+                else
+                {
+                    if (dateArray[i] == 1)
+                    {
+                        dateArray[i] = 28;
+                        if (day_of_week == 1)
+                            day_of_week = 7;
+                        else
+                            day_of_week = day_of_week - 1;
+                    }
+                    else
+                    {
+                        dateArray[i] = dateArray[i] - 1;
+                        if (day_of_week == 1)
+                            day_of_week = 7;
+                        else
+                            day_of_week = day_of_week - 1;
+                    }
+                }
+            }
+            if (i == 1)
+            {
+                if (dateArray[i] == 1)
+                {
+                    dateArray[i] = 12;
+                }
+                else
+                    dateArray[i] = dateArray[i] - 1;
+            }
+            if (i == 2)
+            {
+                if (dateArray[i] == 0)
+                {
+                    dateArray[i] = 99;
+                }
+                else
+                    dateArray[i] = dateArray[i] - 1;
+            }
         }
+        if(Key == 16)
+        {
+            if (i == 0)
+            {
+                if (thirtyOne == 1)
+                {
+                    if (dateArray[i] == 31)
+                    {
+                        dateArray[i] = 1;
+                        if (day_of_week == 7)
+                            day_of_week = 1;
+                        else
+                            day_of_week = day_of_week + 1;
+                    }
+                    else
+                    {
+                        dateArray[i] = dateArray[i] + 1;
+                        if (day_of_week == 7)
+                            day_of_week = 1;
+                        else
+                            day_of_week = day_of_week + 1;
+                    }
+                }
+                else if (thirty == 1)
+                {
+                    if (dateArray[i] == 30)
+                    {
+                        dateArray[i] = 1;
+                        if (day_of_week == 7)
+                            day_of_week = 1;
+                        else
+                            day_of_week = day_of_week + 1;
+                    }
+                    else
+                    {
+                        dateArray[i] = dateArray[i] + 1;
+                        if (day_of_week == 7)
+                            day_of_week = 1;
+                        else
+                            day_of_week = day_of_week + 1;
+                    }
+                }
+                else
+                {
+                    if (dateArray[i] == 28)
+                    {
+                        dateArray[i] = 1;
+                        if (day_of_week == 7)
+                            day_of_week = 1;
+                        else
+                            day_of_week = day_of_week + 1;
+                    }
+                    else
+                    {
+                        dateArray[i] = dateArray[i] + 1;
+                        if (day_of_week == 7)
+                            day_of_week = 1;
+                        else
+                            day_of_week = day_of_week + 1;
+                    }
+                }
+            }
+            if (i == 1)
+            {
+                if (dateArray[i] == 12)
+                {
+                    dateArray[i] = 1;
+                } else
+                    dateArray[i] = dateArray[i] + 1;
+            }
+            if (i == 2) {
+                if (dateArray[i] == 99)
+                {
+                    dateArray[i] = 0;
+                } else
+                    dateArray[i] = dateArray[i] + 1;
+            }
+        }
+        month = dateArray[1];
+        day = dateArray[0];
+        year = dateArray[2];
+        Date[1] = day % 10 + 48;
+        day /= 10;
+        Date[0] = day % 10 + 48;
+        Date[4] = month % 10 + 48;
+        month /= 10;
+        Date[3] = month % 10 + 48;
+        Date[7] = year % 10 + 48;
+        year /= 10;
+        Date[6] = year % 10 + 48;
+        LCD_SendString(Date);
     }
 }
 
@@ -2559,6 +2613,144 @@ void CheckTime(void)
 }
 
 
+void HeatingControlOff(int Key, int temp, int temp2, int temp3)
+{
+
+    DisableAlarm = 1;
+    SoundOff();
+    char* Off = "Heating Off";
+    char* On = "Heating On";
+
+    LCD_Command(0x01);
+
+    LCD_Command(0x03);
+
+    LCD_SendString(Off);
+
+    Main_Delay(200);
+
+    LCD_Command(0x01);
+    while(1)
+    {
+        LCD_Command(0x03);
+
+        MainScreen();
+        Key = Keypad_Scan();
+
+        if (Key == 1) {
+            ChangeTrigger(Key);
+        }
+
+        if (Key == 6) {
+            DateDayScreen(Key);
+        }
+
+        if (Key == 7) {
+            SwapToHeatingDisplay(Key);
+        }
+
+        if (Key == 9) {
+            SetTime(Key);
+        }
+
+        if(Key == 8)
+        {
+            Switch24Hour(Key);
+        }
+
+        if(Key == 13)
+        {
+            SetDate(Key);
+        }
+
+        Get_Temp(tempBuffer);
+
+        temp = tempBuffer[0] - 48;
+        temp2 = tempBuffer[1] - 48;
+        temp3 = (temp* 10) + temp2;
+
+        if(triggerTemp[0] > temp3)
+        {
+            LCD_Command(0x01);
+            LCD_Command(0x03);
+            LCD_SendString(On);
+
+
+            Main_Delay(200);
+            LCD_Command(0x01);
+
+            IsHeatingOn = 1;
+
+            DisableAlarm = 0;
+            break;
+        }
+    }
+}
+
+
+void SoundAlarm(int Key, int temp, int temp2, int temp3)
+{
+
+    char* Alarm = "Heating Failure";
+    DisableAlarm = 0;
+    LCD_Command(0x01);
+    while(1)
+    {
+        LCD_Command(0x03);
+        LCD_SendString(Alarm);
+
+        SoundOn();
+
+        Get_Temp(tempBuffer);
+        temp = tempBuffer[0] - 48;
+        temp2 = tempBuffer[1] - 48;
+        temp3 = (temp* 10) + temp2;
+        Key = Keypad_Scan();
+
+        if (Key == 1) {
+            ChangeTrigger(Key);
+        }
+
+        if (Key == 6) {
+            DateDayScreen(Key);
+        }
+
+        if (Key == 7) {
+            SwapToHeatingDisplay(Key);
+        }
+
+        if (Key == 9) {
+            SetTime(Key);
+        }
+
+        if(Key == 8)
+        {
+            Switch24Hour(Key);
+        }
+
+        if(Key == 13)
+        {
+            SetDate(Key);
+        }
+
+        if(Key == 5)
+        {
+            DisableAlarm = 1;
+            SoundOff();
+            LCD_Command(0x01);
+            break;
+        }
+
+        if(temp3 > triggerTemp[0])
+        {
+            LCD_Command(0x01);
+            HeatingControlOff(Key, temp, temp2, temp3);
+            break;
+        }
+    }
+}
+
+
 
 
 
@@ -2571,6 +2763,8 @@ void main() {
     Thermometer_Init();
     RealTimeClock_init();
 
+    int start_date[8] = {0,0,12,1,1,5,10,0};
+    RealTimeClock_set_burst_time(start_date);
 
 
     Buzzer_Init();

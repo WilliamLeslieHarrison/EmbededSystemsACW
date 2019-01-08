@@ -1758,6 +1758,9 @@ void RealTimeClock_set_day_of_week(int day);
 
 int RealTimeClock_get_year(void);
 void RealTimeClock_set_year(int year);
+
+void RealTimeClock_set_hours_digital(unsigned char set);
+char RealTimeClock_get_hours_digital(void);
 # 2 "realtimeclock.c" 2
 
 
@@ -1933,6 +1936,7 @@ void RealTimeClock_set_month(int month) {
     RB5 = 1;
     RealTimeClock_write_byte(0x88);
     RealTimeClock_write_byte(__int_to_hex(month));
+    RB5 = 0;
 }
 
 
@@ -1945,7 +1949,70 @@ void RealTimeClock_set_day_of_week(int day) {
 
 void RealTimeClock_set_year(int year) {
     RB5 = 1;
-    RealTimeClock_write_byte(0xdc);
+    RealTimeClock_write_byte(0x8c);
     RealTimeClock_write_byte(__int_to_hex(year));
     RB5 = 0;
+}
+
+void RealTimeClock_set_hours_digital(unsigned char set) {
+    unsigned char hours;
+    RB5 = 1;
+    RealTimeClock_write_byte(0x85);
+    hours = RealTimeClock_read_byte();
+    RB5 = 0;
+
+    if(set) {
+
+        if(hours&0x40) {
+        hours |= 0x70;
+
+            if(hours&0x10) {
+                hours += 12;
+                if(hours == 24)
+                    hours = 0;
+            }
+
+            else {
+                if(hours == 12)
+                    hours = 12;
+            }
+        }
+
+        else {
+            return;
+        }
+    }
+
+    else {
+
+        if(hours&0x40) {
+            return;
+        }
+
+        else {
+
+            if(hours > 12) {
+                hours -= 12;
+            }
+
+            else {
+                if (!hours)
+                    hours = 12;
+            }
+            hours |= 0x50;
+        }
+    }
+    RB5 = 1;
+    RealTimeClock_write_byte(0x84);
+    RealTimeClock_write_byte(hours);
+    RB5 = 0;
+}
+
+char RealTimeClock_get_hours_digital(void) {
+    RB5 = 1;
+    RealTimeClock_write_byte(0x85);
+    unsigned char hours = RealTimeClock_read_byte();
+    if(hours&0x40)
+        return 0;
+    return 1;
 }

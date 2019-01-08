@@ -236,7 +236,7 @@ void RealTimeClock_set_hours_digital(unsigned char set) {
                 if (!hours)
                     hours = 12;
             }
-            hours =| 0x50;
+            hours |= 0x50;
         }
     }
     rst = 1;
