@@ -32,7 +32,7 @@ int RealTimeClock_get_seconds(void);
 void RealTimeClock_set_seconds(int seconds);
 
 int RealTimeClock_get_minutes(void);
-int RealTimeClock_set_minutes(int minutes);
+void RealTimeClock_set_minutes(int minutes);
 
 int RealTimeClock_get_hours(void);
 void RealTimeClock_set_hours(int hours);

@@ -20,7 +20,10 @@ int TEST_GETTING_TEMP(void)
 int TEST_KEYPAD_SCAN(void)
 {
     int test = Keypad_Scan();
-    
+    if(test == 17)
+		return ERROR_TEST;
+		
+	return OK_TEST;
     
 }
 

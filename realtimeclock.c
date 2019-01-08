@@ -133,7 +133,7 @@ int RealTimeClock_get_day_of_week(void) {
     return __hex_to_int(c);
 }
 
-int RealTimClock_get_year(void) {
+int RealTimeClock_get_year(void) {
     rst = 1;
     RealTimeClock_write_byte(0x8d);
     unsigned char c = RealTimeClock_read_byte();
@@ -148,9 +148,25 @@ void RealTimeClock_set_seconds(int seconds) {
     rst = 0;   
 }
 
+void RealTimeClock_set_minutes(int minutes) {
+    rst = 1;
+    RealTimeClock_write_byte(0x82);
+    RealTimeClock_write_byte(__int_to_hex(minutes));
+    rst = 0;   
+}
+
+void RealTimeClock_set_hours(int hours) {
+    rst = 1;
+    RealTimeClock_write_byte(0x84);
+    RealTimeClock_write_byte(__int_to_hex(hours));
+    rst = 0;   
+}
+
 void RealTimeClock_set_day_of_month(int day) {
     rst = 1;
     RealTimeClock_write_byte(0x86);
     RealTimeClock_write_byte(__int_to_hex(day));
     rst = 0;
 }
+
+
