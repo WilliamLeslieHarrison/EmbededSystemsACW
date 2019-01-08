@@ -26,11 +26,13 @@ programming)*/
 //disabled
 int IsHeatingOn;
 int DisableAlarm;
+int* timeBuffer;
 //Buffer for the temperature
 char tempBuffer[6] = {'0', '0', '0', '0', '0', '\0'};
 //Buffer for the time to be displayed
 char timeDisplayer[9] = {'0', '0', ':', '0', '0', '.','0', '0', '\0'};
 //int timeBuffer[7] = {0, 0, 0, 0, 0, 0, 0};
+char dateDisplayer[9] = {'0', '0', '/', '0', '0', '/', '0', '0', '\0'};
 int timeHours, timeMins, timeSecs;
 //Last saved temp for checking if it is decreasing
 int previousTemp[3] = {0,0,0};
@@ -38,6 +40,8 @@ int previousTemp[3] = {0,0,0};
 int triggerTemp[2] = {28, 0};
 //The new trigger to be changed by user
 int triggerTempChange[2] = {0, 0};
+//set the starting date
+int start_date[8] = {30,59,23,2,2,2,3,0};
 
 //Delay within the main code
 void Main_Delay(int k)
@@ -57,28 +61,58 @@ void DisplayTime()
     //This gets the minutes
     int min = timeBuffer[1];
     //This gets the hour
-    int hour = timeBuffer[2];*/
-    timeMins = RealTimeClock_get_minutes();
+    int hour = timeBuffer[2];
+    
+    timeDisplayer[1] = hour % 10 + 48;
+    hour /= 10;
+    timeDisplayer[0] = hour % 10 + 48;
+    timeDisplayer[4] = min % 10 + 48;
+    min /= 10;
+    timeDisplayer[3] = min % 10 + 48;
+    timeDisplayer[7] = sec % 10 + 48;
+    sec /= 10;
+    timeDisplayer[6] = sec % 10 + 48;*/
+    
     timeSecs = RealTimeClock_get_seconds();
-    //This gets the last digit and sets it into the end of the char array
-    timeDisplayer[6] = timeSecs % 10 + 48;
-    timeSecs /= 10;
-    timeDisplayer[5] = timeSecs % 10 + 48;
+    timeMins = RealTimeClock_get_minutes();
+    timeHours = RealTimeClock_get_hours();
+    
+    timeDisplayer[1] = timeHours % 10 + 48;
+    timeHours /= 10;
+    timeDisplayer[0] = timeHours % 10 + 48;
+    
     timeDisplayer[4] = timeMins % 10 + 48;
     timeMins /= 10;
     timeDisplayer[3] = timeMins % 10 + 48;
-    LCD_SendData(timeDisplayer[3]);
-    LCD_Busy();
-    LCD_SendData(timeDisplayer[4]);
-    LCD_Busy();
-    LCD_SendData(timeDisplayer[5]);
-    LCD_Busy();
-    LCD_SendData(timeDisplayer[6]);
+    
+    timeDisplayer[7] = timeSecs % 10 + 48;
+    timeSecs /= 10;
+    timeDisplayer[6] = timeSecs % 10 + 48;
+    
+    LCD_SendString(timeDisplayer);
 }
 
 //Displaying the date which will be on another screen
 void DisplayDate(int* dateBuffer)
 {
+    
+    int month = RealTimeClock_get_month();
+    int day = RealTimeClock_get_day_of_month();
+    int year = RealTimeClock_get_year();
+    int day_week = RealTimeClock_get_day_of_week();
+    
+    dateDisplayer[1] = month % 10 + 48;
+    month /= 10;
+    dateDisplayer[0] = month % 10 + 48;
+    dateDisplayer[3] = day % 10 + 48;
+    day /= 10;
+    dateDisplayer[4] = day % 10 + 48;
+    dateDisplayer[7] = year % 10 + 48;
+    year /= 10;
+    dateDisplayer[6] = year % 10 + 48;
+    LCD_Command(0x14);
+    if(day_week == 2)
+        LCD_SendString("Tuesday\0");
     
 }
 
@@ -110,12 +144,13 @@ void MainScreen(void)
     DisplayTime();
     //Jump to second line of the LCD
     LCD_SecondLine();
+    LCD_SendString(dateDisplayer);
     //Send a string to show that this next set of numbers are the temperature
-    LCD_SendString(Temp);    
+    //LCD_SendString(Temp);    
     //Display the current temperature
-    DisplayTemp(tempBuffer);    
+    //DisplayTemp(tempBuffer);    
     //Move the cursor along by one
-    LCD_Command(0x14);
+    //LCD_Command(0x14);
 }
 
 //This will allow the user to change the trigger temp
@@ -367,6 +402,9 @@ void main() {
     Init_Keypad();
     Thermometer_Init();
     RealTimeClock_init();
+    RealTimeClock_set_burst_time(start_date);
+    RealTimeClock_set_seconds(1);
+    RealTimeClock_set_day_of_month(2);
     Buzzer_Init();
     int Key = 0;
     DisableAlarm = 0;
@@ -383,63 +421,57 @@ void main() {
     SoundOff();
     Main_Delay(100);
     while(1)
-    {    
-    //Each time the loop starts LCD will set back to home
-    LCD_Command(0x03);    
-    //To allow for checking the temperature against the trigger I am converting
-    //the characters of the temp array to some integers
-    temp = tempBuffer[0] - 48;
-    temp2 = tempBuffer[1] - 48;    
-    temp3 = (temp* 10) + temp2;    
-    previousTemp[0] = temp3;
-    //Setting the first decimal place of the temperature to an int for more
-    //accurate checking
-    tempdec = tempBuffer[2];
-    tempdectenth = tempBuffer[3];
-    previousTemp[1] = tempdec;
-    previousTemp[2] = tempdectenth;
-    //Sets Key to the button that has been pressed or to 0 if none have been pressed
-    Key = Keypad_Scan();    
-    MainScreen();
-    //To allow for checking the temperature against the trigger I am converting
-    //the characters of the temp array to some integers
-    temp = tempBuffer[0] - 48;
-    temp2 = tempBuffer[1] - 48;    
-    temp3 = (temp* 10) + temp2;  
-    //Setting the first decimal place of the temperature to an int for more
-    //accurate checking
-    tempdec = tempBuffer[3];
-    tempdectenth = tempBuffer[4];
-    //If the first button (the one for changing the trigger) is pressed
-    if(Key == 1)
     {
-        ChangeTrigger(Key);
-    }
-    //Switch to the date and day screen
-    if(Key == 6)
-    {
-        
-    }
-    //Switches to the screen that can tell the user if the heating display has been set
-    if(Key == 7)
-    {
-        SwapToHeatingDisplay(Key);
-    }
-    //If the 9th button is pressed this will go into set the date function
-    if(Key == 9)
-    {
-        
-    }
-    //If the current temp is equal to the whole number of the trigger temp set heating off
-    if(temp3 >= triggerTemp[0])
-    {        
-        IsHeatingOn = 0;        
-        HeatingControlOff(Key, temp, temp2, temp3);
-    }
-    if(temp3 <= triggerTemp[0] && temp3 < previousTemp[0] && IsHeatingOn == 1 && DisableAlarm == 0)
-    {        
-       SoundAlarm(Key, temp, temp2, temp3);
-    }
-    //If time is outside of the time needed for heating to be on then turn off
+        //Each time the loop starts LCD will set back to home
+        LCD_Command(0x03);
+        //To allow for checking the temperature against the trigger I am converting
+        //the characters of the temp array to some integers
+        temp = tempBuffer[0] - 48;
+        temp2 = tempBuffer[1] - 48;
+        temp3 = (temp * 10) + temp2;
+        previousTemp[0] = temp3;
+        //Setting the first decimal place of the temperature to an int for more
+        //accurate checking
+        tempdec = tempBuffer[2];
+        tempdectenth = tempBuffer[3];
+        previousTemp[1] = tempdec;
+        previousTemp[2] = tempdectenth;
+        //Sets Key to the button that has been pressed or to 0 if none have been pressed
+        Key = Keypad_Scan();
+        MainScreen();
+        //To allow for checking the temperature against the trigger I am converting
+        //the characters of the temp array to some integers
+        temp = tempBuffer[0] - 48;
+        temp2 = tempBuffer[1] - 48;
+        temp3 = (temp * 10) + temp2;
+        //Setting the first decimal place of the temperature to an int for more
+        //accurate checking
+        tempdec = tempBuffer[3];
+        tempdectenth = tempBuffer[4];
+        //If the first button (the one for changing the trigger) is pressed
+        if (Key == 1) {
+            ChangeTrigger(Key);
+        }
+        //Switch to the date and day screen
+        if (Key == 6) {
+
+        }
+        //Switches to the screen that can tell the user if the heating display has been set
+        if (Key == 7) {
+            SwapToHeatingDisplay(Key);
+        }
+        //If the 9th button is pressed this will go into set the date function
+        if (Key == 9) {
+
+        }
+        //If the current temp is equal to the whole number of the trigger temp set heating off
+        if (temp3 >= triggerTemp[0]) {
+            IsHeatingOn = 0;
+            HeatingControlOff(Key, temp, temp2, temp3);
+        }
+        if (temp3 <= triggerTemp[0] && temp3 < previousTemp[0] && IsHeatingOn == 1 && DisableAlarm == 0) {
+            SoundAlarm(Key, temp, temp2, temp3);
+        }
+        //If time is outside of the time needed for heating to be on then turn off
     }
 }           
