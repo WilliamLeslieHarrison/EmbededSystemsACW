@@ -1,32 +1,83 @@
 Version 4.0 HI-TECH Software Intermediate Code
-"22 ./realtimeclock.h
-[; ;./realtimeclock.h: 22: void RealTimeClock_get_time(unsigned char* time);
-[v _RealTimeClock_get_time `(v ~T0 @X0 0 ef1`*uc ]
+"31 ./realtimeclock.h
+[; ;./realtimeclock.h: 31: int RealTimeClock_get_seconds(void);
+[v _RealTimeClock_get_seconds `(i ~T0 @X0 0 ef ]
+"34
+[; ;./realtimeclock.h: 34: int RealTimeClock_get_minutes(void);
+[v _RealTimeClock_get_minutes `(i ~T0 @X0 0 ef ]
+"37
+[; ;./realtimeclock.h: 37: int RealTimeClock_get_hours(void);
+[v _RealTimeClock_get_hours `(i ~T0 @X0 0 ef ]
+"29 ./LCD.h
+[; ;./LCD.h: 29: void LCD_SendString(const char *string);
+[v _LCD_SendString `(v ~T0 @X0 0 ef1`*Cuc ]
+"43 ./realtimeclock.h
+[; ;./realtimeclock.h: 43: int RealTimeClock_get_month(void);
+[v _RealTimeClock_get_month `(i ~T0 @X0 0 ef ]
+"40
+[; ;./realtimeclock.h: 40: int RealTimeClock_get_day_of_month(void);
+[v _RealTimeClock_get_day_of_month `(i ~T0 @X0 0 ef ]
+"49
+[; ;./realtimeclock.h: 49: int RealTimeClock_get_year(void);
+[v _RealTimeClock_get_year `(i ~T0 @X0 0 ef ]
+"46
+[; ;./realtimeclock.h: 46: int RealTimeClock_get_day_of_week(void);
+[v _RealTimeClock_get_day_of_week `(i ~T0 @X0 0 ef ]
+"31 ./Thermometer.h
+[; ;./Thermometer.h: 31: void Get_Temp(char* buffer);
+[v _Get_Temp `(v ~T0 @X0 0 ef1`*uc ]
+"27 ./LCD.h
+[; ;./LCD.h: 27: void LCD_SendData(unsigned char c);
+[v _LCD_SendData `(v ~T0 @X0 0 ef1`uc ]
+"19
+[; ;./LCD.h: 19: void LCD_Busy(void);
+[v _LCD_Busy `(v ~T0 @X0 0 ef ]
+"25
+[; ;./LCD.h: 25: void LCD_SecondLine(void);
+[v _LCD_SecondLine `(v ~T0 @X0 0 ef ]
+"23
+[; ;./LCD.h: 23: void LCD_Command(unsigned char c);
+[v _LCD_Command `(v ~T0 @X0 0 ef1`uc ]
+"25 ./KeyMatrix.h
+[; ;./KeyMatrix.h: 25: int Keypad_Scan(void);
+[v _Keypad_Scan `(i ~T0 @X0 0 ef ]
+"17 ./Buzzer.h
+[; ;./Buzzer.h: 17: void SoundOff(void);
+[v _SoundOff `(v ~T0 @X0 0 ef ]
+"15
+[; ;./Buzzer.h: 15: void SoundOn(void);
+[v _SoundOn `(v ~T0 @X0 0 ef ]
+"38 ./realtimeclock.h
+[; ;./realtimeclock.h: 38: void RealTimeClock_set_hours(int hours);
+[v _RealTimeClock_set_hours `(v ~T0 @X0 0 ef1`i ]
+"35
+[; ;./realtimeclock.h: 35: void RealTimeClock_set_minutes(int minutes);
+[v _RealTimeClock_set_minutes `(v ~T0 @X0 0 ef1`i ]
+"32
+[; ;./realtimeclock.h: 32: void RealTimeClock_set_seconds(int seconds);
+[v _RealTimeClock_set_seconds `(v ~T0 @X0 0 ef1`i ]
+"47
+[; ;./realtimeclock.h: 47: void RealTimeClock_set_day_of_week(int day);
+[v _RealTimeClock_set_day_of_week `(v ~T0 @X0 0 ef1`i ]
 [p mainexit ]
-"12 ./Buzzer.h
-[; ;./Buzzer.h: 12: void Init_Buzzer(char* Port);
-[v _Init_Buzzer `(v ~T0 @X0 0 ef1`*uc ]
-"216 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f877a.h
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f877a.h: 216: extern volatile unsigned char PORTB __attribute__((address(0x006)));
-[v _PORTB `Vuc ~T0 @X0 0 e@6 ]
-"1375
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f877a.h: 1375: extern volatile unsigned char TRISB __attribute__((address(0x086)));
-[v _TRISB `Vuc ~T0 @X0 0 e@134 ]
 "21 ./LCD.h
 [; ;./LCD.h: 21: void LCD_Init(void);
 [v _LCD_Init `(v ~T0 @X0 0 ef ]
 "23 ./KeyMatrix.h
 [; ;./KeyMatrix.h: 23: void Init_Keypad(void);
 [v _Init_Keypad `(v ~T0 @X0 0 ef ]
-"23 ./realtimeclock.h
-[; ;./realtimeclock.h: 23: void RealTimeClock_init(void);
+"23 ./Thermometer.h
+[; ;./Thermometer.h: 23: void Thermometer_Init(void);
+[v _Thermometer_Init `(v ~T0 @X0 0 ef ]
+"29 ./realtimeclock.h
+[; ;./realtimeclock.h: 29: void RealTimeClock_init(void);
 [v _RealTimeClock_init `(v ~T0 @X0 0 ef ]
-"23 ./LCD.h
-[; ;./LCD.h: 23: void LCD_Command(unsigned char c);
-[v _LCD_Command `(v ~T0 @X0 0 ef1`uc ]
-"29
-[; ;./LCD.h: 29: void LCD_SendString(const char *string);
-[v _LCD_SendString `(v ~T0 @X0 0 ef1`*Cuc ]
+"25
+[; ;./realtimeclock.h: 25: void RealTimeClock_set_burst_time(int* time);
+[v _RealTimeClock_set_burst_time `(v ~T0 @X0 0 ef1`*i ]
+"13 ./Buzzer.h
+[; ;./Buzzer.h: 13: void Buzzer_Init(void);
+[v _Buzzer_Init `(v ~T0 @X0 0 ef ]
 "54 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f877a.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f877a.h: 54: __asm("INDF equ 00h");
 [; <" INDF equ 00h ;# ">
@@ -207,104 +258,2436 @@ Version 4.0 HI-TECH Software Intermediate Code
 "2363
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f877a.h: 2363: __asm("EECON2 equ 018Dh");
 [; <" EECON2 equ 018Dh ;# ">
+"17 ./realtimeclock.h
+[; ;./realtimeclock.h: 17: int __RealTimeClock_buff[7];
+[v ___RealTimeClock_buff `i ~T0 @X0 -> 7 `i e ]
 "16 main.c
-[; ;main.c: 16:     Init_Keypad();
+[; ;main.c: 16: char tempBuffer[6] = {'0', '0', '0', '0', '0', '\0'};
 [p x FOSC = HS ]
 "17
-[; ;main.c: 17:     RealTimeClock_init();
+[; ;main.c: 17: 
 [p x WDTE = OFF ]
 "18
-[; ;main.c: 18:     char test[3];
+[; ;main.c: 18: char timeDisplayer[9] = {'0', '0', ':', '0', '0', '.','0', '0', '\0'};
 [p x PWRTE = ON ]
 "19
-[; ;main.c: 19:     test[2] = '\0';
+[; ;main.c: 19: 
 [p x BOREN = OFF ]
 "20
-[; ;main.c: 20:     char Key = 'n';
+[; ;main.c: 20: char dateDisplayer[9] = {'0', '0', '/', '0', '0', '/', '0', '0', '\0'};
 [p x LVP = OFF ]
-"26
-[; ;main.c: 26:     while(1)
-[v _get_date_time `(v ~T0 @X0 1 ef1`*uc ]
-{
-[e :U _get_date_time ]
-[v _date_time `*uc ~T0 @X0 1 r1 ]
-[f ]
 "27
-[; ;main.c: 27:     {
-[v _time `uc ~T0 @X0 -> 7 `i a ]
+[; ;main.c: 27: int triggerTempChange[2] = {0, 0};
+[v _IsHeatingOn `i ~T0 @X0 1 e ]
 "28
 [; ;main.c: 28: 
-[e ( _RealTimeClock_get_time (1 &U _time ]
+[v _DisableAlarm `i ~T0 @X0 1 e ]
 "29
-[; ;main.c: 29:     LCD_Command(0x03);
-[e = *U + _date_time * -> -> 0 `i `x -> -> # *U _date_time `i `x -> + -> 48 `i -> -> >> & -> *U + &U _time * -> -> -> 0 `i `ui `ux -> -> # *U &U _time `ui `ux `i -> 112 `i -> 4 `i `uc `i `uc ]
+[; ;main.c: 29: int start_date[8] = {59,59,23,31,12,5,99,0};
+[v _day_of_week `i ~T0 @X0 1 e ]
 "30
-[; ;main.c: 30:     LCD_SendString(Date);
-[e = *U + _date_time * -> -> 1 `i `x -> -> # *U _date_time `i `x -> + -> 48 `i -> -> & -> *U + &U _time * -> -> -> 0 `i `ui `ux -> -> # *U &U _time `ui `ux `i -> 15 `i `uc `i `uc ]
+[; ;main.c: 30: 
+[v _isWeekDay `i ~T0 @X0 1 e ]
+"31
+[; ;main.c: 31: 
+[v _is24Hour `i ~T0 @X0 1 e ]
 "32
-[; ;main.c: 32:     get_date_time(test);
+[; ;main.c: 32: void Main_Delay(int k)
+[v _weekDayStart `i ~T0 @X0 -> 2 `i e ]
+[i _weekDayStart
+:U ..
+-> 6 `i
+-> 30 `i
+..
+]
+"33
+[; ;main.c: 33: {
+[v _weekDayEnd `i ~T0 @X0 -> 2 `i e ]
+[i _weekDayEnd
+:U ..
+-> 22 `i
+-> 30 `i
+..
+]
+"34
+[; ;main.c: 34:     int i,j;
+[v _weekEndStart `i ~T0 @X0 -> 2 `i e ]
+[i _weekEndStart
+:U ..
+-> 7 `i
+-> 0 `i
+..
+]
+"35
+[; ;main.c: 35:     for (i= 0; i < k; i++)
+[v _weekEndEnd `i ~T0 @X0 -> 2 `i e ]
+[i _weekEndEnd
+:U ..
+-> 23 `i
+-> 0 `i
+..
+]
+"36
+[; ;main.c: 36:         for(j = 0; j < 100; j++);
+[v _timeBuffer `*i ~T0 @X0 1 e ]
+"38
+[; ;main.c: 38: 
+[v _tempBuffer `uc ~T0 @X0 -> 6 `i e ]
+[i _tempBuffer
+:U ..
+-> -> 48 `ui `uc
+-> -> 48 `ui `uc
+-> -> 48 `ui `uc
+-> -> 48 `ui `uc
+-> -> 48 `ui `uc
+-> -> 0 `ui `uc
+..
+]
+"40
+[; ;main.c: 40: void DisplayTime()
+[v _timeDisplayer `uc ~T0 @X0 -> 9 `i e ]
+[i _timeDisplayer
+:U ..
+-> -> 48 `ui `uc
+-> -> 48 `ui `uc
+-> -> 58 `ui `uc
+-> -> 48 `ui `uc
+-> -> 48 `ui `uc
+-> -> 46 `ui `uc
+-> -> 48 `ui `uc
+-> -> 48 `ui `uc
+-> -> 0 `ui `uc
+..
+]
+"42
+[; ;main.c: 42: 
+[v _dateDisplayer `uc ~T0 @X0 -> 9 `i e ]
+[i _dateDisplayer
+:U ..
+-> -> 48 `ui `uc
+-> -> 48 `ui `uc
+-> -> 47 `ui `uc
+-> -> 48 `ui `uc
+-> -> 48 `ui `uc
+-> -> 47 `ui `uc
+-> -> 48 `ui `uc
+-> -> 48 `ui `uc
+-> -> 0 `ui `uc
+..
+]
+"43
+[; ;main.c: 43:     timeSecs = RealTimeClock_get_seconds();
+[v _timeHours `i ~T0 @X0 1 e ]
+[v _timeMins `i ~T0 @X0 1 e ]
+[v _timeSecs `i ~T0 @X0 1 e ]
+"45
+[; ;main.c: 45:     timeHours = RealTimeClock_get_hours();
+[v _previousTemp `i ~T0 @X0 -> 3 `i e ]
+[i _previousTemp
+:U ..
+-> 0 `i
+-> 0 `i
+-> 0 `i
+..
+]
+"47
+[; ;main.c: 47:     timeDisplayer[1] = timeHours % 10 + 48;
+[v _triggerTemp `i ~T0 @X0 -> 2 `i e ]
+[i _triggerTemp
+:U ..
+-> 28 `i
+-> 0 `i
+..
+]
+"49
+[; ;main.c: 49:     timeDisplayer[0] = timeHours % 10 + 48;
+[v _triggerTempChange `i ~T0 @X0 -> 2 `i e ]
+[i _triggerTempChange
+:U ..
+-> 0 `i
+-> 0 `i
+..
+]
+"51
+[; ;main.c: 51:     timeDisplayer[4] = timeMins % 10 + 48;
+[v _start_date `i ~T0 @X0 -> 8 `i e ]
+[i _start_date
+:U ..
+-> 59 `i
+-> 59 `i
+-> 23 `i
+-> 31 `i
+-> 12 `i
+-> 5 `i
+-> 99 `i
+-> 0 `i
+..
+]
+"54
+[; ;main.c: 54: 
+[v _Main_Delay `(v ~T0 @X0 1 ef1`i ]
+"55
+[; ;main.c: 55:     timeDisplayer[7] = timeSecs % 10 + 48;
+{
+[e :U _Main_Delay ]
+"54
+[; ;main.c: 54: 
+[v _k `i ~T0 @X0 1 r1 ]
+"55
+[; ;main.c: 55:     timeDisplayer[7] = timeSecs % 10 + 48;
+[f ]
+"56
+[; ;main.c: 56:     timeSecs /= 10;
+[v _i `i ~T0 @X0 1 a ]
+[v _j `i ~T0 @X0 1 a ]
+"57
+[; ;main.c: 57:     timeDisplayer[6] = timeSecs % 10 + 48;
+{
+[e = _i -> 0 `i ]
+[e $U 99  ]
+[e :U 96 ]
+"58
+[; ;main.c: 58: 
+{
+[e = _j -> 0 `i ]
+[e $ < _j -> 100 `i 100  ]
+[e $U 101  ]
+[e :U 100 ]
+[e ++ _j -> 1 `i ]
+[e $ < _j -> 100 `i 100  ]
+[e :U 101 ]
+}
+[e ++ _i -> 1 `i ]
+[e :U 99 ]
+[e $ < _i _k 96  ]
+[e :U 97 ]
+}
+"59
+[; ;main.c: 59:     LCD_SendString(timeDisplayer);
 [e :UE 95 ]
 }
+"62
+[; ;main.c: 62: 
+[v _DisplayTime `(v ~T0 @X0 1 ef ]
+"63
+[; ;main.c: 63: void DisplayDate(void)
+{
+[e :U _DisplayTime ]
+[f ]
+"65
+[; ;main.c: 65: 
+[e = _timeSecs ( _RealTimeClock_get_seconds ..  ]
+"66
+[; ;main.c: 66:     int month = RealTimeClock_get_month();
+[e = _timeMins ( _RealTimeClock_get_minutes ..  ]
+"67
+[; ;main.c: 67:     int day = RealTimeClock_get_day_of_month();
+[e = _timeHours ( _RealTimeClock_get_hours ..  ]
+"69
+[; ;main.c: 69: 
+[e = *U + &U _timeDisplayer * -> -> -> 1 `i `ui `ux -> -> # *U &U _timeDisplayer `ui `ux -> + % _timeHours -> 10 `i -> 48 `i `uc ]
+"70
+[; ;main.c: 70:     dateDisplayer[1] = month % 10 + 48;
+[e =/ _timeHours -> 10 `i ]
+"71
+[; ;main.c: 71:     month /= 10;
+[e = *U + &U _timeDisplayer * -> -> -> 0 `i `ui `ux -> -> # *U &U _timeDisplayer `ui `ux -> + % _timeHours -> 10 `i -> 48 `i `uc ]
+"73
+[; ;main.c: 73:     dateDisplayer[3] = day % 10 + 48;
+[e = *U + &U _timeDisplayer * -> -> -> 4 `i `ui `ux -> -> # *U &U _timeDisplayer `ui `ux -> + % _timeMins -> 10 `i -> 48 `i `uc ]
+"74
+[; ;main.c: 74:     day /= 10;
+[e =/ _timeMins -> 10 `i ]
+"75
+[; ;main.c: 75:     dateDisplayer[4] = day % 10 + 48;
+[e = *U + &U _timeDisplayer * -> -> -> 3 `i `ui `ux -> -> # *U &U _timeDisplayer `ui `ux -> + % _timeMins -> 10 `i -> 48 `i `uc ]
+"77
+[; ;main.c: 77:     year /= 10;
+[e = *U + &U _timeDisplayer * -> -> -> 7 `i `ui `ux -> -> # *U &U _timeDisplayer `ui `ux -> + % _timeSecs -> 10 `i -> 48 `i `uc ]
+"78
+[; ;main.c: 78:     dateDisplayer[6] = year % 10 + 48;
+[e =/ _timeSecs -> 10 `i ]
+"79
+[; ;main.c: 79: }
+[e = *U + &U _timeDisplayer * -> -> -> 6 `i `ui `ux -> -> # *U &U _timeDisplayer `ui `ux -> + % _timeSecs -> 10 `i -> 48 `i `uc ]
+"81
+[; ;main.c: 81: 
+[e ( _LCD_SendString (1 -> &U _timeDisplayer `*Cuc ]
+"82
+[; ;main.c: 82: void DisplayDay(void)
+[e :UE 103 ]
+}
+"85
+[; ;main.c: 85:     day_of_week = RealTimeClock_get_day_of_week();
+[v _DisplayDate `(v ~T0 @X0 1 ef ]
+"86
+[; ;main.c: 86:     char* Monday = ("Monday");
+{
+[e :U _DisplayDate ]
+[f ]
+"88
+[; ;main.c: 88:     char* Wednesday = ("Wednesday");
+[v _month `i ~T0 @X0 1 a ]
+[e = _month ( _RealTimeClock_get_month ..  ]
+"89
+[; ;main.c: 89:     char* Thursday = ("Thursday");
+[v _day `i ~T0 @X0 1 a ]
+[e = _day ( _RealTimeClock_get_day_of_month ..  ]
+"90
+[; ;main.c: 90:     char* Friday = ("Friday");
+[v _year `i ~T0 @X0 1 a ]
+[e = _year ( _RealTimeClock_get_year ..  ]
+"92
+[; ;main.c: 92:     char* Sunday = ("Sunday");
+[e = *U + &U _dateDisplayer * -> -> -> 1 `i `ui `ux -> -> # *U &U _dateDisplayer `ui `ux -> + % _month -> 10 `i -> 48 `i `uc ]
+"93
+[; ;main.c: 93: 
+[e =/ _month -> 10 `i ]
+"94
+[; ;main.c: 94:     switch(day_of_week)
+[e = *U + &U _dateDisplayer * -> -> -> 0 `i `ui `ux -> -> # *U &U _dateDisplayer `ui `ux -> + % _month -> 10 `i -> 48 `i `uc ]
+"95
+[; ;main.c: 95:     {
+[e = *U + &U _dateDisplayer * -> -> -> 3 `i `ui `ux -> -> # *U &U _dateDisplayer `ui `ux -> + % _day -> 10 `i -> 48 `i `uc ]
+"96
+[; ;main.c: 96:         case 1:
+[e =/ _day -> 10 `i ]
+"97
+[; ;main.c: 97:             LCD_SendString(Monday);
+[e = *U + &U _dateDisplayer * -> -> -> 4 `i `ui `ux -> -> # *U &U _dateDisplayer `ui `ux -> + % _day -> 10 `i -> 48 `i `uc ]
+"98
+[; ;main.c: 98:             break;
+[e = *U + &U _dateDisplayer * -> -> -> 7 `i `ui `ux -> -> # *U &U _dateDisplayer `ui `ux -> + % _year -> 10 `i -> 48 `i `uc ]
+"99
+[; ;main.c: 99:         case 2:
+[e =/ _year -> 10 `i ]
+"100
+[; ;main.c: 100:             LCD_SendString(Tuesday);
+[e = *U + &U _dateDisplayer * -> -> -> 6 `i `ui `ux -> -> # *U &U _dateDisplayer `ui `ux -> + % _year -> 10 `i -> 48 `i `uc ]
+"101
+[; ;main.c: 101:             break;
+[e :UE 104 ]
+}
+"104
+[; ;main.c: 104:             break;
+[v _DisplayDay `(v ~T0 @X0 1 ef ]
+"105
+[; ;main.c: 105:         case 4:
+{
+[e :U _DisplayDay ]
+[f ]
+"107
+[; ;main.c: 107:             break;
+[e = _day_of_week ( _RealTimeClock_get_day_of_week ..  ]
+"108
+[; ;main.c: 108:         case 5:
+[v _Monday `*uc ~T0 @X0 1 a ]
+[e = _Monday :s 1C ]
+"109
+[; ;main.c: 109:             LCD_SendString(Friday);
+[v _Tuesday `*uc ~T0 @X0 1 a ]
+[e = _Tuesday :s 2C ]
+"110
+[; ;main.c: 110:             break;
+[v _Wednesday `*uc ~T0 @X0 1 a ]
+[e = _Wednesday :s 3C ]
+"111
+[; ;main.c: 111:         case 6:
+[v _Thursday `*uc ~T0 @X0 1 a ]
+[e = _Thursday :s 4C ]
+"112
+[; ;main.c: 112:             LCD_SendString(Saturday);
+[v _Friday `*uc ~T0 @X0 1 a ]
+[e = _Friday :s 5C ]
+"113
+[; ;main.c: 113:             break;
+[v _Saturday `*uc ~T0 @X0 1 a ]
+[e = _Saturday :s 6C ]
+"114
+[; ;main.c: 114:         case 7:
+[v _Sunday `*uc ~T0 @X0 1 a ]
+[e = _Sunday :s 7C ]
+"116
+[; ;main.c: 116:             break;
+[e $U 107  ]
+"117
+[; ;main.c: 117:     }
+{
+"118
+[; ;main.c: 118: }
+[e :U 108 ]
+"119
+[; ;main.c: 119: 
+[e ( _LCD_SendString (1 -> _Monday `*Cuc ]
+"120
+[; ;main.c: 120: 
+[e $U 106  ]
+"121
+[; ;main.c: 121: void DisplayTemp(char* tempBuffer)
+[e :U 109 ]
+"122
+[; ;main.c: 122: {
+[e ( _LCD_SendString (1 -> _Tuesday `*Cuc ]
+"123
+[; ;main.c: 123: 
+[e $U 106  ]
+"124
+[; ;main.c: 124:     Get_Temp(tempBuffer);
+[e :U 110 ]
+"125
+[; ;main.c: 125: 
+[e ( _LCD_SendString (1 -> _Wednesday `*Cuc ]
+"126
+[; ;main.c: 126:     LCD_SendString(tempBuffer);
+[e $U 106  ]
+"127
+[; ;main.c: 127: 
+[e :U 111 ]
+"128
+[; ;main.c: 128:     LCD_SendData(0xDF);
+[e ( _LCD_SendString (1 -> _Thursday `*Cuc ]
+"129
+[; ;main.c: 129:     LCD_Busy();
+[e $U 106  ]
+"130
+[; ;main.c: 130: 
+[e :U 112 ]
+"131
+[; ;main.c: 131:     LCD_SendData('C');
+[e ( _LCD_SendString (1 -> _Friday `*Cuc ]
+"132
+[; ;main.c: 132: }
+[e $U 106  ]
+"133
+[; ;main.c: 133: 
+[e :U 113 ]
+"134
+[; ;main.c: 134: 
+[e ( _LCD_SendString (1 -> _Saturday `*Cuc ]
+"135
+[; ;main.c: 135: void MainScreen(void)
+[e $U 106  ]
+"136
+[; ;main.c: 136: {
+[e :U 114 ]
+"137
+[; ;main.c: 137: 
+[e ( _LCD_SendString (1 -> _Sunday `*Cuc ]
+"138
+[; ;main.c: 138:     char* Time = "Time:";
+[e $U 106  ]
+"139
+[; ;main.c: 139:     char* Temp = "Temp:";
+}
+[e $U 106  ]
+[e :U 107 ]
+[e [\ _day_of_week , $ -> 1 `i 108
+ , $ -> 2 `i 109
+ , $ -> 3 `i 110
+ , $ -> 4 `i 111
+ , $ -> 5 `i 112
+ , $ -> 6 `i 113
+ , $ -> 7 `i 114
+ 106 ]
+[e :U 106 ]
+"140
+[; ;main.c: 140:     LCD_SendString(Time);
+[e :UE 105 ]
+}
+"143
+[; ;main.c: 143: 
+[v _DisplayTemp `(v ~T0 @X0 1 ef1`*uc ]
+"144
+[; ;main.c: 144:     LCD_SecondLine();
+{
+[e :U _DisplayTemp ]
+"143
+[; ;main.c: 143: 
+[v _tempBuffer `*uc ~T0 @X0 1 r1 ]
+"144
+[; ;main.c: 144:     LCD_SecondLine();
+[f ]
+"146
+[; ;main.c: 146: 
+[e ( _Get_Temp (1 _tempBuffer ]
+"148
+[; ;main.c: 148: 
+[e ( _LCD_SendString (1 -> _tempBuffer `*Cuc ]
+"150
+[; ;main.c: 150: 
+[e ( _LCD_SendData (1 -> -> 223 `i `uc ]
+"151
+[; ;main.c: 151: 
+[e ( _LCD_Busy ..  ]
+"153
+[; ;main.c: 153: 
+[e ( _LCD_SendData (1 -> -> 67 `ui `uc ]
+"154
+[; ;main.c: 154: 
+[e :UE 115 ]
+}
+"157
+[; ;main.c: 157: 
+[v _MainScreen `(v ~T0 @X0 1 ef ]
+"158
+[; ;main.c: 158:     LCD_Command(0x01);
+{
+[e :U _MainScreen ]
+[f ]
+"160
+[; ;main.c: 160:     int i = 0;
+[v _Time `*uc ~T0 @X0 1 a ]
+[e = _Time :s 8C ]
+"161
+[; ;main.c: 161:     char* Trigger = "Trigger:";
+[v _Temp `*uc ~T0 @X0 1 a ]
+[e = _Temp :s 9C ]
+"162
+[; ;main.c: 162:     char* TriggerSet = "Trigger Set";
+[e ( _LCD_SendString (1 -> _Time `*Cuc ]
+"164
+[; ;main.c: 164:         {
+[e ( _DisplayTime ..  ]
+"166
+[; ;main.c: 166:             char decimal;
+[e ( _LCD_SecondLine ..  ]
+"169
+[; ;main.c: 169: 
+[e ( _LCD_SendString (1 -> _Temp `*Cuc ]
+"171
+[; ;main.c: 171: 
+[e ( _DisplayTemp (1 &U _tempBuffer ]
+"174
+[; ;main.c: 174:             Key = Keypad_Scan();
+[e :UE 116 ]
+}
+"177
+[; ;main.c: 177:             {
+[v _ChangeTrigger `(v ~T0 @X0 1 ef1`uc ]
+"178
+[; ;main.c: 178:                 LCD_Command(0x01);
+{
+[e :U _ChangeTrigger ]
+"177
+[; ;main.c: 177:             {
+[v _Key `uc ~T0 @X0 1 r1 ]
+"178
+[; ;main.c: 178:                 LCD_Command(0x01);
+[f ]
+"180
+[; ;main.c: 180:                 LCD_SendString(TriggerSet);
+[e ( _LCD_Command (1 -> -> 1 `i `uc ]
+"182
+[; ;main.c: 182:                 LCD_Command(0x01);
+[v _i `i ~T0 @X0 1 a ]
+[e = _i -> 0 `i ]
+"183
+[; ;main.c: 183:                 break;
+[v _Trigger `*uc ~T0 @X0 1 a ]
+[e = _Trigger :s 10C ]
+"184
+[; ;main.c: 184:             }
+[v _TriggerSet `*uc ~T0 @X0 1 a ]
+[e = _TriggerSet :s 11C ]
+"185
+[; ;main.c: 185: 
+[e :U 119 ]
+"186
+[; ;main.c: 186:             switch(Key)
+{
+"188
+[; ;main.c: 188: 
+[v _decimal `uc ~T0 @X0 1 a ]
+"190
+[; ;main.c: 190:                     if(i == 0)
+[v _digits `uc ~T0 @X0 -> 3 `i a ]
+"192
+[; ;main.c: 192:                     else
+[e ( _LCD_Command (1 -> -> 3 `i `uc ]
+"194
+[; ;main.c: 194:                     break;
+[e ( _LCD_SendString (1 -> _Trigger `*Cuc ]
+"196
+[; ;main.c: 196: 
+[e = _Key -> ( _Keypad_Scan ..  `uc ]
+"198
+[; ;main.c: 198:                     {
+[e $ ! == -> _Key `i -> 1 `i 121  ]
+"199
+[; ;main.c: 199:                         triggerTemp[1] = 9;
+{
+"200
+[; ;main.c: 200:                         triggerTemp[0] = triggerTemp[0] - 1;
+[e ( _LCD_Command (1 -> -> 1 `i `uc ]
+"201
+[; ;main.c: 201:                     }
+[e ( _LCD_Command (1 -> -> 3 `i `uc ]
+"202
+[; ;main.c: 202:                     else
+[e ( _LCD_SendString (1 -> _TriggerSet `*Cuc ]
+"203
+[; ;main.c: 203:                         triggerTemp[i] = triggerTemp[i] - 1;
+[e ( _Main_Delay (1 -> 200 `i ]
+"204
+[; ;main.c: 204:                     break;
+[e ( _LCD_Command (1 -> -> 1 `i `uc ]
+"205
+[; ;main.c: 205:                 case 4:
+[e $U 120  ]
+"206
+[; ;main.c: 206: 
+}
+[e :U 121 ]
+"208
+[; ;main.c: 208:                     {
+[e $U 123  ]
+"209
+[; ;main.c: 209:                         triggerTemp[1] = 0;
+{
+"211
+[; ;main.c: 211:                     }
+[e :U 124 ]
+"212
+[; ;main.c: 212:                     else
+[e $ ! == _i -> 0 `i 125  ]
+"213
+[; ;main.c: 213:                         triggerTemp[i] = triggerTemp[i] + 1;
+[e = _i -> 1 `i ]
+[e $U 126  ]
+"214
+[; ;main.c: 214:                     break;
+[e :U 125 ]
+"215
+[; ;main.c: 215:             }
+[e = _i -> 0 `i ]
+[e :U 126 ]
+"216
+[; ;main.c: 216: 
+[e $U 122  ]
+"217
+[; ;main.c: 217:             int i = triggerTemp[0];
+[e :U 127 ]
+"219
+[; ;main.c: 219:             digits[1] = i % 10 + 48;
+[e $ ! && == _i -> 1 `i == *U + &U _triggerTemp * -> -> -> 1 `i `ui `ux -> -> # *U &U _triggerTemp `ui `ux -> 0 `i 128  ]
+"220
+[; ;main.c: 220:             i /= 10;
+{
+"221
+[; ;main.c: 221:             digits[0] = i % 10 + 48;
+[e = *U + &U _triggerTemp * -> -> -> 1 `i `ui `ux -> -> # *U &U _triggerTemp `ui `ux -> 9 `i ]
+"222
+[; ;main.c: 222: 
+[e = *U + &U _triggerTemp * -> -> -> 0 `i `ui `ux -> -> # *U &U _triggerTemp `ui `ux - *U + &U _triggerTemp * -> -> -> 0 `i `ui `ux -> -> # *U &U _triggerTemp `ui `ux -> 1 `i ]
+"223
+[; ;main.c: 223:             digits[2] = '\0';
+}
+[e $U 129  ]
+"224
+[; ;main.c: 224: 
+[e :U 128 ]
+"225
+[; ;main.c: 225:             decimal = triggerTemp[1] + 48;
+[e = *U + &U _triggerTemp * -> -> _i `ui `ux -> -> # *U &U _triggerTemp `ui `ux - *U + &U _triggerTemp * -> -> _i `ui `ux -> -> # *U &U _triggerTemp `ui `ux -> 1 `i ]
+[e :U 129 ]
+"226
+[; ;main.c: 226: 
+[e $U 122  ]
+"227
+[; ;main.c: 227:             LCD_SendString(digits);
+[e :U 130 ]
+"229
+[; ;main.c: 229: 
+[e $ ! && == _i -> 1 `i == *U + &U _triggerTemp * -> -> -> 1 `i `ui `ux -> -> # *U &U _triggerTemp `ui `ux -> 9 `i 131  ]
+"230
+[; ;main.c: 230:             LCD_SendData('.');
+{
+"231
+[; ;main.c: 231:             LCD_Busy();
+[e = *U + &U _triggerTemp * -> -> -> 1 `i `ui `ux -> -> # *U &U _triggerTemp `ui `ux -> 0 `i ]
+"232
+[; ;main.c: 232: 
+[e = *U + &U _triggerTemp * -> -> -> 0 `i `ui `ux -> -> # *U &U _triggerTemp `ui `ux + *U + &U _triggerTemp * -> -> -> 0 `i `ui `ux -> -> # *U &U _triggerTemp `ui `ux -> 1 `i ]
+"233
+[; ;main.c: 233:             LCD_SendData(decimal);
+}
+[e $U 132  ]
+"234
+[; ;main.c: 234:             LCD_Busy();
+[e :U 131 ]
+"235
+[; ;main.c: 235: 
+[e = *U + &U _triggerTemp * -> -> _i `ui `ux -> -> # *U &U _triggerTemp `ui `ux + *U + &U _triggerTemp * -> -> _i `ui `ux -> -> # *U &U _triggerTemp `ui `ux -> 1 `i ]
+[e :U 132 ]
+"236
+[; ;main.c: 236:             LCD_SendData('0');
+[e $U 122  ]
+"237
+[; ;main.c: 237:         }
+}
+[e $U 122  ]
+[e :U 123 ]
+[e [\ -> _Key `i , $ -> 2 `i 124
+ , $ -> 3 `i 127
+ , $ -> 4 `i 130
+ 122 ]
+[e :U 122 ]
+"239
+[; ;main.c: 239: 
+[v _i `i ~T0 @X0 1 a ]
+[e = _i *U + &U _triggerTemp * -> -> -> 0 `i `ui `ux -> -> # *U &U _triggerTemp `ui `ux ]
+"241
+[; ;main.c: 241: void SwapToHeatingDisplay(int Key)
+[e = *U + &U _digits * -> -> -> 1 `i `ui `ux -> -> # *U &U _digits `ui `ux -> + % _i -> 10 `i -> 48 `i `uc ]
+"242
+[; ;main.c: 242: {
+[e =/ _i -> 10 `i ]
+"243
+[; ;main.c: 243:     char* Heat = "Heating:";
+[e = *U + &U _digits * -> -> -> 0 `i `ui `ux -> -> # *U &U _digits `ui `ux -> + % _i -> 10 `i -> 48 `i `uc ]
+"245
+[; ;main.c: 245:     LCD_Command(0x01);
+[e = *U + &U _digits * -> -> -> 2 `i `ui `ux -> -> # *U &U _digits `ui `ux -> -> 0 `ui `uc ]
+"247
+[; ;main.c: 247:     char* Off = "Off";
+[e = _decimal -> + *U + &U _triggerTemp * -> -> -> 1 `i `ui `ux -> -> # *U &U _triggerTemp `ui `ux -> 48 `i `uc ]
+"249
+[; ;main.c: 249:     {
+[e ( _LCD_SendString (1 -> &U _digits `*Cuc ]
+"250
+[; ;main.c: 250: 
+[e ( _LCD_Busy ..  ]
+"252
+[; ;main.c: 252:         if(Key == 7)
+[e ( _LCD_SendData (1 -> -> 46 `ui `uc ]
+"253
+[; ;main.c: 253:         {
+[e ( _LCD_Busy ..  ]
+"255
+[; ;main.c: 255:             break;
+[e ( _LCD_SendData (1 -> _decimal `uc ]
+"256
+[; ;main.c: 256:         }
+[e ( _LCD_Busy ..  ]
+"258
+[; ;main.c: 258:         LCD_SendString(Heat);
+[e ( _LCD_SendData (1 -> -> 48 `ui `uc ]
+"259
+[; ;main.c: 259: 
+}
+[e :U 118 ]
+[e $U 119  ]
+[e :U 120 ]
+"260
+[; ;main.c: 260:         if(IsHeatingOn == 1)
+[e :UE 117 ]
+}
+"263
+[; ;main.c: 263:             LCD_SendString(On);
+[v _SwapToHeatingDisplay `(v ~T0 @X0 1 ef1`i ]
+"264
+[; ;main.c: 264:         }
+{
+[e :U _SwapToHeatingDisplay ]
+"263
+[; ;main.c: 263:             LCD_SendString(On);
+[v _Key `i ~T0 @X0 1 r1 ]
+"264
+[; ;main.c: 264:         }
+[f ]
+"265
+[; ;main.c: 265:         else if(IsHeatingOn == 0)
+[v _Heat `*uc ~T0 @X0 1 a ]
+[e = _Heat :s 12C ]
+"267
+[; ;main.c: 267:             LCD_Command(0x14);
+[e ( _LCD_Command (1 -> -> 1 `i `uc ]
+"268
+[; ;main.c: 268:             LCD_SendString(Off);
+[v _On `*uc ~T0 @X0 1 a ]
+[e = _On :s 13C ]
+"269
+[; ;main.c: 269:         }
+[v _Off `*uc ~T0 @X0 1 a ]
+[e = _Off :s 14C ]
+"270
+[; ;main.c: 270:     }
+[e :U 135 ]
+"271
+[; ;main.c: 271: }
+{
+"273
+[; ;main.c: 273: 
+[e = _Key ( _Keypad_Scan ..  ]
+"274
+[; ;main.c: 274: void HeatingControlOff(int Key, int temp, int temp2, int temp3)
+[e $ ! == _Key -> 7 `i 137  ]
+"275
+[; ;main.c: 275: {
+{
+"276
+[; ;main.c: 276: 
+[e ( _LCD_Command (1 -> -> 1 `i `uc ]
+"277
+[; ;main.c: 277:     DisableAlarm = 1;
+[e $U 136  ]
+"278
+[; ;main.c: 278:     SoundOff();
+}
+[e :U 137 ]
+"279
+[; ;main.c: 279:     char* Off = "Heating Off";
+[e ( _LCD_Command (1 -> -> 3 `i `uc ]
+"280
+[; ;main.c: 280:     char* On = "Heating On";
+[e ( _LCD_SendString (1 -> _Heat `*Cuc ]
+"282
+[; ;main.c: 282:     LCD_Command(0x01);
+[e $ ! == _IsHeatingOn -> 1 `i 138  ]
+"283
+[; ;main.c: 283: 
+{
+"284
+[; ;main.c: 284:     LCD_Command(0x03);
+[e ( _LCD_Command (1 -> -> 20 `i `uc ]
+"285
+[; ;main.c: 285: 
+[e ( _LCD_SendString (1 -> _On `*Cuc ]
+"286
+[; ;main.c: 286:     LCD_SendString(Off);
+}
+[e $U 139  ]
+"287
+[; ;main.c: 287: 
+[e :U 138 ]
+[e $ ! == _IsHeatingOn -> 0 `i 140  ]
+"288
+[; ;main.c: 288:     Main_Delay(200);
+{
+"289
+[; ;main.c: 289: 
+[e ( _LCD_Command (1 -> -> 20 `i `uc ]
+"290
+[; ;main.c: 290:     LCD_Command(0x01);
+[e ( _LCD_SendString (1 -> _Off `*Cuc ]
+"291
+[; ;main.c: 291:     while(1)
+}
+[e :U 140 ]
+[e :U 139 ]
+"292
+[; ;main.c: 292:     {
+}
+[e :U 134 ]
+[e $U 135  ]
+[e :U 136 ]
+"293
+[; ;main.c: 293:         LCD_Command(0x03);
+[e :UE 133 ]
+}
+"296
+[; ;main.c: 296:         Key = Keypad_Scan();
+[v _HeatingControlOff `(v ~T0 @X0 1 ef4`i`i`i`i ]
+"297
+[; ;main.c: 297: 
+{
+[e :U _HeatingControlOff ]
+"296
+[; ;main.c: 296:         Key = Keypad_Scan();
+[v _Key `i ~T0 @X0 1 r1 ]
+[v _temp `i ~T0 @X0 1 r2 ]
+[v _temp2 `i ~T0 @X0 1 r3 ]
+[v _temp3 `i ~T0 @X0 1 r4 ]
+"297
+[; ;main.c: 297: 
+[f ]
+"299
+[; ;main.c: 299:         {
+[e = _DisableAlarm -> 1 `i ]
+"300
+[; ;main.c: 300:            ChangeTrigger(Key);
+[e ( _SoundOff ..  ]
+"301
+[; ;main.c: 301:         }
+[v _Off `*uc ~T0 @X0 1 a ]
+[e = _Off :s 15C ]
+"302
+[; ;main.c: 302: 
+[v _On `*uc ~T0 @X0 1 a ]
+[e = _On :s 16C ]
+"304
+[; ;main.c: 304:         {
+[e ( _LCD_Command (1 -> -> 1 `i `uc ]
+"306
+[; ;main.c: 306:         }
+[e ( _LCD_Command (1 -> -> 3 `i `uc ]
+"308
+[; ;main.c: 308:         Get_Temp(tempBuffer);
+[e ( _LCD_SendString (1 -> _Off `*Cuc ]
+"310
+[; ;main.c: 310:         temp = tempBuffer[0] - 48;
+[e ( _Main_Delay (1 -> 200 `i ]
+"312
+[; ;main.c: 312:         temp3 = (temp* 10) + temp2;
+[e ( _LCD_Command (1 -> -> 1 `i `uc ]
+"313
+[; ;main.c: 313: 
+[e :U 143 ]
+"314
+[; ;main.c: 314:         if(triggerTemp[0] > temp3)
+{
+"315
+[; ;main.c: 315:         {
+[e ( _LCD_Command (1 -> -> 3 `i `uc ]
+"317
+[; ;main.c: 317:             LCD_Command(0x03);
+[e ( _MainScreen ..  ]
+"318
+[; ;main.c: 318:             LCD_SendString(On);
+[e = _Key ( _Keypad_Scan ..  ]
+"320
+[; ;main.c: 320: 
+[e $ ! == _Key -> 1 `i 145  ]
+"321
+[; ;main.c: 321:             Main_Delay(200);
+{
+"322
+[; ;main.c: 322:             LCD_Command(0x01);
+[e ( _ChangeTrigger (1 -> _Key `uc ]
+"323
+[; ;main.c: 323: 
+}
+[e :U 145 ]
+"325
+[; ;main.c: 325: 
+[e $ ! == _Key -> 7 `i 146  ]
+"326
+[; ;main.c: 326:             DisableAlarm = 0;
+{
+"327
+[; ;main.c: 327:             break;
+[e ( _SwapToHeatingDisplay (1 _Key ]
+"328
+[; ;main.c: 328:         }
+}
+[e :U 146 ]
+"330
+[; ;main.c: 330: }
+[e ( _Get_Temp (1 &U _tempBuffer ]
+"332
+[; ;main.c: 332: 
+[e = _temp - -> *U + &U _tempBuffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _tempBuffer `ui `ux `i -> 48 `i ]
+"333
+[; ;main.c: 333: void SoundAlarm(int Key, int temp, int temp2, int temp3)
+[e = _temp2 - -> *U + &U _tempBuffer * -> -> -> 1 `i `ui `ux -> -> # *U &U _tempBuffer `ui `ux `i -> 48 `i ]
+"334
+[; ;main.c: 334: {
+[e = _temp3 + * _temp -> 10 `i _temp2 ]
+"336
+[; ;main.c: 336:     char* Alarm = "Heating Failure";
+[e $ ! > *U + &U _triggerTemp * -> -> -> 0 `i `ui `ux -> -> # *U &U _triggerTemp `ui `ux _temp3 147  ]
+"337
+[; ;main.c: 337:     DisableAlarm = 0;
+{
+"338
+[; ;main.c: 338:     LCD_Command(0x01);
+[e ( _LCD_Command (1 -> -> 1 `i `uc ]
+"339
+[; ;main.c: 339:     while(1)
+[e ( _LCD_Command (1 -> -> 3 `i `uc ]
+"340
+[; ;main.c: 340:     {
+[e ( _LCD_SendString (1 -> _On `*Cuc ]
+"343
+[; ;main.c: 343: 
+[e ( _Main_Delay (1 -> 200 `i ]
+"344
+[; ;main.c: 344:         SoundOn();
+[e ( _LCD_Command (1 -> -> 1 `i `uc ]
+"346
+[; ;main.c: 346:         Get_Temp(tempBuffer);
+[e = _IsHeatingOn -> 1 `i ]
+"348
+[; ;main.c: 348:         temp2 = tempBuffer[1] - 48;
+[e = _DisableAlarm -> 0 `i ]
+"349
+[; ;main.c: 349:         temp3 = (temp* 10) + temp2;
+[e $U 144  ]
+"350
+[; ;main.c: 350:         Key = Keypad_Scan();
+}
+[e :U 147 ]
+"351
+[; ;main.c: 351: 
+}
+[e :U 142 ]
+[e $U 143  ]
+[e :U 144 ]
+"352
+[; ;main.c: 352:         if(Key == 1)
+[e :UE 141 ]
+}
+"355
+[; ;main.c: 355:         }
+[v _SoundAlarm `(v ~T0 @X0 1 ef4`i`i`i`i ]
+"356
+[; ;main.c: 356: 
+{
+[e :U _SoundAlarm ]
+"355
+[; ;main.c: 355:         }
+[v _Key `i ~T0 @X0 1 r1 ]
+[v _temp `i ~T0 @X0 1 r2 ]
+[v _temp2 `i ~T0 @X0 1 r3 ]
+[v _temp3 `i ~T0 @X0 1 r4 ]
+"356
+[; ;main.c: 356: 
+[f ]
+"358
+[; ;main.c: 358:         {
+[v _Alarm `*uc ~T0 @X0 1 a ]
+[e = _Alarm :s 17C ]
+"359
+[; ;main.c: 359:             SwapToHeatingDisplay(Key);
+[e = _DisableAlarm -> 0 `i ]
+"360
+[; ;main.c: 360:         }
+[e ( _LCD_Command (1 -> -> 1 `i `uc ]
+"361
+[; ;main.c: 361: 
+[e :U 150 ]
+"362
+[; ;main.c: 362:         if(Key == 5)
+{
+"363
+[; ;main.c: 363:         {
+[e ( _LCD_Command (1 -> -> 3 `i `uc ]
+"364
+[; ;main.c: 364:             DisableAlarm = 1;
+[e ( _LCD_SendString (1 -> _Alarm `*Cuc ]
+"366
+[; ;main.c: 366:             LCD_Command(0x01);
+[e ( _SoundOn ..  ]
+"368
+[; ;main.c: 368:         }
+[e ( _Get_Temp (1 &U _tempBuffer ]
+"369
+[; ;main.c: 369: 
+[e = _temp - -> *U + &U _tempBuffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _tempBuffer `ui `ux `i -> 48 `i ]
+"370
+[; ;main.c: 370:         if(temp3 > triggerTemp[0])
+[e = _temp2 - -> *U + &U _tempBuffer * -> -> -> 1 `i `ui `ux -> -> # *U &U _tempBuffer `ui `ux `i -> 48 `i ]
+"371
+[; ;main.c: 371:         {
+[e = _temp3 + * _temp -> 10 `i _temp2 ]
+"372
+[; ;main.c: 372:             LCD_Command(0x01);
+[e = _Key ( _Keypad_Scan ..  ]
+"374
+[; ;main.c: 374:             break;
+[e $ ! == _Key -> 1 `i 152  ]
+"375
+[; ;main.c: 375:         }
+{
+"376
+[; ;main.c: 376:     }
+[e ( _ChangeTrigger (1 -> _Key `uc ]
+"377
+[; ;main.c: 377: }
+}
+[e :U 152 ]
+"379
+[; ;main.c: 379: 
+[e $ ! == _Key -> 7 `i 153  ]
+"380
+[; ;main.c: 380: void Switch24Hour(int Key)
+{
+"381
+[; ;main.c: 381: {
+[e ( _SwapToHeatingDisplay (1 _Key ]
+"382
+[; ;main.c: 382:     LCD_Command(0x01);
+}
+[e :U 153 ]
+"384
+[; ;main.c: 384:     while(1)
+[e $ ! == _Key -> 5 `i 154  ]
+"385
+[; ;main.c: 385:     {
+{
+"386
+[; ;main.c: 386:         LCD_Command(0x03);
+[e = _DisableAlarm -> 1 `i ]
+"387
+[; ;main.c: 387:         LCD_SendData(c);
+[e ( _SoundOff ..  ]
+"388
+[; ;main.c: 388:         if (Key == 8)
+[e ( _LCD_Command (1 -> -> 1 `i `uc ]
+"389
+[; ;main.c: 389:         {
+[e $U 151  ]
+"390
+[; ;main.c: 390:             LCD_Command(0x01);
+}
+[e :U 154 ]
+"392
+[; ;main.c: 392:         }
+[e $ ! > _temp3 *U + &U _triggerTemp * -> -> -> 0 `i `ui `ux -> -> # *U &U _triggerTemp `ui `ux 155  ]
+"393
+[; ;main.c: 393:     }
+{
+"394
+[; ;main.c: 394: }
+[e ( _LCD_Command (1 -> -> 1 `i `uc ]
+"395
+[; ;main.c: 395: 
+[e ( _HeatingControlOff (4 , , , _Key _temp _temp2 _temp3 ]
+"396
+[; ;main.c: 396: 
+[e $U 151  ]
+"397
+[; ;main.c: 397: void DateDayScreen(int Key)
+}
+[e :U 155 ]
+"398
+[; ;main.c: 398: {
+}
+[e :U 149 ]
+[e $U 150  ]
+[e :U 151 ]
+"399
+[; ;main.c: 399:     LCD_Command(0x01);
+[e :UE 148 ]
+}
+"402
+[; ;main.c: 402:     while(1)
+[v _Switch24Hour `(v ~T0 @X0 1 ef1`i ]
+"403
+[; ;main.c: 403:     {
+{
+[e :U _Switch24Hour ]
+"402
+[; ;main.c: 402:     while(1)
+[v _Key `i ~T0 @X0 1 r1 ]
+"403
+[; ;main.c: 403:     {
+[f ]
+"404
+[; ;main.c: 404:         Key = Keypad_Scan();
+[e ( _LCD_Command (1 -> -> 1 `i `uc ]
+"405
+[; ;main.c: 405:         LCD_Command(0x03);
+[v _c `uc ~T0 @X0 1 a ]
+[e = _c -> % _is24Hour -> 10 `i `uc ]
+"406
+[; ;main.c: 406:         LCD_SendString(date);
+[e :U 158 ]
+"407
+[; ;main.c: 407:         DisplayDate();
+{
+"408
+[; ;main.c: 408:         LCD_SecondLine();
+[e ( _LCD_Command (1 -> -> 3 `i `uc ]
+"409
+[; ;main.c: 409:         LCD_SendString(day);
+[e ( _LCD_SendData (1 -> _c `uc ]
+"410
+[; ;main.c: 410:         DisplayDay();
+[e $ ! == _Key -> 8 `i 160  ]
+"411
+[; ;main.c: 411:         if (Key == 1)
+{
+"412
+[; ;main.c: 412:         {
+[e ( _LCD_Command (1 -> -> 1 `i `uc ]
+"413
+[; ;main.c: 413:             ChangeTrigger(Key);
+[e $U 159  ]
+"414
+[; ;main.c: 414:         }
+}
+[e :U 160 ]
+"415
+[; ;main.c: 415:         if (Key == 6)
+}
+[e :U 157 ]
+[e $U 158  ]
+[e :U 159 ]
+"416
+[; ;main.c: 416:         {
+[e :UE 156 ]
+}
+"419
+[; ;main.c: 419:         }
+[v _DateDayScreen `(v ~T0 @X0 1 ef1`i ]
+"420
+[; ;main.c: 420:         if (Key == 7)
+{
+[e :U _DateDayScreen ]
+"419
+[; ;main.c: 419:         }
+[v _Key `i ~T0 @X0 1 r1 ]
+"420
+[; ;main.c: 420:         if (Key == 7)
+[f ]
+"421
+[; ;main.c: 421:         {
+[e ( _LCD_Command (1 -> -> 1 `i `uc ]
+"422
+[; ;main.c: 422:             SwapToHeatingDisplay(Key);
+[v _date `*uc ~T0 @X0 1 a ]
+[e = _date :s 18C ]
+"423
+[; ;main.c: 423:         }
+[v _day `*uc ~T0 @X0 1 a ]
+[e = _day :s 19C ]
+"424
+[; ;main.c: 424:     }
+[e :U 163 ]
+"425
+[; ;main.c: 425: }
+{
+"426
+[; ;main.c: 426: 
+[e = _Key ( _Keypad_Scan ..  ]
+"427
+[; ;main.c: 427: 
+[e ( _LCD_Command (1 -> -> 3 `i `uc ]
+"428
+[; ;main.c: 428: void SetTime(int Key)
+[e ( _LCD_SendString (1 -> _date `*Cuc ]
+"429
+[; ;main.c: 429: {
+[e ( _DisplayDate ..  ]
+"430
+[; ;main.c: 430: 
+[e ( _LCD_SecondLine ..  ]
+"431
+[; ;main.c: 431:     LCD_Command(0x01);
+[e ( _LCD_SendString (1 -> _day `*Cuc ]
+"432
+[; ;main.c: 432: 
+[e ( _DisplayDay ..  ]
+"433
+[; ;main.c: 433:     int i = 0;
+[e $ ! == _Key -> 1 `i 165  ]
+"434
+[; ;main.c: 434: 
+{
+"435
+[; ;main.c: 435:     int hour, min, sec;
+[e ( _ChangeTrigger (1 -> _Key `uc ]
+"436
+[; ;main.c: 436:     char* Time = "Time:";
+}
+[e :U 165 ]
+"437
+[; ;main.c: 437:     char* TimeSet = "Time Set";
+[e $ ! == _Key -> 6 `i 166  ]
+"438
+[; ;main.c: 438: 
+{
+"439
+[; ;main.c: 439:     timeSecs = RealTimeClock_get_seconds();
+[e ( _LCD_Command (1 -> -> 1 `i `uc ]
+"440
+[; ;main.c: 440:     timeMins = RealTimeClock_get_minutes();
+[e $U 164  ]
+"441
+[; ;main.c: 441:     timeHours = RealTimeClock_get_hours();
+}
+[e :U 166 ]
+"442
+[; ;main.c: 442: 
+[e $ ! == _Key -> 7 `i 167  ]
+"443
+[; ;main.c: 443:     int setTime[3];
+{
+"444
+[; ;main.c: 444:     setTime[0] = timeHours;
+[e ( _SwapToHeatingDisplay (1 _Key ]
+"445
+[; ;main.c: 445:     setTime[1] = timeMins;
+}
+[e :U 167 ]
+"446
+[; ;main.c: 446:     setTime[2] = timeSecs;
+}
+[e :U 162 ]
+[e $U 163  ]
+[e :U 164 ]
+"447
+[; ;main.c: 447:     while(1)
+[e :UE 161 ]
+}
+"450
+[; ;main.c: 450:         char digits[9] = {'0', '0', ':', '0', '0', '.', '0', '0', '\0'};
+[v _SetTime `(v ~T0 @X0 1 ef1`i ]
+"451
+[; ;main.c: 451: 
+{
+[e :U _SetTime ]
+"450
+[; ;main.c: 450:         char digits[9] = {'0', '0', ':', '0', '0', '.', '0', '0', '\0'};
+[v _Key `i ~T0 @X0 1 r1 ]
+"451
+[; ;main.c: 451: 
+[f ]
+"453
+[; ;main.c: 453:         LCD_SendString(Time);
+[e ( _LCD_Command (1 -> -> 1 `i `uc ]
+"455
+[; ;main.c: 455:         Key = Keypad_Scan();
+[v _i `i ~T0 @X0 1 a ]
+[e = _i -> 0 `i ]
+"457
+[; ;main.c: 457:         if(Key == 9)
+[v _hour `i ~T0 @X0 1 a ]
+[v _min `i ~T0 @X0 1 a ]
+[v _sec `i ~T0 @X0 1 a ]
+"458
+[; ;main.c: 458:         {
+[v _Time `*uc ~T0 @X0 1 a ]
+[e = _Time :s 20C ]
+"459
+[; ;main.c: 459: 
+[v _TimeSet `*uc ~T0 @X0 1 a ]
+[e = _TimeSet :s 21C ]
+"461
+[; ;main.c: 461:             RealTimeClock_set_minutes(setTime[1]);
+[e = _timeSecs ( _RealTimeClock_get_seconds ..  ]
+"462
+[; ;main.c: 462:             RealTimeClock_set_seconds(setTime[2]);
+[e = _timeMins ( _RealTimeClock_get_minutes ..  ]
+"463
+[; ;main.c: 463: 
+[e = _timeHours ( _RealTimeClock_get_hours ..  ]
+"465
+[; ;main.c: 465:             LCD_Command(0x03);
+[v _setTime `i ~T0 @X0 -> 3 `i a ]
+"466
+[; ;main.c: 466: 
+[e = *U + &U _setTime * -> -> -> 0 `i `ui `ux -> -> # *U &U _setTime `ui `ux _timeHours ]
+"467
+[; ;main.c: 467:             LCD_SendString(TimeSet);
+[e = *U + &U _setTime * -> -> -> 1 `i `ui `ux -> -> # *U &U _setTime `ui `ux _timeMins ]
+"468
+[; ;main.c: 468:             Main_Delay(200);
+[e = *U + &U _setTime * -> -> -> 2 `i `ui `ux -> -> # *U &U _setTime `ui `ux _timeSecs ]
+"469
+[; ;main.c: 469:             LCD_Command(0x01);
+[e :U 170 ]
+"470
+[; ;main.c: 470:             break;
+{
+[v F993 `uc ~T0 @X0 -> 9 `i s ]
+[i F993
+:U ..
+"472
+[; ;main.c: 472:         switch(Key)
+-> -> 48 `ui `uc
+-> -> 48 `ui `uc
+-> -> 58 `ui `uc
+-> -> 48 `ui `uc
+-> -> 48 `ui `uc
+-> -> 46 `ui `uc
+-> -> 48 `ui `uc
+-> -> 48 `ui `uc
+-> -> 0 `ui `uc
+..
+]
+[v _digits `uc ~T0 @X0 -> 9 `i a ]
+[e = _digits F993 ]
+"474
+[; ;main.c: 474: 
+[e ( _LCD_Command (1 -> -> 3 `i `uc ]
+"475
+[; ;main.c: 475:             case 10:
+[e ( _LCD_SendString (1 -> _Time `*Cuc ]
+"477
+[; ;main.c: 477:             if(i == 2)
+[e = _Key ( _Keypad_Scan ..  ]
+"479
+[; ;main.c: 479: 
+[e $ ! == _Key -> 9 `i 172  ]
+"480
+[; ;main.c: 480:             else
+{
+"482
+[; ;main.c: 482:             break;
+[e ( _RealTimeClock_set_hours (1 *U + &U _setTime * -> -> -> 0 `i `ui `ux -> -> # *U &U _setTime `ui `ux ]
+"483
+[; ;main.c: 483: 
+[e ( _RealTimeClock_set_minutes (1 *U + &U _setTime * -> -> -> 1 `i `ui `ux -> -> # *U &U _setTime `ui `ux ]
+"484
+[; ;main.c: 484:             case 11:
+[e ( _RealTimeClock_set_seconds (1 *U + &U _setTime * -> -> -> 2 `i `ui `ux -> -> # *U &U _setTime `ui `ux ]
+"486
+[; ;main.c: 486:                 if(i == 0)
+[e ( _LCD_Command (1 -> -> 1 `i `uc ]
+"487
+[; ;main.c: 487:                 {
+[e ( _LCD_Command (1 -> -> 3 `i `uc ]
+"489
+[; ;main.c: 489:                     {
+[e ( _LCD_SendString (1 -> _TimeSet `*Cuc ]
+"490
+[; ;main.c: 490:                         if(setTime[i] == 0)
+[e ( _Main_Delay (1 -> 200 `i ]
+"491
+[; ;main.c: 491:                         {
+[e ( _LCD_Command (1 -> -> 1 `i `uc ]
+"492
+[; ;main.c: 492:                             setTime[i] = 23;
+[e $U 171  ]
+"493
+[; ;main.c: 493:                         }
+}
+[e :U 172 ]
+"494
+[; ;main.c: 494: 
+[e $U 174  ]
+"495
+[; ;main.c: 495:                         else
+{
+"497
+[; ;main.c: 497:                             setTime[i] = setTime[i] - 1;
+[e :U 175 ]
+"499
+[; ;main.c: 499:                     }
+[e $ ! == _i -> 2 `i 176  ]
+"500
+[; ;main.c: 500:                     else if(is24Hour == 0)
+[e = _i -> 0 `i ]
+[e $U 177  ]
+"502
+[; ;main.c: 502: 
+[e :U 176 ]
+"503
+[; ;main.c: 503:                     }
+[e ++ _i -> 1 `i ]
+[e :U 177 ]
+"504
+[; ;main.c: 504:                     else
+[e $U 173  ]
+"506
+[; ;main.c: 506:                 }
+[e :U 178 ]
+"508
+[; ;main.c: 508:                 else if(setTime[i] == 0)
+[e $ ! == _i -> 0 `i 179  ]
+"509
+[; ;main.c: 509:                 {
+{
+"510
+[; ;main.c: 510:                     setTime[i] = 59;
+[e $ ! == _is24Hour -> 1 `i 180  ]
+"511
+[; ;main.c: 511:                 }
+{
+"512
+[; ;main.c: 512: 
+[e $ ! == *U + &U _setTime * -> -> _i `ui `ux -> -> # *U &U _setTime `ui `ux -> 0 `i 181  ]
+"513
+[; ;main.c: 513:                 else
+{
+"514
+[; ;main.c: 514:                     setTime[i] = setTime[i] - 1;
+[e = *U + &U _setTime * -> -> _i `ui `ux -> -> # *U &U _setTime `ui `ux -> 23 `i ]
+"515
+[; ;main.c: 515:                 break;
+}
+[e $U 182  ]
+"517
+[; ;main.c: 517:             case 12:
+[e :U 181 ]
+"518
+[; ;main.c: 518: 
+{
+"519
+[; ;main.c: 519:                 if(i == 0)
+[e = *U + &U _setTime * -> -> _i `ui `ux -> -> # *U &U _setTime `ui `ux - *U + &U _setTime * -> -> _i `ui `ux -> -> # *U &U _setTime `ui `ux -> 1 `i ]
+"520
+[; ;main.c: 520:                 {
+}
+[e :U 182 ]
+"521
+[; ;main.c: 521: 
+}
+[e $U 183  ]
+"522
+[; ;main.c: 522:                     if(is24Hour == 1)
+[e :U 180 ]
+[e $ ! == _is24Hour -> 0 `i 184  ]
+"523
+[; ;main.c: 523:                     {
+{
+"525
+[; ;main.c: 525:                         {
+}
+[e $U 185  ]
+"526
+[; ;main.c: 526:                             setTime[i] = 0;
+[e :U 184 ]
+"527
+[; ;main.c: 527:                         }
+[e = *U + &U _setTime * -> -> _i `ui `ux -> -> # *U &U _setTime `ui `ux - *U + &U _setTime * -> -> _i `ui `ux -> -> # *U &U _setTime `ui `ux -> 1 `i ]
+[e :U 185 ]
+[e :U 183 ]
+"528
+[; ;main.c: 528: 
+}
+[e $U 186  ]
+"530
+[; ;main.c: 530:                         {
+[e :U 179 ]
+[e $ ! == *U + &U _setTime * -> -> _i `ui `ux -> -> # *U &U _setTime `ui `ux -> 0 `i 187  ]
+"531
+[; ;main.c: 531:                             setTime[i] = setTime[i] + 1;
+{
+"532
+[; ;main.c: 532:                         }
+[e = *U + &U _setTime * -> -> _i `ui `ux -> -> # *U &U _setTime `ui `ux -> 59 `i ]
+"533
+[; ;main.c: 533:                     }
+}
+[e $U 188  ]
+"535
+[; ;main.c: 535:                     {
+[e :U 187 ]
+"536
+[; ;main.c: 536: 
+[e = *U + &U _setTime * -> -> _i `ui `ux -> -> # *U &U _setTime `ui `ux - *U + &U _setTime * -> -> _i `ui `ux -> -> # *U &U _setTime `ui `ux -> 1 `i ]
+[e :U 188 ]
+[e :U 186 ]
+"537
+[; ;main.c: 537:                     }
+[e $U 173  ]
+"539
+[; ;main.c: 539: 
+[e :U 189 ]
+"541
+[; ;main.c: 541:                 {
+[e $ ! == _i -> 0 `i 190  ]
+"542
+[; ;main.c: 542:                     setTime[i] = 0;
+{
+"544
+[; ;main.c: 544:                 else
+[e $ ! == _is24Hour -> 1 `i 191  ]
+"545
+[; ;main.c: 545:                     setTime[i] = setTime[i] + 1;
+{
+"546
+[; ;main.c: 546:                 break;
+[e $ ! == *U + &U _setTime * -> -> _i `ui `ux -> -> # *U &U _setTime `ui `ux -> 23 `i 192  ]
+"547
+[; ;main.c: 547:         }
+{
+"548
+[; ;main.c: 548: 
+[e = *U + &U _setTime * -> -> _i `ui `ux -> -> # *U &U _setTime `ui `ux -> 0 `i ]
+"549
+[; ;main.c: 549: 
+}
+[e $U 193  ]
+"551
+[; ;main.c: 551:         min = setTime[1];
+[e :U 192 ]
+"552
+[; ;main.c: 552:         sec = setTime[2];
+{
+"553
+[; ;main.c: 553:         digits[1] = hour % 10 + 48;
+[e = *U + &U _setTime * -> -> _i `ui `ux -> -> # *U &U _setTime `ui `ux + *U + &U _setTime * -> -> _i `ui `ux -> -> # *U &U _setTime `ui `ux -> 1 `i ]
+"554
+[; ;main.c: 554:         hour /= 10;
+}
+[e :U 193 ]
+"555
+[; ;main.c: 555:         digits[0] = hour % 10 + 48;
+}
+[e $U 194  ]
+"556
+[; ;main.c: 556:         digits[4] = min % 10 + 48;
+[e :U 191 ]
+[e $ ! == _is24Hour -> 0 `i 195  ]
+"557
+[; ;main.c: 557:         min /= 10;
+{
+"559
+[; ;main.c: 559:         digits[7] = sec % 10 + 48;
+}
+[e :U 195 ]
+[e :U 194 ]
+"560
+[; ;main.c: 560:         sec /= 10;
+}
+[e $U 196  ]
+"562
+[; ;main.c: 562:         LCD_SendString(digits);
+[e :U 190 ]
+[e $ ! == *U + &U _setTime * -> -> _i `ui `ux -> -> # *U &U _setTime `ui `ux -> 59 `i 197  ]
+"563
+[; ;main.c: 563:     }
+{
+"564
+[; ;main.c: 564: }
+[e = *U + &U _setTime * -> -> _i `ui `ux -> -> # *U &U _setTime `ui `ux -> 0 `i ]
+"565
+[; ;main.c: 565: 
+}
+[e $U 198  ]
+"566
+[; ;main.c: 566: 
+[e :U 197 ]
+"567
+[; ;main.c: 567: void CheckDay(void)
+[e = *U + &U _setTime * -> -> _i `ui `ux -> -> # *U &U _setTime `ui `ux + *U + &U _setTime * -> -> _i `ui `ux -> -> # *U &U _setTime `ui `ux -> 1 `i ]
+[e :U 198 ]
+[e :U 196 ]
+"568
+[; ;main.c: 568: {
+[e $U 173  ]
+"569
+[; ;main.c: 569:     switch(day_of_week)
+}
+[e $U 173  ]
+[e :U 174 ]
+[e [\ _Key , $ -> 10 `i 175
+ , $ -> 11 `i 178
+ , $ -> 12 `i 189
+ 173 ]
+[e :U 173 ]
+"572
+[; ;main.c: 572: 
+[e = _hour *U + &U _setTime * -> -> -> 0 `i `ui `ux -> -> # *U &U _setTime `ui `ux ]
+"573
+[; ;main.c: 573:         case 1:
+[e = _min *U + &U _setTime * -> -> -> 1 `i `ui `ux -> -> # *U &U _setTime `ui `ux ]
+"574
+[; ;main.c: 574:             isWeekDay = 1;
+[e = _sec *U + &U _setTime * -> -> -> 2 `i `ui `ux -> -> # *U &U _setTime `ui `ux ]
+"575
+[; ;main.c: 575:             break;
+[e = *U + &U _digits * -> -> -> 1 `i `ui `ux -> -> # *U &U _digits `ui `ux -> + % _hour -> 10 `i -> 48 `i `uc ]
+"576
+[; ;main.c: 576:         case 2:
+[e =/ _hour -> 10 `i ]
+"577
+[; ;main.c: 577:             isWeekDay = 1;
+[e = *U + &U _digits * -> -> -> 0 `i `ui `ux -> -> # *U &U _digits `ui `ux -> + % _hour -> 10 `i -> 48 `i `uc ]
+"578
+[; ;main.c: 578:             break;
+[e = *U + &U _digits * -> -> -> 4 `i `ui `ux -> -> # *U &U _digits `ui `ux -> + % _min -> 10 `i -> 48 `i `uc ]
+"579
+[; ;main.c: 579:         case 3:
+[e =/ _min -> 10 `i ]
+"580
+[; ;main.c: 580:             isWeekDay = 1;
+[e = *U + &U _digits * -> -> -> 3 `i `ui `ux -> -> # *U &U _digits `ui `ux -> + % _min -> 10 `i -> 48 `i `uc ]
+"581
+[; ;main.c: 581:             break;
+[e = *U + &U _digits * -> -> -> 7 `i `ui `ux -> -> # *U &U _digits `ui `ux -> + % _sec -> 10 `i -> 48 `i `uc ]
+"582
+[; ;main.c: 582:         case 4:
+[e =/ _sec -> 10 `i ]
+"583
+[; ;main.c: 583:             isWeekDay = 1;
+[e = *U + &U _digits * -> -> -> 6 `i `ui `ux -> -> # *U &U _digits `ui `ux -> + % _sec -> 10 `i -> 48 `i `uc ]
+"584
+[; ;main.c: 584:             break;
+[e ( _LCD_SendString (1 -> &U _digits `*Cuc ]
+"585
+[; ;main.c: 585:         case 5:
+}
+[e :U 169 ]
+[e $U 170  ]
+[e :U 171 ]
+"586
+[; ;main.c: 586:             isWeekDay = 1;
+[e :UE 168 ]
+}
+"589
+[; ;main.c: 589:             isWeekDay = 0;
+[v _CheckDay `(v ~T0 @X0 1 ef ]
+"590
+[; ;main.c: 590:             break;
+{
+[e :U _CheckDay ]
+[f ]
+"591
+[; ;main.c: 591:         case 7:
+[e $U 201  ]
+"592
+[; ;main.c: 592:             isWeekDay = 0;
+{
+"595
+[; ;main.c: 595: 
+[e :U 202 ]
+"596
+[; ;main.c: 596: 
+[e = _isWeekDay -> 1 `i ]
+"597
+[; ;main.c: 597: void SetDate(int Key)
+[e $U 200  ]
+"598
+[; ;main.c: 598: {
+[e :U 203 ]
+"599
+[; ;main.c: 599: 
+[e = _isWeekDay -> 1 `i ]
+"600
+[; ;main.c: 600:     LCD_Command(0x01);
+[e $U 200  ]
+"601
+[; ;main.c: 601:     int i = 0;
+[e :U 204 ]
+"602
+[; ;main.c: 602:     char* Day = ("Day:");
+[e = _isWeekDay -> 1 `i ]
+"603
+[; ;main.c: 603:     char* Date = ("Date:");
+[e $U 200  ]
+"604
+[; ;main.c: 604:     char* DateSet = ("Date/Day Set");
+[e :U 205 ]
+"605
+[; ;main.c: 605:     char* Monday = ("Mon");
+[e = _isWeekDay -> 1 `i ]
+"606
+[; ;main.c: 606:     char* Tuesday = ("Tue");
+[e $U 200  ]
+"607
+[; ;main.c: 607:     char* Wednesday = ("Wed");
+[e :U 206 ]
+"608
+[; ;main.c: 608:     char* Thursday = ("Thu");
+[e = _isWeekDay -> 1 `i ]
+"609
+[; ;main.c: 609:     char* Friday = ("Fri");
+[e $U 200  ]
+"610
+[; ;main.c: 610:     char* Saturday = ("Sat");
+[e :U 207 ]
+"611
+[; ;main.c: 611:     char* Sunday = ("Sun");
+[e = _isWeekDay -> 0 `i ]
+"612
+[; ;main.c: 612:     int dayInt;
+[e $U 200  ]
+"613
+[; ;main.c: 613:     dayInt = RealTimeClock_get_day_of_week();
+[e :U 208 ]
+"614
+[; ;main.c: 614:     while(1)
+[e = _isWeekDay -> 0 `i ]
+"615
+[; ;main.c: 615:     {
+}
+[e $U 200  ]
+[e :U 201 ]
+[e [\ _day_of_week , $ -> 1 `i 202
+ , $ -> 2 `i 203
+ , $ -> 3 `i 204
+ , $ -> 4 `i 205
+ , $ -> 5 `i 206
+ , $ -> 6 `i 207
+ , $ -> 7 `i 208
+ 200 ]
+[e :U 200 ]
+"616
+[; ;main.c: 616:         LCD_Command(0x03);
+[e :UE 199 ]
+}
+"619
+[; ;main.c: 619:         if(Key == 13)
+[v _SetDate `(v ~T0 @X0 1 ef1`i ]
+"620
+[; ;main.c: 620:         {
+{
+[e :U _SetDate ]
+"619
+[; ;main.c: 619:         if(Key == 13)
+[v _Key `i ~T0 @X0 1 r1 ]
+"620
+[; ;main.c: 620:         {
+[f ]
+"622
+[; ;main.c: 622:             LCD_Command(0x03);
+[e ( _LCD_Command (1 -> -> 1 `i `uc ]
+"623
+[; ;main.c: 623: 
+[v _i `i ~T0 @X0 1 a ]
+[e = _i -> 0 `i ]
+"624
+[; ;main.c: 624:             CheckDay();
+[v _Day `*uc ~T0 @X0 1 a ]
+[e = _Day :s 22C ]
+"625
+[; ;main.c: 625: 
+[v _Date `*uc ~T0 @X0 1 a ]
+[e = _Date :s 23C ]
+"626
+[; ;main.c: 626:             day_of_week = dayInt;
+[v _DateSet `*uc ~T0 @X0 1 a ]
+[e = _DateSet :s 24C ]
+"627
+[; ;main.c: 627: 
+[v _Monday `*uc ~T0 @X0 1 a ]
+[e = _Monday :s 25C ]
+"628
+[; ;main.c: 628:             RealTimeClock_set_day_of_week(dayInt);
+[v _Tuesday `*uc ~T0 @X0 1 a ]
+[e = _Tuesday :s 26C ]
+"629
+[; ;main.c: 629: 
+[v _Wednesday `*uc ~T0 @X0 1 a ]
+[e = _Wednesday :s 27C ]
+"630
+[; ;main.c: 630:             LCD_SendString(DateSet);
+[v _Thursday `*uc ~T0 @X0 1 a ]
+[e = _Thursday :s 28C ]
+"631
+[; ;main.c: 631:             Main_Delay(200);
+[v _Friday `*uc ~T0 @X0 1 a ]
+[e = _Friday :s 29C ]
+"632
+[; ;main.c: 632:             LCD_Command(0x01);
+[v _Saturday `*uc ~T0 @X0 1 a ]
+[e = _Saturday :s 30C ]
+"633
+[; ;main.c: 633:             break;
+[v _Sunday `*uc ~T0 @X0 1 a ]
+[e = _Sunday :s 31C ]
+"634
+[; ;main.c: 634:         }
+[v _dayInt `i ~T0 @X0 1 a ]
+"635
+[; ;main.c: 635:         switch(Key)
+[e = _dayInt ( _RealTimeClock_get_day_of_week ..  ]
+"636
+[; ;main.c: 636:         {
+[e :U 211 ]
+"637
+[; ;main.c: 637:             case 14:
+{
+"638
+[; ;main.c: 638:                 break;
+[e ( _LCD_Command (1 -> -> 3 `i `uc ]
+"639
+[; ;main.c: 639:             case 15:
+[e ( _LCD_SendString (1 -> _Date `*Cuc ]
+"640
+[; ;main.c: 640:                 if(i == 0)
+[e = _Key ( _Keypad_Scan ..  ]
+"641
+[; ;main.c: 641:                 {
+[e $ ! == _Key -> 13 `i 213  ]
+"642
+[; ;main.c: 642:                     if(dayInt == 1)
+{
+"643
+[; ;main.c: 643:                         dayInt = 7;
+[e ( _LCD_Command (1 -> -> 1 `i `uc ]
+"644
+[; ;main.c: 644:                     else
+[e ( _LCD_Command (1 -> -> 3 `i `uc ]
+"646
+[; ;main.c: 646:                 }
+[e ( _CheckDay ..  ]
+"648
+[; ;main.c: 648:             case 16:
+[e = _day_of_week _dayInt ]
+"650
+[; ;main.c: 650:                 {
+[e ( _RealTimeClock_set_day_of_week (1 _dayInt ]
+"652
+[; ;main.c: 652:                         dayInt = 1;
+[e ( _LCD_SendString (1 -> _DateSet `*Cuc ]
+"653
+[; ;main.c: 653:                     else
+[e ( _Main_Delay (1 -> 200 `i ]
+"654
+[; ;main.c: 654:                         dayInt = dayInt + 1;
+[e ( _LCD_Command (1 -> -> 1 `i `uc ]
+"655
+[; ;main.c: 655:                 }
+[e $U 212  ]
+"656
+[; ;main.c: 656:                 break;
+}
+[e :U 213 ]
+"657
+[; ;main.c: 657:         }
+[e $U 215  ]
+"658
+[; ;main.c: 658:         LCD_SecondLine();
+{
+"659
+[; ;main.c: 659:         LCD_SendString(Day);
+[e :U 216 ]
+"660
+[; ;main.c: 660:         switch(dayInt)
+[e $U 214  ]
+"661
+[; ;main.c: 661:         {
+[e :U 217 ]
+"662
+[; ;main.c: 662:             case 1:
+[e $ ! == _i -> 0 `i 218  ]
+"663
+[; ;main.c: 663:                 LCD_SendString(Monday);
+{
+"664
+[; ;main.c: 664:                 break;
+[e $ ! == _dayInt -> 1 `i 219  ]
+"665
+[; ;main.c: 665:             case 2:
+[e = _dayInt -> 7 `i ]
+[e $U 220  ]
+"666
+[; ;main.c: 666:                 LCD_SendString(Tuesday);
+[e :U 219 ]
+"667
+[; ;main.c: 667:                 break;
+[e = _dayInt - _dayInt -> 1 `i ]
+[e :U 220 ]
+"668
+[; ;main.c: 668:             case 3:
+}
+[e :U 218 ]
+"669
+[; ;main.c: 669:                 LCD_SendString(Wednesday);
+[e $U 214  ]
+"670
+[; ;main.c: 670:                 break;
+[e :U 221 ]
+"671
+[; ;main.c: 671:             case 4:
+[e $ ! == _i -> 0 `i 222  ]
+"672
+[; ;main.c: 672:                 LCD_SendString(Thursday);
+{
+"673
+[; ;main.c: 673:                 break;
+[e $ ! == _dayInt -> 7 `i 223  ]
+"674
+[; ;main.c: 674:             case 5:
+[e = _dayInt -> 1 `i ]
+[e $U 224  ]
+"675
+[; ;main.c: 675:                 LCD_SendString(Friday);
+[e :U 223 ]
+"676
+[; ;main.c: 676:                 break;
+[e = _dayInt + _dayInt -> 1 `i ]
+[e :U 224 ]
+"677
+[; ;main.c: 677:             case 6:
+}
+[e :U 222 ]
+"678
+[; ;main.c: 678:                 LCD_SendString(Saturday);
+[e $U 214  ]
+"679
+[; ;main.c: 679:                 break;
+}
+[e $U 214  ]
+[e :U 215 ]
+[e [\ _Key , $ -> 14 `i 216
+ , $ -> 15 `i 217
+ , $ -> 16 `i 221
+ 214 ]
+[e :U 214 ]
+"680
+[; ;main.c: 680:             case 7:
+[e ( _LCD_SecondLine ..  ]
+"681
+[; ;main.c: 681:                 LCD_SendString(Sunday);
+[e ( _LCD_SendString (1 -> _Day `*Cuc ]
+"682
+[; ;main.c: 682:                 break;
+[e $U 226  ]
+"683
+[; ;main.c: 683:         }
+{
+"684
+[; ;main.c: 684:     }
+[e :U 227 ]
+"685
+[; ;main.c: 685: }
+[e ( _LCD_SendString (1 -> _Monday `*Cuc ]
+"686
+[; ;main.c: 686: 
+[e $U 225  ]
+"687
+[; ;main.c: 687: 
+[e :U 228 ]
+"688
+[; ;main.c: 688: void CheckTime(void)
+[e ( _LCD_SendString (1 -> _Tuesday `*Cuc ]
+"689
+[; ;main.c: 689: {
+[e $U 225  ]
+"690
+[; ;main.c: 690: 
+[e :U 229 ]
+"691
+[; ;main.c: 691: 
+[e ( _LCD_SendString (1 -> _Wednesday `*Cuc ]
+"692
+[; ;main.c: 692:     if (isWeekDay == 1)
+[e $U 225  ]
+"693
+[; ;main.c: 693:     {
+[e :U 230 ]
+"694
+[; ;main.c: 694:         timeMins = RealTimeClock_get_minutes();
+[e ( _LCD_SendString (1 -> _Thursday `*Cuc ]
+"695
+[; ;main.c: 695:         timeHours = RealTimeClock_get_hours();
+[e $U 225  ]
+"696
+[; ;main.c: 696:         if (timeHours < weekDayStart[0])
+[e :U 231 ]
+"697
+[; ;main.c: 697:         {
+[e ( _LCD_SendString (1 -> _Friday `*Cuc ]
+"698
+[; ;main.c: 698:             if(timeMins < weekDayStart[1])
+[e $U 225  ]
+"699
+[; ;main.c: 699:                 IsHeatingOn = 0;
+[e :U 232 ]
+"700
+[; ;main.c: 700:             else
+[e ( _LCD_SendString (1 -> _Saturday `*Cuc ]
+"701
+[; ;main.c: 701:                 IsHeatingOn = 1;
+[e $U 225  ]
+"702
+[; ;main.c: 702:         }
+[e :U 233 ]
+"703
+[; ;main.c: 703:         else if(timeHours > weekDayEnd[0])
+[e ( _LCD_SendString (1 -> _Sunday `*Cuc ]
+"704
+[; ;main.c: 704:         {
+[e $U 225  ]
+"705
+[; ;main.c: 705:             if(timeMins > weekDayEnd[1])
+}
+[e $U 225  ]
+[e :U 226 ]
+[e [\ _dayInt , $ -> 1 `i 227
+ , $ -> 2 `i 228
+ , $ -> 3 `i 229
+ , $ -> 4 `i 230
+ , $ -> 5 `i 231
+ , $ -> 6 `i 232
+ , $ -> 7 `i 233
+ 225 ]
+[e :U 225 ]
+"706
+[; ;main.c: 706:                 IsHeatingOn = 0;
+}
+[e :U 210 ]
+[e $U 211  ]
+[e :U 212 ]
+"707
+[; ;main.c: 707:             else
+[e :UE 209 ]
+}
+"710
+[; ;main.c: 710:         else
+[v _CheckTime `(v ~T0 @X0 1 ef ]
+"711
+[; ;main.c: 711:             IsHeatingOn = 1;
+{
+[e :U _CheckTime ]
+[f ]
+"714
+[; ;main.c: 714: 
+[e $ ! == _isWeekDay -> 1 `i 235  ]
+"715
+[; ;main.c: 715:     else if (isWeekDay == 0)
+{
+"716
+[; ;main.c: 716:     {
+[e = _timeMins ( _RealTimeClock_get_minutes ..  ]
+"717
+[; ;main.c: 717: 
+[e = _timeHours ( _RealTimeClock_get_hours ..  ]
+"718
+[; ;main.c: 718:         timeMins = RealTimeClock_get_minutes();
+[e $ ! < _timeHours *U + &U _weekDayStart * -> -> -> 0 `i `ui `ux -> -> # *U &U _weekDayStart `ui `ux 236  ]
+"719
+[; ;main.c: 719:         timeHours = RealTimeClock_get_hours();
+{
+"720
+[; ;main.c: 720:         if (timeHours < weekEndStart[0])
+[e $ ! < _timeMins *U + &U _weekDayStart * -> -> -> 1 `i `ui `ux -> -> # *U &U _weekDayStart `ui `ux 237  ]
+"721
+[; ;main.c: 721:         {
+[e = _IsHeatingOn -> 0 `i ]
+[e $U 238  ]
+"722
+[; ;main.c: 722:             IsHeatingOn = 0;
+[e :U 237 ]
+"723
+[; ;main.c: 723:         }
+[e = _IsHeatingOn -> 1 `i ]
+[e :U 238 ]
+"724
+[; ;main.c: 724:         else if(timeHours > weekEndEnd[0])
+}
+[e $U 239  ]
+"725
+[; ;main.c: 725:         {
+[e :U 236 ]
+[e $ ! > _timeHours *U + &U _weekDayEnd * -> -> -> 0 `i `ui `ux -> -> # *U &U _weekDayEnd `ui `ux 240  ]
+"726
+[; ;main.c: 726:             IsHeatingOn = 0;
+{
+"727
+[; ;main.c: 727:         }
+[e $ ! > _timeMins *U + &U _weekDayEnd * -> -> -> 1 `i `ui `ux -> -> # *U &U _weekDayEnd `ui `ux 241  ]
+"728
+[; ;main.c: 728:         else
+[e = _IsHeatingOn -> 0 `i ]
+[e $U 242  ]
+"729
+[; ;main.c: 729:             IsHeatingOn = 1;
+[e :U 241 ]
+"730
+[; ;main.c: 730:     }
+[e = _IsHeatingOn -> 1 `i ]
+[e :U 242 ]
+"731
+[; ;main.c: 731: }
+}
+[e $U 243  ]
+"732
+[; ;main.c: 732: 
+[e :U 240 ]
+"733
+[; ;main.c: 733: 
+[e = _IsHeatingOn -> 1 `i ]
+[e :U 243 ]
+[e :U 239 ]
+"734
+[; ;main.c: 734: 
+}
+[e $U 244  ]
+"737
+[; ;main.c: 737: 
+[e :U 235 ]
+[e $ ! == _isWeekDay -> 0 `i 245  ]
+"738
+[; ;main.c: 738: void main() {
+{
+"740
+[; ;main.c: 740: 
+[e = _timeMins ( _RealTimeClock_get_minutes ..  ]
+"741
+[; ;main.c: 741:     LCD_Init();
+[e = _timeHours ( _RealTimeClock_get_hours ..  ]
+"742
+[; ;main.c: 742:     Init_Keypad();
+[e $ ! < _timeHours *U + &U _weekEndStart * -> -> -> 0 `i `ui `ux -> -> # *U &U _weekEndStart `ui `ux 246  ]
+"743
+[; ;main.c: 743:     Thermometer_Init();
+{
+"744
+[; ;main.c: 744:     RealTimeClock_init();
+[e = _IsHeatingOn -> 0 `i ]
+"745
+[; ;main.c: 745:     RealTimeClock_set_burst_time(start_date);
+}
+[e $U 247  ]
+"746
+[; ;main.c: 746: 
+[e :U 246 ]
+[e $ ! > _timeHours *U + &U _weekEndEnd * -> -> -> 0 `i `ui `ux -> -> # *U &U _weekEndEnd `ui `ux 248  ]
+"747
+[; ;main.c: 747: 
+{
+"748
+[; ;main.c: 748:     Buzzer_Init();
+[e = _IsHeatingOn -> 0 `i ]
+"749
+[; ;main.c: 749:     int Key = 0;
+}
+[e $U 249  ]
+"750
+[; ;main.c: 750:     DisableAlarm = 0;
+[e :U 248 ]
+"751
+[; ;main.c: 751:     isWeekDay = 1;
+[e = _IsHeatingOn -> 1 `i ]
+[e :U 249 ]
+[e :U 247 ]
+"752
+[; ;main.c: 752:     int temp, temp2, temp3, tempdec, tempdectenth;
+}
+[e :U 245 ]
+[e :U 244 ]
+"753
+[; ;main.c: 753:     IsHeatingOn = 1;
+[e :UE 234 ]
+}
 [v $root$_main `(v ~T0 @X0 0 e ]
-"34
-[; ;main.c: 34:     LCD_SendString(test);
+"760
+[; ;main.c: 760:     LCD_Command(0x03);
 [v _main `(v ~T0 @X0 1 ef ]
 {
 [e :U _main ]
 [f ]
-"35
-[; ;main.c: 35: 
-[e ( _Init_Buzzer (1 -> &U _PORTB `*uc ]
-"36
-[; ;main.c: 36: 
-[e = _TRISB -> -> 0 `i `uc ]
-"37
-[; ;main.c: 37: 
+"763
+[; ;main.c: 763:     SoundOff();
 [e ( _LCD_Init ..  ]
-"38
-[; ;main.c: 38:     }
+"764
+[; ;main.c: 764: 
 [e ( _Init_Keypad ..  ]
-"39
-[; ;main.c: 39: }
+"765
+[; ;main.c: 765:     day_of_week = RealTimeClock_get_day_of_week();
+[e ( _Thermometer_Init ..  ]
+"766
+[; ;main.c: 766:     CheckDay();
 [e ( _RealTimeClock_init ..  ]
-"40
-[v _test `uc ~T0 @X0 -> 3 `i a ]
-"41
-[e = *U + &U _test * -> -> -> 2 `i `ui `ux -> -> # *U &U _test `ui `ux -> -> 0 `ui `uc ]
-"42
-[v _Key `uc ~T0 @X0 1 a ]
-[e = _Key -> -> 110 `ui `uc ]
-"43
-[v _Date `*uc ~T0 @X0 1 a ]
-[e = _Date :s 1C ]
-"44
+"767
+[; ;main.c: 767:     CheckTime();
+[e ( _RealTimeClock_set_burst_time (1 &U _start_date ]
+"770
+[; ;main.c: 770:     {
+[e ( _Buzzer_Init ..  ]
+"771
+[; ;main.c: 771:         day_of_week = RealTimeClock_get_day_of_week();
+[v _Key `i ~T0 @X0 1 a ]
+[e = _Key -> 0 `i ]
+"772
+[; ;main.c: 772: 
+[e = _DisableAlarm -> 0 `i ]
+"773
+[; ;main.c: 773:         LCD_Command(0x03);
+[e = _isWeekDay -> 1 `i ]
+"774
+[; ;main.c: 774: 
+[v _temp `i ~T0 @X0 1 a ]
+[v _temp2 `i ~T0 @X0 1 a ]
+[v _temp3 `i ~T0 @X0 1 a ]
+[v _tempdec `i ~T0 @X0 1 a ]
+[v _tempdectenth `i ~T0 @X0 1 a ]
+"775
+[; ;main.c: 775: 
+[e = _IsHeatingOn -> 1 `i ]
+"776
+[; ;main.c: 776:         temp = tempBuffer[0] - 48;
+[e = _is24Hour -> 1 `i ]
+"778
+[; ;main.c: 778:         temp3 = (temp * 10) + temp2;
 [e ( _LCD_Command (1 -> -> 12 `i `uc ]
-"45
+"780
+[; ;main.c: 780: 
 [e ( _LCD_Command (1 -> -> 1 `i `uc ]
-"46
+"782
+[; ;main.c: 782:         tempdec = tempBuffer[2];
 [e ( _LCD_Command (1 -> -> 3 `i `uc ]
-"47
+"784
+[; ;main.c: 784:         previousTemp[1] = tempdec;
 [e ( _LCD_Command (1 -> -> 56 `i `uc ]
-"48
-[e :U 98 ]
-"49
+"785
+[; ;main.c: 785:         previousTemp[2] = tempdectenth;
+[e ( _SoundOff ..  ]
+"787
+[; ;main.c: 787:         Key = Keypad_Scan();
+[e = _day_of_week ( _RealTimeClock_get_day_of_week ..  ]
+"788
+[; ;main.c: 788:         MainScreen();
+[e ( _CheckDay ..  ]
+"789
+[; ;main.c: 789: 
+[e ( _CheckTime ..  ]
+"790
+[; ;main.c: 790: 
+[e ( _Main_Delay (1 -> 50 `i ]
+"791
+[; ;main.c: 791:         temp = tempBuffer[0] - 48;
+[e :U 252 ]
+"792
+[; ;main.c: 792:         temp2 = tempBuffer[1] - 48;
 {
-"51
+"793
+[; ;main.c: 793:         temp3 = (temp * 10) + temp2;
+[e = _day_of_week ( _RealTimeClock_get_day_of_week ..  ]
+"795
+[; ;main.c: 795: 
 [e ( _LCD_Command (1 -> -> 3 `i `uc ]
-"52
-[e ( _LCD_SendString (1 -> _Date `*Cuc ]
-"53
-[e ( _LCD_Command (1 -> -> 20 `i `uc ]
-"54
-[e ( _get_date_time (1 &U _test ]
-"56
-[e ( _LCD_SendString (1 -> &U _test `*Cuc ]
-"60
+"798
+[; ;main.c: 798: 
+[e = _temp - -> *U + &U _tempBuffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _tempBuffer `ui `ux `i -> 48 `i ]
+"799
+[; ;main.c: 799:         if (Key == 1) {
+[e = _temp2 - -> *U + &U _tempBuffer * -> -> -> 1 `i `ui `ux -> -> # *U &U _tempBuffer `ui `ux `i -> 48 `i ]
+"800
+[; ;main.c: 800:             ChangeTrigger(Key);
+[e = _temp3 + * _temp -> 10 `i _temp2 ]
+"801
+[; ;main.c: 801:         }
+[e = *U + &U _previousTemp * -> -> -> 0 `i `ui `ux -> -> # *U &U _previousTemp `ui `ux _temp3 ]
+"804
+[; ;main.c: 804:             DateDayScreen(Key);
+[e = _tempdec -> *U + &U _tempBuffer * -> -> -> 2 `i `ui `ux -> -> # *U &U _tempBuffer `ui `ux `i ]
+"805
+[; ;main.c: 805:         }
+[e = _tempdectenth -> *U + &U _tempBuffer * -> -> -> 3 `i `ui `ux -> -> # *U &U _tempBuffer `ui `ux `i ]
+"806
+[; ;main.c: 806: 
+[e = *U + &U _previousTemp * -> -> -> 1 `i `ui `ux -> -> # *U &U _previousTemp `ui `ux _tempdec ]
+"807
+[; ;main.c: 807:         if (Key == 7) {
+[e = *U + &U _previousTemp * -> -> -> 2 `i `ui `ux -> -> # *U &U _previousTemp `ui `ux _tempdectenth ]
+"809
+[; ;main.c: 809:         }
+[e = _Key ( _Keypad_Scan ..  ]
+"810
+[; ;main.c: 810: 
+[e ( _MainScreen ..  ]
+"813
+[; ;main.c: 813:         }
+[e = _temp - -> *U + &U _tempBuffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _tempBuffer `ui `ux `i -> 48 `i ]
+"814
+[; ;main.c: 814: 
+[e = _temp2 - -> *U + &U _tempBuffer * -> -> -> 1 `i `ui `ux -> -> # *U &U _tempBuffer `ui `ux `i -> 48 `i ]
+"815
+[; ;main.c: 815:         if(Key == 8)
+[e = _temp3 + * _temp -> 10 `i _temp2 ]
+"818
+[; ;main.c: 818:         }
+[e = _tempdec -> *U + &U _tempBuffer * -> -> -> 3 `i `ui `ux -> -> # *U &U _tempBuffer `ui `ux `i ]
+"819
+[; ;main.c: 819: 
+[e = _tempdectenth -> *U + &U _tempBuffer * -> -> -> 4 `i `ui `ux -> -> # *U &U _tempBuffer `ui `ux `i ]
+"821
+[; ;main.c: 821:         {
+[e $ ! == _Key -> 1 `i 254  ]
+{
+"822
+[; ;main.c: 822:             SetDate(Key);
+[e ( _ChangeTrigger (1 -> _Key `uc ]
+"823
+[; ;main.c: 823:         }
 }
-[e :U 97 ]
-[e $U 98  ]
-[e :U 99 ]
-"61
-[e :UE 96 ]
+[e :U 254 ]
+"825
+[; ;main.c: 825:         if (temp3 >= triggerTemp[0]) {
+[e $ ! == _Key -> 6 `i 255  ]
+{
+"826
+[; ;main.c: 826:             IsHeatingOn = 0;
+[e ( _DateDayScreen (1 _Key ]
+"827
+[; ;main.c: 827:             HeatingControlOff(Key, temp, temp2, temp3);
 }
-[a 1C 68 97 116 101 58 32 0 ]
+[e :U 255 ]
+"829
+[; ;main.c: 829:         if (temp3 <= triggerTemp[0] && temp3 < previousTemp[0] && IsHeatingOn == 1 && DisableAlarm == 0) {
+[e $ ! == _Key -> 7 `i 256  ]
+{
+"830
+[; ;main.c: 830:             SoundAlarm(Key, temp, temp2, temp3);
+[e ( _SwapToHeatingDisplay (1 _Key ]
+"831
+[; ;main.c: 831:         }
+}
+[e :U 256 ]
+"833
+[; ;main.c: 833:         CheckTime();
+[e $ ! == _Key -> 9 `i 257  ]
+{
+"834
+[; ;main.c: 834:     }
+[e ( _SetTime (1 _Key ]
+"835
+[; ;main.c: 835: }
+}
+[e :U 257 ]
+"837
+[e $ ! == _Key -> 8 `i 258  ]
+"838
+{
+"839
+[e ( _Switch24Hour (1 _Key ]
+"840
+}
+[e :U 258 ]
+"842
+[e $ ! == _Key -> 13 `i 259  ]
+"843
+{
+"844
+[e ( _SetDate (1 _Key ]
+"845
+}
+[e :U 259 ]
+"847
+[e $ ! >= _temp3 *U + &U _triggerTemp * -> -> -> 0 `i `ui `ux -> -> # *U &U _triggerTemp `ui `ux 260  ]
+{
+"848
+[e = _IsHeatingOn -> 0 `i ]
+"849
+[e ( _HeatingControlOff (4 , , , _Key _temp _temp2 _temp3 ]
+"850
+}
+[e :U 260 ]
+"851
+[e $ ! && && && <= _temp3 *U + &U _triggerTemp * -> -> -> 0 `i `ui `ux -> -> # *U &U _triggerTemp `ui `ux < _temp3 *U + &U _previousTemp * -> -> -> 0 `i `ui `ux -> -> # *U &U _previousTemp `ui `ux == _IsHeatingOn -> 1 `i == _DisableAlarm -> 0 `i 261  ]
+{
+"852
+[e ( _SoundAlarm (4 , , , _Key _temp _temp2 _temp3 ]
+"853
+}
+[e :U 261 ]
+"855
+[e ( _CheckTime ..  ]
+"856
+}
+[e :U 251 ]
+[e $U 252  ]
+[e :U 253 ]
+"857
+[e :UE 250 ]
+}
+[a 4C 84 104 117 114 115 100 97 121 0 ]
+[a 2C 84 117 101 115 100 97 121 0 ]
+[a 3C 87 101 100 110 101 115 100 97 121 0 ]
+[a 6C 83 97 116 117 114 100 97 121 0 ]
+[a 7C 83 117 110 100 97 121 0 ]
+[a 1C 77 111 110 100 97 121 0 ]
+[a 5C 70 114 105 100 97 121 0 ]
+[a 28C 84 104 117 0 ]
+[a 24C 68 97 116 101 47 68 97 121 32 83 101 116 0 ]
+[a 11C 84 114 105 103 103 101 114 32 83 101 116 0 ]
+[a 21C 84 105 109 101 32 83 101 116 0 ]
+[a 30C 83 97 116 0 ]
+[a 31C 83 117 110 0 ]
+[a 25C 77 111 110 0 ]
+[a 16C 72 101 97 116 105 110 103 32 79 110 0 ]
+[a 13C 79 110 0 ]
+[a 29C 70 114 105 0 ]
+[a 15C 72 101 97 116 105 110 103 32 79 102 102 0 ]
+[a 14C 79 102 102 0 ]
+[a 26C 84 117 101 0 ]
+[a 17C 72 101 97 116 105 110 103 32 70 97 105 108 117 114 101 0 ]
+[a 27C 87 101 100 0 ]
+[a 22C 68 97 121 58 0 ]
+[a 10C 84 114 105 103 103 101 114 58 0 ]
+[a 9C 84 101 109 112 58 0 ]
+[a 12C 72 101 97 116 105 110 103 58 0 ]
+[a 23C 68 97 116 101 58 0 ]
+[a 8C 84 105 109 101 58 0 ]
+[a 20C 84 105 109 101 58 0 ]
+[a 19C 68 97 121 58 32 0 ]
+[a 18C 68 97 116 101 58 32 0 ]

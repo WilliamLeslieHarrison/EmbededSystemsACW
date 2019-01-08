@@ -1,4 +1,4 @@
-# 1 "main.c"
+# 1 "Thermometer.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,14 +6,7 @@
 # 1 "<built-in>" 2
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "main.c" 2
-
-
-
-
-
-
-
+# 1 "Thermometer.c" 2
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\xc.h" 1 3
 # 18 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -1727,31 +1720,7 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 27 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\xc.h" 2 3
-# 8 "main.c" 2
-
-# 1 "./LCD.h" 1
-# 19 "./LCD.h"
-void LCD_Busy(void);
-
-void LCD_Init(void);
-
-void LCD_Command(unsigned char c);
-
-void LCD_SecondLine(void);
-
-void LCD_SendData(unsigned char c);
-
-void LCD_SendString(const char *string);
-# 9 "main.c" 2
-
-# 1 "./KeyMatrix.h" 1
-# 21 "./KeyMatrix.h"
-void Key_Delay(int k);
-
-void Init_Keypad(void);
-
-int Keypad_Scan(void);
-# 10 "main.c" 2
+# 1 "Thermometer.c" 2
 
 # 1 "./Thermometer.h" 1
 # 19 "./Thermometer.h"
@@ -1768,896 +1737,189 @@ void Write_Byte(unsigned char val);
 unsigned char Read_Byte(void);
 
 void Get_Temp(char* buffer);
-# 11 "main.c" 2
-
-# 1 "./realtimeclock.h" 1
-# 17 "./realtimeclock.h"
-int __RealTimeClock_buff[7];
-
-
-int __hex_to_int(unsigned char hex);
-unsigned char __int_to_hex(int integer);
-
-
-void RealTimeClock_write_byte(unsigned char time_tx);
-void RealTimeClock_set_burst_time(int* time);
-unsigned char RealTimeClock_read_byte(void);
-int* RealTimeClock_get_burst_time(void);
-
-void RealTimeClock_init(void);
-
-int RealTimeClock_get_seconds(void);
-void RealTimeClock_set_seconds(int seconds);
-
-int RealTimeClock_get_minutes(void);
-void RealTimeClock_set_minutes(int minutes);
-
-int RealTimeClock_get_hours(void);
-void RealTimeClock_set_hours(int hours);
-
-int RealTimeClock_get_day_of_month(void);
-void RealTimeClock_set_day_of_month(int day);
-
-int RealTimeClock_get_month(void);
-void RealTimeClock_set_month(int month);
-
-int RealTimeClock_get_day_of_week(void);
-void RealTimeClock_set_day_of_week(int day);
-
-int RealTimeClock_get_year(void);
-void RealTimeClock_set_year(int year);
-# 12 "main.c" 2
-
-# 1 "./Buzzer.h" 1
-# 13 "./Buzzer.h"
-void Buzzer_Init(void);
-
-void SoundOn(void);
-
-void SoundOff(void);
-# 13 "main.c" 2
+# 2 "Thermometer.c" 2
 
 
 
-#pragma config FOSC = HS
-#pragma config WDTE = OFF
-#pragma config PWRTE = ON
-#pragma config BOREN = OFF
-#pragma config LVP = OFF
+unsigned char TLB=0 ;
+
+unsigned char THB=0;
+
+unsigned char TempInt=0;
+
+unsigned char TempDec=0;
+
+unsigned int TempBCD;
+
+unsigned char tenbit;
+
+unsigned char intent;
+
+unsigned char tenthbit;
+
+unsigned char hundredthbit;
+
+unsigned char numberTable[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+
+char Temp[5];
 
 
-
-
-
-
-int IsHeatingOn;
-int DisableAlarm;
-int day_of_week;
-int isWeekDay;
-int is24Hour;
-int weekDayStart[2] = {06, 30};
-int weekDayEnd[2] = {22, 30};
-int weekEndStart[2] = {07, 00};
-int weekEndEnd[2] = {23, 00};
-int* timeBuffer;
-
-char tempBuffer[6] = {'0', '0', '0', '0', '0', '\0'};
-
-char timeDisplayer[9] = {'0', '0', ':', '0', '0', '.','0', '0', '\0'};
-
-char dateDisplayer[9] = {'0', '0', '/', '0', '0', '/', '0', '0', '\0'};
-int timeHours, timeMins, timeSecs;
-
-int previousTemp[3] = {0,0,0};
-
-int triggerTemp[2] = {28, 0};
-
-int triggerTempChange[2] = {0, 0};
-
-int start_date[8] = {59,59,23,31,12,5,99,0};
-
-
-void Main_Delay(int k)
+void Delay(char x,char y)
 {
-    int i,j;
-    for (i= 0; i < k; i++)
-        for(j = 0; j < 100; j++);
+  char z;
+  do{
+      z=y;
+      do{;}while(--z);
+     }while(--x);
+ }
+
+void Thermometer_Init(void)
+{
+  ADCON1=0X07;
+  TRISA=0X00;
+  TRISD=0X00;
 }
 
 
-void DisplayTime()
+void Reset(void)
 {
+  char presence=1;
+  while(presence)
+  {
 
-    timeSecs = RealTimeClock_get_seconds();
-    timeMins = RealTimeClock_get_minutes();
-    timeHours = RealTimeClock_get_hours();
+    RA0 = 0; TRISA0 = 0;
 
-    timeDisplayer[1] = timeHours % 10 + 48;
-    timeHours /= 10;
-    timeDisplayer[0] = timeHours % 10 + 48;
+    Delay(2,70);
 
-    timeDisplayer[4] = timeMins % 10 + 48;
-    timeMins /= 10;
-    timeDisplayer[3] = timeMins % 10 + 48;
+    TRISA0 =1;
 
-    timeDisplayer[7] = timeSecs % 10 + 48;
-    timeSecs /= 10;
-    timeDisplayer[6] = timeSecs % 10 + 48;
+    Delay(2,8);
 
-    LCD_SendString(timeDisplayer);
+    if(RA0==1) presence=1;
+
+    else presence=0;
+
+    Delay(2,60);
+   }
+  }
+
+
+void Write_Byte(unsigned char val)
+{
+ unsigned char i;
+ unsigned char temp;
+ for(i=8;i>0;i--)
+ {
+
+   temp=val&0x01;
+
+   RA0 = 0; TRISA0 = 0;
+   __nop();
+   __nop();
+   __nop();
+   __nop();
+   __nop();
+
+   if(temp==1) TRISA0 =1;
+
+   Delay(2,7);
+   TRISA0 =1;
+   __nop();
+   __nop();
+
+   val=val>>1;
+  }
 }
 
 
-void DisplayDate(void)
+unsigned char Read_Byte(void)
 {
+ unsigned char i;
+ unsigned char value=0;
+ static char j;
+ for(i=8;i>0;i--)
+ {
+   value>>=1;
 
-    int month = RealTimeClock_get_month();
-    int day = RealTimeClock_get_day_of_month();
-    int year = RealTimeClock_get_year();
+   RA0 = 0; TRISA0 = 0;
 
-    dateDisplayer[1] = month % 10 + 48;
-    month /= 10;
-    dateDisplayer[0] = month % 10 + 48;
-    dateDisplayer[3] = day % 10 + 48;
-    day /= 10;
-    dateDisplayer[4] = day % 10 + 48;
-    dateDisplayer[7] = year % 10 + 48;
-    year /= 10;
-    dateDisplayer[6] = year % 10 + 48;
+   __nop();
+   __nop();
+   __nop();
+   __nop();
+   __nop();
+   __nop();
+
+   TRISA0 =1;
+
+   __nop();
+   __nop();
+   __nop();
+   __nop();
+   __nop();
+   j=RA0;
+   if(j) value|=0x80;
+
+   Delay(2,7);
+  }
+  return(value);
 }
 
 
-void DisplayDay(void)
+void Get_Temp(char* buffer)
 {
+int i;
+TRISA0 =1;
 
-    day_of_week = RealTimeClock_get_day_of_week();
-    char* Monday = ("Monday");
-    char* Tuesday = ("Tuesday");
-    char* Wednesday = ("Wednesday");
-    char* Thursday = ("Thursday");
-    char* Friday = ("Friday");
-    char* Saturday = ("Saturday");
-    char* Sunday = ("Sunday");
+Reset();
 
-    switch(day_of_week)
-    {
-        case 1:
-            LCD_SendString(Monday);
-            break;
-        case 2:
-            LCD_SendString(Tuesday);
-            break;
-        case 3:
-            LCD_SendString(Wednesday);
-            break;
-        case 4:
-            LCD_SendString(Thursday);
-            break;
-        case 5:
-            LCD_SendString(Friday);
-            break;
-        case 6:
-            LCD_SendString(Saturday);
-            break;
-        case 7:
-            LCD_SendString(Sunday);
-            break;
-    }
-}
+Write_Byte(0XCC);
 
+Write_Byte(0X44);
 
-void DisplayTemp(char* tempBuffer)
+Temp[0] = numberTable[tenbit];
+Temp[1] = numberTable[intent];
+Temp[2] = '.';
+Temp[3] = numberTable[tenthbit];
+Temp[4] = numberTable[hundredthbit];
+
+for(i = 0; i < 5; i++)
 {
-
-    Get_Temp(tempBuffer);
-
-    LCD_SendString(tempBuffer);
-
-    LCD_SendData(0xDF);
-    LCD_Busy();
-
-    LCD_SendData('C');
+    buffer[i] = Temp[i];
 }
+Delay(10,70);
 
+Reset();
 
-void MainScreen(void)
-{
+Write_Byte(0XCC);
 
-    char* Time = "Time:";
-    char* Temp = "Temp:";
-    LCD_SendString(Time);
+Write_Byte(0XBE);
 
-    DisplayTime();
+TLB = Read_Byte();
 
-    LCD_SecondLine();
+THB = Read_Byte();
 
+TRISA0 =1;
 
-    LCD_SendString(Temp);
+TempInt=(TLB>>4)|((THB<<4)&(0X3f));
 
-    DisplayTemp(tempBuffer);
+TempDec=TLB<<4;
 
+if(TempInt>100) TempInt = TempInt/100;
 
-}
+intent=TempInt%10;
 
+tenbit=TempInt/10;
 
-void ChangeTrigger(char Key)
-{
+TempBCD=0;
 
-    LCD_Command(0x01);
+if (TempDec & 0x80) TempBCD=TempBCD+5000;
+if (TempDec & 0x40) TempBCD=TempBCD+2500;
+if (TempDec & 0x20) TempBCD=TempBCD+1250;
+if (TempDec & 0x10) TempBCD=TempBCD+625;
 
-    int i = 0;
-    char* Trigger = "Trigger:";
-    char* TriggerSet = "Trigger Set";
-    while(1)
-        {
+tenthbit=TempBCD/1000;
 
-            char decimal;
-
-            char digits[3];
-
-            LCD_Command(0x03);
-
-            LCD_SendString(Trigger);
-
-            Key = Keypad_Scan();
-
-            if(Key == 1)
-            {
-                LCD_Command(0x01);
-                LCD_Command(0x03);
-                LCD_SendString(TriggerSet);
-                Main_Delay(200);
-                LCD_Command(0x01);
-                break;
-            }
-
-            switch(Key)
-            {
-
-                case 2:
-                    if(i == 0)
-                        i = 1;
-                    else
-                        i = 0;
-                    break;
-                case 3:
-
-                    if(i == 1 && triggerTemp[1] == 0)
-                    {
-                        triggerTemp[1] = 9;
-                        triggerTemp[0] = triggerTemp[0] - 1;
-                    }
-                    else
-                        triggerTemp[i] = triggerTemp[i] - 1;
-                    break;
-                case 4:
-
-                    if(i == 1 && triggerTemp[1] == 9)
-                    {
-                        triggerTemp[1] = 0;
-                        triggerTemp[0] = triggerTemp[0] + 1;
-                    }
-                    else
-                        triggerTemp[i] = triggerTemp[i] + 1;
-                    break;
-            }
-
-            int i = triggerTemp[0];
-
-            digits[1] = i % 10 + 48;
-            i /= 10;
-            digits[0] = i % 10 + 48;
-
-            digits[2] = '\0';
-
-            decimal = triggerTemp[1] + 48;
-
-            LCD_SendString(digits);
-            LCD_Busy();
-
-            LCD_SendData('.');
-            LCD_Busy();
-
-            LCD_SendData(decimal);
-            LCD_Busy();
-
-            LCD_SendData('0');
-        }
-}
-
-
-void SwapToHeatingDisplay(int Key)
-{
-    char* Heat = "Heating:";
-
-    LCD_Command(0x01);
-    char* On = "On";
-    char* Off = "Off";
-    while(1)
-    {
-
-        Key = Keypad_Scan();
-        if(Key == 7)
-        {
-            LCD_Command(0x01);
-            break;
-        }
-        LCD_Command(0x03);
-        LCD_SendString(Heat);
-
-        if(IsHeatingOn == 1)
-        {
-            LCD_Command(0x14);
-            LCD_SendString(On);
-        }
-        else if(IsHeatingOn == 0)
-        {
-            LCD_Command(0x14);
-            LCD_SendString(Off);
-        }
-    }
-}
-
-
-void HeatingControlOff(int Key, int temp, int temp2, int temp3)
-{
-
-    DisableAlarm = 1;
-    SoundOff();
-    char* Off = "Heating Off";
-    char* On = "Heating On";
-
-    LCD_Command(0x01);
-
-    LCD_Command(0x03);
-
-    LCD_SendString(Off);
-
-    Main_Delay(200);
-
-    LCD_Command(0x01);
-    while(1)
-    {
-        LCD_Command(0x03);
-
-        MainScreen();
-        Key = Keypad_Scan();
-
-        if(Key == 1)
-        {
-           ChangeTrigger(Key);
-        }
-
-        if(Key == 7)
-        {
-            SwapToHeatingDisplay(Key);
-        }
-
-        Get_Temp(tempBuffer);
-
-        temp = tempBuffer[0] - 48;
-        temp2 = tempBuffer[1] - 48;
-        temp3 = (temp* 10) + temp2;
-
-        if(triggerTemp[0] > temp3)
-        {
-            LCD_Command(0x01);
-            LCD_Command(0x03);
-            LCD_SendString(On);
-
-
-            Main_Delay(200);
-            LCD_Command(0x01);
-
-            IsHeatingOn = 1;
-
-            DisableAlarm = 0;
-            break;
-        }
-    }
-}
-
-
-void SoundAlarm(int Key, int temp, int temp2, int temp3)
-{
-
-    char* Alarm = "Heating Failure";
-    DisableAlarm = 0;
-    LCD_Command(0x01);
-    while(1)
-    {
-        LCD_Command(0x03);
-        LCD_SendString(Alarm);
-
-        SoundOn();
-
-        Get_Temp(tempBuffer);
-        temp = tempBuffer[0] - 48;
-        temp2 = tempBuffer[1] - 48;
-        temp3 = (temp* 10) + temp2;
-        Key = Keypad_Scan();
-
-        if(Key == 1)
-        {
-            ChangeTrigger(Key);
-        }
-
-        if(Key == 7)
-        {
-            SwapToHeatingDisplay(Key);
-        }
-
-        if(Key == 5)
-        {
-            DisableAlarm = 1;
-            SoundOff();
-            LCD_Command(0x01);
-            break;
-        }
-
-        if(temp3 > triggerTemp[0])
-        {
-            LCD_Command(0x01);
-            HeatingControlOff(Key, temp, temp2, temp3);
-            break;
-        }
-    }
-}
-
-
-void Switch24Hour(int Key)
-{
-    LCD_Command(0x01);
-    char c = is24Hour % 10;
-    while(1)
-    {
-        LCD_Command(0x03);
-        LCD_SendData(c);
-        if (Key == 8)
-        {
-            LCD_Command(0x01);
-            break;
-        }
-    }
-}
-
-
-void DateDayScreen(int Key)
-{
-    LCD_Command(0x01);
-    char* date = ("Date: ");
-    char* day = ("Day: ");
-    while(1)
-    {
-        Key = Keypad_Scan();
-        LCD_Command(0x03);
-        LCD_SendString(date);
-        DisplayDate();
-        LCD_SecondLine();
-        LCD_SendString(day);
-        DisplayDay();
-        if (Key == 1)
-        {
-            ChangeTrigger(Key);
-        }
-        if (Key == 6)
-        {
-            LCD_Command(0x01);
-            break;
-        }
-        if (Key == 7)
-        {
-            SwapToHeatingDisplay(Key);
-        }
-    }
-}
-
-
-void SetTime(int Key)
-{
-
-    LCD_Command(0x01);
-
-    int i = 0;
-
-    int hour, min, sec;
-    char* Time = "Time:";
-    char* TimeSet = "Time Set";
-
-    timeSecs = RealTimeClock_get_seconds();
-    timeMins = RealTimeClock_get_minutes();
-    timeHours = RealTimeClock_get_hours();
-
-    int setTime[3];
-    setTime[0] = timeHours;
-    setTime[1] = timeMins;
-    setTime[2] = timeSecs;
-    while(1)
-    {
-
-        char digits[9] = {'0', '0', ':', '0', '0', '.', '0', '0', '\0'};
-
-        LCD_Command(0x03);
-        LCD_SendString(Time);
-
-        Key = Keypad_Scan();
-
-        if(Key == 9)
-        {
-
-            RealTimeClock_set_hours(setTime[0]);
-            RealTimeClock_set_minutes(setTime[1]);
-            RealTimeClock_set_seconds(setTime[2]);
-
-            LCD_Command(0x01);
-            LCD_Command(0x03);
-
-            LCD_SendString(TimeSet);
-            Main_Delay(200);
-            LCD_Command(0x01);
-            break;
-        }
-        switch(Key)
-        {
-
-            case 10:
-
-            if(i == 2)
-                i = 0;
-
-            else
-                i++;
-            break;
-
-            case 11:
-
-                if(i == 0)
-                {
-                    if(is24Hour == 1)
-                    {
-                        if(setTime[i] == 0)
-                        {
-                            setTime[i] = 23;
-                        }
-
-                        else
-                        {
-                            setTime[i] = setTime[i] - 1;
-                        }
-                    }
-                    else if(is24Hour == 0)
-                    {
-
-                    }
-                    else
-                        setTime[i] = setTime[i] - 1;
-                }
-
-                else if(setTime[i] == 0)
-                {
-                    setTime[i] = 59;
-                }
-
-                else
-                    setTime[i] = setTime[i] - 1;
-                break;
-
-            case 12:
-
-                if(i == 0)
-                {
-
-                    if(is24Hour == 1)
-                    {
-                        if(setTime[i] == 23)
-                        {
-                            setTime[i] = 0;
-                        }
-
-                        else
-                        {
-                            setTime[i] = setTime[i] + 1;
-                        }
-                    }
-                    else if(is24Hour == 0)
-                    {
-
-                    }
-                }
-
-                else if(setTime[i] == 59)
-                {
-                    setTime[i] = 0;
-                }
-                else
-                    setTime[i] = setTime[i] + 1;
-                break;
-        }
-
-
-        hour = setTime[0];
-        min = setTime[1];
-        sec = setTime[2];
-        digits[1] = hour % 10 + 48;
-        hour /= 10;
-        digits[0] = hour % 10 + 48;
-        digits[4] = min % 10 + 48;
-        min /= 10;
-        digits[3] = min % 10 + 48;
-        digits[7] = sec % 10 + 48;
-        sec /= 10;
-        digits[6] = sec % 10 + 48;
-        LCD_SendString(digits);
-    }
-}
-
-
-void CheckDay(void)
-{
-    switch(day_of_week)
-    {
-
-
-        case 1:
-            isWeekDay = 1;
-            break;
-        case 2:
-            isWeekDay = 1;
-            break;
-        case 3:
-            isWeekDay = 1;
-            break;
-        case 4:
-            isWeekDay = 1;
-            break;
-        case 5:
-            isWeekDay = 1;
-            break;
-        case 6:
-            isWeekDay = 0;
-            break;
-        case 7:
-            isWeekDay = 0;
-    }
-}
-
-
-void SetDate(int Key)
-{
-
-    LCD_Command(0x01);
-    int i = 0;
-    char* Day = ("Day:");
-    char* Date = ("Date:");
-    char* DateSet = ("Date/Day Set");
-    char* Monday = ("Mon");
-    char* Tuesday = ("Tue");
-    char* Wednesday = ("Wed");
-    char* Thursday = ("Thu");
-    char* Friday = ("Fri");
-    char* Saturday = ("Sat");
-    char* Sunday = ("Sun");
-    int dayInt;
-    dayInt = RealTimeClock_get_day_of_week();
-    while(1)
-    {
-        LCD_Command(0x03);
-        LCD_SendString(Date);
-        Key = Keypad_Scan();
-        if(Key == 13)
-        {
-            LCD_Command(0x01);
-            LCD_Command(0x03);
-
-            CheckDay();
-
-            day_of_week = dayInt;
-
-            RealTimeClock_set_day_of_week(dayInt);
-
-            LCD_SendString(DateSet);
-            Main_Delay(200);
-            LCD_Command(0x01);
-            break;
-        }
-        switch(Key)
-        {
-            case 14:
-                break;
-            case 15:
-                if(i == 0)
-                {
-                    if(dayInt == 1)
-                        dayInt = 7;
-                    else
-                        dayInt = dayInt - 1;
-                }
-                break;
-            case 16:
-                if(i == 0)
-                {
-                    if(dayInt == 7)
-                        dayInt = 1;
-                    else
-                        dayInt = dayInt + 1;
-                }
-                break;
-        }
-        LCD_SecondLine();
-        LCD_SendString(Day);
-        switch(dayInt)
-        {
-            case 1:
-                LCD_SendString(Monday);
-                break;
-            case 2:
-                LCD_SendString(Tuesday);
-                break;
-            case 3:
-                LCD_SendString(Wednesday);
-                break;
-            case 4:
-                LCD_SendString(Thursday);
-                break;
-            case 5:
-                LCD_SendString(Friday);
-                break;
-            case 6:
-                LCD_SendString(Saturday);
-                break;
-            case 7:
-                LCD_SendString(Sunday);
-                break;
-        }
-    }
-}
-
-
-void CheckTime(void)
-{
-
-
-    if (isWeekDay == 1)
-    {
-        timeMins = RealTimeClock_get_minutes();
-        timeHours = RealTimeClock_get_hours();
-        if (timeHours < weekDayStart[0])
-        {
-            if(timeMins < weekDayStart[1])
-                IsHeatingOn = 0;
-            else
-                IsHeatingOn = 1;
-        }
-        else if(timeHours > weekDayEnd[0])
-        {
-            if(timeMins > weekDayEnd[1])
-                IsHeatingOn = 0;
-            else
-                IsHeatingOn = 1;
-        }
-        else
-            IsHeatingOn = 1;
-    }
-
-
-    else if (isWeekDay == 0)
-    {
-
-        timeMins = RealTimeClock_get_minutes();
-        timeHours = RealTimeClock_get_hours();
-        if (timeHours < weekEndStart[0])
-        {
-            IsHeatingOn = 0;
-        }
-        else if(timeHours > weekEndEnd[0])
-        {
-            IsHeatingOn = 0;
-        }
-        else
-            IsHeatingOn = 1;
-    }
-}
-
-
-
-
-
-
-void main() {
-
-
-    LCD_Init();
-    Init_Keypad();
-    Thermometer_Init();
-    RealTimeClock_init();
-    RealTimeClock_set_burst_time(start_date);
-
-
-    Buzzer_Init();
-    int Key = 0;
-    DisableAlarm = 0;
-    isWeekDay = 1;
-    int temp, temp2, temp3, tempdec, tempdectenth;
-    IsHeatingOn = 1;
-    is24Hour = 1;
-
-    LCD_Command(0xc);
-
-    LCD_Command(0x01);
-
-    LCD_Command(0x03);
-
-    LCD_Command(0x38);
-    SoundOff();
-
-    day_of_week = RealTimeClock_get_day_of_week();
-    CheckDay();
-    CheckTime();
-    Main_Delay(50);
-    while(1)
-    {
-        day_of_week = RealTimeClock_get_day_of_week();
-
-        LCD_Command(0x03);
-
-
-        temp = tempBuffer[0] - 48;
-        temp2 = tempBuffer[1] - 48;
-        temp3 = (temp * 10) + temp2;
-        previousTemp[0] = temp3;
-
-
-        tempdec = tempBuffer[2];
-        tempdectenth = tempBuffer[3];
-        previousTemp[1] = tempdec;
-        previousTemp[2] = tempdectenth;
-
-        Key = Keypad_Scan();
-        MainScreen();
-
-
-        temp = tempBuffer[0] - 48;
-        temp2 = tempBuffer[1] - 48;
-        temp3 = (temp * 10) + temp2;
-
-
-        tempdec = tempBuffer[3];
-        tempdectenth = tempBuffer[4];
-
-        if (Key == 1) {
-            ChangeTrigger(Key);
-        }
-
-        if (Key == 6) {
-            DateDayScreen(Key);
-        }
-
-        if (Key == 7) {
-            SwapToHeatingDisplay(Key);
-        }
-
-        if (Key == 9) {
-            SetTime(Key);
-        }
-
-        if(Key == 8)
-        {
-            Switch24Hour(Key);
-        }
-
-        if(Key == 13)
-        {
-            SetDate(Key);
-        }
-
-        if (temp3 >= triggerTemp[0]) {
-            IsHeatingOn = 0;
-            HeatingControlOff(Key, temp, temp2, temp3);
-        }
-        if (temp3 <= triggerTemp[0] && temp3 < previousTemp[0] && IsHeatingOn == 1 && DisableAlarm == 0) {
-            SoundAlarm(Key, temp, temp2, temp3);
-        }
-
-        CheckTime();
-    }
+hundredthbit=(TempBCD%1000)/100;
+__nop();
 }

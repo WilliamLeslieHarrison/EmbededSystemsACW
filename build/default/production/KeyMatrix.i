@@ -1728,9 +1728,7 @@ void Key_Delay(int k);
 
 void Init_Keypad(void);
 
-char Keypad_Scan(void);
-
-char Switch_Scan(void);
+int Keypad_Scan(void);
 # 2 "KeyMatrix.c" 2
 
 
@@ -1747,116 +1745,108 @@ void Init_Keypad(void)
     TRISC = 0xF;
 }
 
-char Keypad_Scan(void)
+int Keypad_Scan(void)
 {
     RC4 = 1; RC5 = 0; RC6 = 0; RC7 = 0;
     if(RC3 == 1)
     {
         Key_Delay(50);
         while(RC3 == 1)
-            return '1';
+            return 1;
     }
     if(RC2 == 1)
     {
        Key_Delay(50);
        while(RC2 == 1)
-            return '2';
+            return 2;
     }
     if(RC1 == 1)
     {
         Key_Delay(50);
         while(RC1 == 1)
-            return '3';
+            return 3;
     }
     if(RC0 == 1)
     {
         Key_Delay(50);
         while(RC0 == 1)
-            return '4';
+            return 4;
     }
     RC4 = 0; RC5 = 1; RC6 = 0; RC7 = 0;
     if(RC3 == 1)
     {
         Key_Delay(50);
         while(RC3 == 1)
-            return '5';
+            return 5;
     }
     if(RC2 == 1)
     {
         Key_Delay(50);
         while(RC2 == 1)
-            return '6';
+            return 6;
     }
     if(RC1 == 1)
     {
         Key_Delay(50);
         while(RC1 == 1)
-            return '7';
+            return 7;
     }
     if(RC0 == 1)
     {
         Key_Delay(50);
         while(RC0 == 1)
-            return '8';
+            return 8;
     }
     RC4 = 0; RC5 = 0; RC6 = 1; RC7 = 0;
     if(RC3 == 1)
     {
         Key_Delay(50);
         while(RC3 == 1)
-            return '9';
+            return 9;
     }
     if(RC2 == 1)
     {
         Key_Delay(50);
         while(RC2 == 1)
-            return '0';
+            return 10;
     }
     if(RC1 == 1)
     {
         Key_Delay(50);
         while(RC1 == 1)
-            return 'a';
+            return 11;
     }
     if(RC0 == 1)
     {
         Key_Delay(50);
         while(RC0 == 1)
-            return 'b';
+            return 12;
     }
     RC4 = 0; RC5 = 0; RC6 = 0; RC7 = 1;
     if(RC3 == 1)
     {
         Key_Delay(50);
         while(RC3 == 1)
-            return 'c';
+            return 13;
     }
     if(RC2 == 1)
     {
         Key_Delay(50);
         while(RC2 == 1)
-            return 'd';
+            return 14;
     }
     if(RC1 == 1)
     {
         Key_Delay(50);
         while(RC1 == 1)
-            return 'e';
+            return 15;
     }
     if(RC0 == 1)
     {
         Key_Delay(50);
         while(RC0 == 1)
-            return 'f';
+            return 16;
     }
 
-        return 'n';
-}
-
-char Switch_Scan(void)
-{
-    char key = 'n';
-    while(key == 'n')
-        key = Keypad_Scan();
-    return key;
+        return 0;
 }

@@ -1741,17 +1741,24 @@ void LCD_SendString(const char *string);
 
 
 void LCD_Busy(void){
+
     TRISD = 0xFF;
     RA3 = 1;
+
     RA1 = 0;
+
     RA2 = 1;
+
     while(RD7)
     {
+
         RA3 = 0;
         RA3 = 1;
     }
+
     TRISD = 0x00;
 }
+
 
 void LCD_Init(void)
 {
@@ -1760,32 +1767,47 @@ void LCD_Init(void)
     ADCON1 = 0x06;
 }
 
+
 void LCD_Command(unsigned char c){
+
     RA1 = 0;
+
     RA2 = 0;
+
     RA3 = 1;
+
     PORTD = c;
     RA3 = 0;
+
     LCD_Busy();
 }
+
 
 void LCD_SecondLine(void)
 {
     LCD_Command(0xc0);
 }
 
+
 void LCD_SendData(unsigned char c){
+
     RA1 = 1;
+
     RA2 = 0;
+
     RA3 = 1;
+
     PORTD = c;
     RA3 = 0;
     LCD_Busy();
 }
 
+
 void LCD_SendString(const char *string){
+
     for (int i = 0; string[i]!='\0'; ++i)
     {
+
         LCD_SendData(string[i]);
     }
 }

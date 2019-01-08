@@ -11,9 +11,15 @@ Version 4.0 HI-TECH Software Intermediate Code
 "2689
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f877a.h: 2689: extern volatile __bit RB5 __attribute__((address(0x35)));
 [v _RB5 `Vb ~T0 @X0 0 e@53 ]
-"1375
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f877a.h: 1375: extern volatile unsigned char TRISB __attribute__((address(0x086)));
-[v _TRISB `Vuc ~T0 @X0 0 e@134 ]
+"2229
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f877a.h: 2229: extern volatile unsigned char ADCON1 __attribute__((address(0x09F)));
+[v _ADCON1 `Vuc ~T0 @X0 0 e@159 ]
+"2935
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f877a.h: 2935: extern volatile __bit TRISB0 __attribute__((address(0x430)));
+[v _TRISB0 `Vb ~T0 @X0 0 e@1072 ]
+"2950
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f877a.h: 2950: extern volatile __bit TRISB5 __attribute__((address(0x435)));
+[v _TRISB5 `Vb ~T0 @X0 0 e@1077 ]
 "54 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f877a.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f877a.h: 54: __asm("INDF equ 00h");
 [; <" INDF equ 00h ;# ">
@@ -194,210 +200,609 @@ Version 4.0 HI-TECH Software Intermediate Code
 "2363
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f877a.h: 2363: __asm("EECON2 equ 018Dh");
 [; <" EECON2 equ 018Dh ;# ">
-"4 realtimeclock.c
-[; ;realtimeclock.c: 4: void RealTimeClock_write_byte(unsigned char time_tx) {
+"17 ./realtimeclock.h
+[; ;./realtimeclock.h: 17: int __RealTimeClock_buff[7];
+[v ___RealTimeClock_buff `i ~T0 @X0 -> 7 `i e ]
+"5 realtimeclock.c
+[; ;realtimeclock.c: 5: int __hex_to_int(unsigned char hex) {
+[v ___hex_to_int `(i ~T0 @X0 1 ef1`uc ]
+{
+[e :U ___hex_to_int ]
+[v _hex `uc ~T0 @X0 1 r1 ]
+[f ]
+"6
+[; ;realtimeclock.c: 6:     int t = 0;
+[v _t `i ~T0 @X0 1 a ]
+[e = _t -> 0 `i ]
+"7
+[; ;realtimeclock.c: 7:     for(int i = 0; i < hex; ++i) {
+{
+[v _i `i ~T0 @X0 1 a ]
+[e = _i -> 0 `i ]
+[e $U 99  ]
+[e :U 96 ]
+{
+"8
+[; ;realtimeclock.c: 8:         ++t;
+[e =+ _t -> 1 `i ]
+"9
+[; ;realtimeclock.c: 9:         if(t && t % 10 == 0)
+[e $ ! && != _t -> 0 `i == % _t -> 10 `i -> 0 `i 100  ]
+"10
+[; ;realtimeclock.c: 10:             i+=6;
+[e =+ _i -> 6 `i ]
+[e :U 100 ]
+"11
+[; ;realtimeclock.c: 11:     }
+}
+[e =+ _i -> 1 `i ]
+[e :U 99 ]
+[e $ < _i -> _hex `i 96  ]
+[e :U 97 ]
+}
+"12
+[; ;realtimeclock.c: 12:     return t;
+[e ) _t ]
+[e $UE 95  ]
+"13
+[; ;realtimeclock.c: 13: }
+[e :UE 95 ]
+}
+"15
+[; ;realtimeclock.c: 15: unsigned char __int_to_hex(int integer) {
+[v ___int_to_hex `(uc ~T0 @X0 1 ef1`i ]
+{
+[e :U ___int_to_hex ]
+[v _integer `i ~T0 @X0 1 r1 ]
+[f ]
+"16
+[; ;realtimeclock.c: 16:     int t = 0;
+[v _t `i ~T0 @X0 1 a ]
+[e = _t -> 0 `i ]
+"17
+[; ;realtimeclock.c: 17:     for(int i = 0; i < integer; ++i) {
+{
+[v _i `i ~T0 @X0 1 a ]
+[e = _i -> 0 `i ]
+[e $U 105  ]
+[e :U 102 ]
+{
+"18
+[; ;realtimeclock.c: 18:         ++t;
+[e =+ _t -> 1 `i ]
+"19
+[; ;realtimeclock.c: 19:         if(i && i % 10 == 0) {
+[e $ ! && != _i -> 0 `i == % _i -> 10 `i -> 0 `i 106  ]
+{
+"20
+[; ;realtimeclock.c: 20:             t+=6;
+[e =+ _t -> 6 `i ]
+"21
+[; ;realtimeclock.c: 21:         }
+}
+[e :U 106 ]
+"22
+[; ;realtimeclock.c: 22:     }
+}
+[e =+ _i -> 1 `i ]
+[e :U 105 ]
+[e $ < _i _integer 102  ]
+[e :U 103 ]
+}
+"23
+[; ;realtimeclock.c: 23:     return t;
+[e ) -> _t `uc ]
+[e $UE 101  ]
+"24
+[; ;realtimeclock.c: 24: }
+[e :UE 101 ]
+}
+"26
+[; ;realtimeclock.c: 26: void RealTimeClock_write_byte(unsigned char time_tx) {
 [v _RealTimeClock_write_byte `(v ~T0 @X0 1 ef1`uc ]
 {
 [e :U _RealTimeClock_write_byte ]
 [v _time_tx `uc ~T0 @X0 1 r1 ]
 [f ]
-"5
-[; ;realtimeclock.c: 5:     for(int i = 0; i < 8; ++i) {
+"27
+[; ;realtimeclock.c: 27:     for(int i = 0; i < 8; ++i) {
 {
 [v _i `i ~T0 @X0 1 a ]
 [e = _i -> 0 `i ]
-[e $ < _i -> 8 `i 96  ]
-[e $U 97  ]
-[e :U 96 ]
+[e $ < _i -> 8 `i 108  ]
+[e $U 109  ]
+[e :U 108 ]
 {
-"6
-[; ;realtimeclock.c: 6:         RB4 = 0;
+"28
+[; ;realtimeclock.c: 28:         RB4 = 0;
 [e = _RB4 -> -> 0 `i `b ]
-"7
-[; ;realtimeclock.c: 7:         RB0 = 0;
+"29
+[; ;realtimeclock.c: 29:         RB0 = 0;
 [e = _RB0 -> -> 0 `i `b ]
-"8
-[; ;realtimeclock.c: 8:         if (time_tx&0x01) {
-[e $ ! != & -> _time_tx `i -> 1 `i -> 0 `i 99  ]
+"30
+[; ;realtimeclock.c: 30:         if (time_tx&0x01) {
+[e $ ! != & -> _time_tx `i -> 1 `i -> 0 `i 111  ]
 {
-"9
-[; ;realtimeclock.c: 9:             RB4 = 1;
+"31
+[; ;realtimeclock.c: 31:             RB4 = 1;
 [e = _RB4 -> -> 1 `i `b ]
-"10
-[; ;realtimeclock.c: 10:         }
+"32
+[; ;realtimeclock.c: 32:         }
 }
-[e :U 99 ]
-"11
-[; ;realtimeclock.c: 11:         time_tx = time_tx >> 1;
+[e :U 111 ]
+"33
+[; ;realtimeclock.c: 33:         time_tx = time_tx >> 1;
 [e = _time_tx -> >> -> _time_tx `i -> 1 `i `uc ]
-"12
-[; ;realtimeclock.c: 12:         RB0 = 1;
+"34
+[; ;realtimeclock.c: 34:         RB0 = 1;
 [e = _RB0 -> -> 1 `i `b ]
-"13
-[; ;realtimeclock.c: 13:     }
+"35
+[; ;realtimeclock.c: 35:     }
 }
 [e =+ _i -> 1 `i ]
-[e $ < _i -> 8 `i 96  ]
-[e :U 97 ]
+[e $ < _i -> 8 `i 108  ]
+[e :U 109 ]
 }
-"14
-[; ;realtimeclock.c: 14:     RB0 = 0;
+"36
+[; ;realtimeclock.c: 36:     RB0 = 0;
 [e = _RB0 -> -> 0 `i `b ]
-"15
-[; ;realtimeclock.c: 15: }
-[e :UE 95 ]
+"37
+[; ;realtimeclock.c: 37: }
+[e :UE 107 ]
 }
-"17
-[; ;realtimeclock.c: 17: void RealTimeClock_read_byte(unsigned char time_rx) {
-[v _RealTimeClock_read_byte `(v ~T0 @X0 1 ef1`uc ]
+"39
+[; ;realtimeclock.c: 39: unsigned char RealTimeClock_read_byte(void) {
+[v _RealTimeClock_read_byte `(uc ~T0 @X0 1 ef ]
 {
 [e :U _RealTimeClock_read_byte ]
-[v _time_rx `uc ~T0 @X0 1 r1 ]
 [f ]
-"18
-[; ;realtimeclock.c: 18:     TRISB4 = 1;
-[e = _TRISB4 -> -> 1 `i `b ]
-"19
-[; ;realtimeclock.c: 19:     for(int i = 0; i < 8; ++i) {
-{
-[v _i `i ~T0 @X0 1 a ]
-[e = _i -> 0 `i ]
-[e $ < _i -> 8 `i 101  ]
-[e $U 102  ]
-[e :U 101 ]
-{
-"20
-[; ;realtimeclock.c: 20:         RB0 = 0;
-[e = _RB0 -> -> 0 `i `b ]
-"21
-[; ;realtimeclock.c: 21:         time_rx = time_rx >> 1;
-[e = _time_rx -> >> -> _time_rx `i -> 1 `i `uc ]
-"22
-[; ;realtimeclock.c: 22:         time_rx = time_rx | (((unsigned char)RB4) << 7);
-[e = _time_rx -> | -> _time_rx `i << -> -> _RB4 `uc `i -> 7 `i `uc ]
-"23
-[; ;realtimeclock.c: 23:         RB0 = 1;
-[e = _RB0 -> -> 1 `i `b ]
-"24
-[; ;realtimeclock.c: 24:     }
-}
-[e =+ _i -> 1 `i ]
-[e $ < _i -> 8 `i 101  ]
-[e :U 102 ]
-}
-"25
-[; ;realtimeclock.c: 25:     TRISB4 = 0;
-[e = _TRISB4 -> -> 0 `i `b ]
-"26
-[; ;realtimeclock.c: 26:     RB0 = 0;
-[e = _RB0 -> -> 0 `i `b ]
-"27
-[; ;realtimeclock.c: 27: }
-[e :UE 100 ]
-}
-"29
-[; ;realtimeclock.c: 29: void RealTimeClock_set_time(unsigned char* time) {
-[v _RealTimeClock_set_time `(v ~T0 @X0 1 ef1`*uc ]
-{
-[e :U _RealTimeClock_set_time ]
-[v _time `*uc ~T0 @X0 1 r1 ]
-[f ]
-"30
-[; ;realtimeclock.c: 30:     RB5 = 1;
-[e = _RB5 -> -> 1 `i `b ]
-"31
-[; ;realtimeclock.c: 31:     RealTimeClock_write_byte(0xbe);
-[e ( _RealTimeClock_write_byte (1 -> -> 190 `i `uc ]
-"32
-[; ;realtimeclock.c: 32:     for(int i = 0; i < 8; ++i) {
-{
-[v _i `i ~T0 @X0 1 a ]
-[e = _i -> 0 `i ]
-[e $ < _i -> 8 `i 105  ]
-[e $U 106  ]
-[e :U 105 ]
-{
-"33
-[; ;realtimeclock.c: 33:         RealTimeClock_write_byte(time[i]);
-[e ( _RealTimeClock_write_byte (1 *U + _time * -> _i `x -> -> # *U _time `i `x ]
-"34
-[; ;realtimeclock.c: 34:     }
-}
-[e =+ _i -> 1 `i ]
-[e $ < _i -> 8 `i 105  ]
-[e :U 106 ]
-}
-"35
-[; ;realtimeclock.c: 35:     RB5 = 0;
-[e = _RB5 -> -> 0 `i `b ]
-"36
-[; ;realtimeclock.c: 36: }
-[e :UE 104 ]
-}
-"38
-[; ;realtimeclock.c: 38: void RealTimeClock_get_time(unsigned char* time) {
-[v _RealTimeClock_get_time `(v ~T0 @X0 1 ef1`*uc ]
-{
-[e :U _RealTimeClock_get_time ]
-[v _time `*uc ~T0 @X0 1 r1 ]
-[f ]
-"39
-[; ;realtimeclock.c: 39:     RB5 = 1;
-[e = _RB5 -> -> 1 `i `b ]
-"40
-[; ;realtimeclock.c: 40:     RealTimeClock_write_byte(0xbf);
-[e ( _RealTimeClock_write_byte (1 -> -> 191 `i `uc ]
 "41
-[; ;realtimeclock.c: 41:     for(int i = 0; i < 7; ++i) {
+[; ;realtimeclock.c: 41:     unsigned char time_rx = 0;
+[v _time_rx `uc ~T0 @X0 1 a ]
+[e = _time_rx -> -> 0 `i `uc ]
+"42
+[; ;realtimeclock.c: 42:     TRISB4 = 1;
+[e = _TRISB4 -> -> 1 `i `b ]
+"43
+[; ;realtimeclock.c: 43:     for(int i = 0; i < 8; ++i) {
 {
 [v _i `i ~T0 @X0 1 a ]
 [e = _i -> 0 `i ]
-[e $ < _i -> 7 `i 109  ]
-[e $U 110  ]
-[e :U 109 ]
+[e $ < _i -> 8 `i 113  ]
+[e $U 114  ]
+[e :U 113 ]
 {
-"42
-[; ;realtimeclock.c: 42:         RealTimeClock_read_byte(time[i]);
-[e ( _RealTimeClock_read_byte (1 *U + _time * -> _i `x -> -> # *U _time `i `x ]
-"43
-[; ;realtimeclock.c: 43:     }
+"44
+[; ;realtimeclock.c: 44:         RB0 = 1;
+[e = _RB0 -> -> 1 `i `b ]
+"47
+[; ;realtimeclock.c: 47:         if(RB4) time_rx += 1 << i;
+[e $ ! _RB4 116  ]
+[e =+ _time_rx -> << -> 1 `i _i `uc ]
+[e :U 116 ]
+"48
+[; ;realtimeclock.c: 48:         RB0 = 0;
+[e = _RB0 -> -> 0 `i `b ]
+"49
+[; ;realtimeclock.c: 49:     }
 }
 [e =+ _i -> 1 `i ]
-[e $ < _i -> 7 `i 109  ]
-[e :U 110 ]
+[e $ < _i -> 8 `i 113  ]
+[e :U 114 ]
 }
-"44
-[; ;realtimeclock.c: 44:     RB5 = 0;
+"50
+[; ;realtimeclock.c: 50:     RB0 = 0;
+[e = _RB0 -> -> 0 `i `b ]
+"51
+[; ;realtimeclock.c: 51:     TRISB4 = 0;
+[e = _TRISB4 -> -> 0 `i `b ]
+"52
+[; ;realtimeclock.c: 52:     return time_rx;
+[e ) _time_rx ]
+[e $UE 112  ]
+"53
+[; ;realtimeclock.c: 53: }
+[e :UE 112 ]
+}
+"55
+[; ;realtimeclock.c: 55: void RealTimeClock_set_burst_time(int* time) {
+[v _RealTimeClock_set_burst_time `(v ~T0 @X0 1 ef1`*i ]
+{
+[e :U _RealTimeClock_set_burst_time ]
+[v _time `*i ~T0 @X0 1 r1 ]
+[f ]
+"56
+[; ;realtimeclock.c: 56:     RB5 = 1;
+[e = _RB5 -> -> 1 `i `b ]
+"57
+[; ;realtimeclock.c: 57:     RealTimeClock_write_byte(0xbe);
+[e ( _RealTimeClock_write_byte (1 -> -> 190 `i `uc ]
+"58
+[; ;realtimeclock.c: 58:     for(int i = 0; i < 8; ++i) {
+{
+[v _i `i ~T0 @X0 1 a ]
+[e = _i -> 0 `i ]
+[e $ < _i -> 8 `i 118  ]
+[e $U 119  ]
+[e :U 118 ]
+{
+"59
+[; ;realtimeclock.c: 59:         RealTimeClock_write_byte(__int_to_hex(time[i]));
+[e ( _RealTimeClock_write_byte (1 ( ___int_to_hex (1 *U + _time * -> _i `x -> -> # *U _time `i `x ]
+"60
+[; ;realtimeclock.c: 60:     }
+}
+[e =+ _i -> 1 `i ]
+[e $ < _i -> 8 `i 118  ]
+[e :U 119 ]
+}
+"61
+[; ;realtimeclock.c: 61:     RB5 = 0;
 [e = _RB5 -> -> 0 `i `b ]
-"45
-[; ;realtimeclock.c: 45: }
-[e :UE 108 ]
+"62
+[; ;realtimeclock.c: 62: }
+[e :UE 117 ]
 }
-"47
-[; ;realtimeclock.c: 47: void RealTimeClock_init(void) {
+"64
+[; ;realtimeclock.c: 64: int* RealTimeClock_get_burst_time(void) {
+[v _RealTimeClock_get_burst_time `(*i ~T0 @X0 1 ef ]
+{
+[e :U _RealTimeClock_get_burst_time ]
+[f ]
+"65
+[; ;realtimeclock.c: 65:     RB5 = 1;
+[e = _RB5 -> -> 1 `i `b ]
+"66
+[; ;realtimeclock.c: 66:     RealTimeClock_write_byte(0xbf);
+[e ( _RealTimeClock_write_byte (1 -> -> 191 `i `uc ]
+"67
+[; ;realtimeclock.c: 67:     for(int i = 0; i < 7; ++i) {
+{
+[v _i `i ~T0 @X0 1 a ]
+[e = _i -> 0 `i ]
+[e $ < _i -> 7 `i 122  ]
+[e $U 123  ]
+[e :U 122 ]
+{
+"68
+[; ;realtimeclock.c: 68:         __RealTimeClock_buff[i] = __hex_to_int(RealTimeClock_read_byte());
+[e = *U + &U ___RealTimeClock_buff * -> -> _i `ui `ux -> -> # *U &U ___RealTimeClock_buff `ui `ux ( ___hex_to_int (1 ( _RealTimeClock_read_byte ..  ]
+"69
+[; ;realtimeclock.c: 69:     }
+}
+[e =+ _i -> 1 `i ]
+[e $ < _i -> 7 `i 122  ]
+[e :U 123 ]
+}
+"70
+[; ;realtimeclock.c: 70:     RB5 = 0;
+[e = _RB5 -> -> 0 `i `b ]
+"71
+[; ;realtimeclock.c: 71:     return __RealTimeClock_buff;
+[e ) &U ___RealTimeClock_buff ]
+[e $UE 121  ]
+"72
+[; ;realtimeclock.c: 72: }
+[e :UE 121 ]
+}
+"74
+[; ;realtimeclock.c: 74: void RealTimeClock_init(void) {
 [v _RealTimeClock_init `(v ~T0 @X0 1 ef ]
 {
 [e :U _RealTimeClock_init ]
 [f ]
-"48
-[; ;realtimeclock.c: 48:     TRISB = 0x00;
-[e = _TRISB -> -> 0 `i `uc ]
-"49
-[; ;realtimeclock.c: 49:     RB0 = 0;
-[e = _RB0 -> -> 0 `i `b ]
-"50
-[; ;realtimeclock.c: 50:     RB5 = 1;
-[e = _RB5 -> -> 1 `i `b ]
-"51
-[; ;realtimeclock.c: 51:     RealTimeClock_write_byte(0x8e);
-[e ( _RealTimeClock_write_byte (1 -> -> 142 `i `uc ]
-"52
-[; ;realtimeclock.c: 52:     RealTimeClock_write_byte(0x00);
-[e ( _RealTimeClock_write_byte (1 -> -> 0 `i `uc ]
-"53
-[; ;realtimeclock.c: 53:     RB5 = 0;
+"75
+[; ;realtimeclock.c: 75:     RB5 = 0;
 [e = _RB5 -> -> 0 `i `b ]
-"54
-[; ;realtimeclock.c: 54: }
-[e :UE 112 ]
+"76
+[; ;realtimeclock.c: 76:     ADCON1 = 0x06;
+[e = _ADCON1 -> -> 6 `i `uc ]
+"78
+[; ;realtimeclock.c: 78:     TRISB0 = 0;
+[e = _TRISB0 -> -> 0 `i `b ]
+"79
+[; ;realtimeclock.c: 79:     TRISB4 = 0;
+[e = _TRISB4 -> -> 0 `i `b ]
+"80
+[; ;realtimeclock.c: 80:     TRISB5 = 0;
+[e = _TRISB5 -> -> 0 `i `b ]
+"81
+[; ;realtimeclock.c: 81:     RB0 = 0;
+[e = _RB0 -> -> 0 `i `b ]
+"82
+[; ;realtimeclock.c: 82:     RB5 = 1;
+[e = _RB5 -> -> 1 `i `b ]
+"83
+[; ;realtimeclock.c: 83:     RealTimeClock_write_byte(0x8e);
+[e ( _RealTimeClock_write_byte (1 -> -> 142 `i `uc ]
+"84
+[; ;realtimeclock.c: 84:     RealTimeClock_write_byte(0);
+[e ( _RealTimeClock_write_byte (1 -> -> 0 `i `uc ]
+"85
+[; ;realtimeclock.c: 85:     RB5 = 0;
+[e = _RB5 -> -> 0 `i `b ]
+"86
+[; ;realtimeclock.c: 86: }
+[e :UE 125 ]
+}
+"88
+[; ;realtimeclock.c: 88: int RealTimeClock_get_seconds(void) {
+[v _RealTimeClock_get_seconds `(i ~T0 @X0 1 ef ]
+{
+[e :U _RealTimeClock_get_seconds ]
+[f ]
+"89
+[; ;realtimeclock.c: 89:     RB5 = 1;
+[e = _RB5 -> -> 1 `i `b ]
+"90
+[; ;realtimeclock.c: 90:     RealTimeClock_write_byte(0x81);
+[e ( _RealTimeClock_write_byte (1 -> -> 129 `i `uc ]
+"91
+[; ;realtimeclock.c: 91:     unsigned char c = RealTimeClock_read_byte();
+[v _c `uc ~T0 @X0 1 a ]
+[e = _c ( _RealTimeClock_read_byte ..  ]
+"92
+[; ;realtimeclock.c: 92:     RB5 = 0;
+[e = _RB5 -> -> 0 `i `b ]
+"93
+[; ;realtimeclock.c: 93:     return __hex_to_int(c);
+[e ) ( ___hex_to_int (1 _c ]
+[e $UE 126  ]
+"94
+[; ;realtimeclock.c: 94: }
+[e :UE 126 ]
+}
+"96
+[; ;realtimeclock.c: 96: int RealTimeClock_get_minutes(void) {
+[v _RealTimeClock_get_minutes `(i ~T0 @X0 1 ef ]
+{
+[e :U _RealTimeClock_get_minutes ]
+[f ]
+"97
+[; ;realtimeclock.c: 97:     RB5 = 1;
+[e = _RB5 -> -> 1 `i `b ]
+"98
+[; ;realtimeclock.c: 98:     RealTimeClock_write_byte(0x83);
+[e ( _RealTimeClock_write_byte (1 -> -> 131 `i `uc ]
+"99
+[; ;realtimeclock.c: 99:     unsigned char c = RealTimeClock_read_byte();
+[v _c `uc ~T0 @X0 1 a ]
+[e = _c ( _RealTimeClock_read_byte ..  ]
+"100
+[; ;realtimeclock.c: 100:     RB5 = 0;
+[e = _RB5 -> -> 0 `i `b ]
+"101
+[; ;realtimeclock.c: 101:     return __hex_to_int(c);
+[e ) ( ___hex_to_int (1 _c ]
+[e $UE 127  ]
+"102
+[; ;realtimeclock.c: 102: }
+[e :UE 127 ]
+}
+"104
+[; ;realtimeclock.c: 104: int RealTimeClock_get_hours(void) {
+[v _RealTimeClock_get_hours `(i ~T0 @X0 1 ef ]
+{
+[e :U _RealTimeClock_get_hours ]
+[f ]
+"105
+[; ;realtimeclock.c: 105:     RB5 = 1;
+[e = _RB5 -> -> 1 `i `b ]
+"106
+[; ;realtimeclock.c: 106:     RealTimeClock_write_byte(0x85);
+[e ( _RealTimeClock_write_byte (1 -> -> 133 `i `uc ]
+"107
+[; ;realtimeclock.c: 107:     unsigned char c = RealTimeClock_read_byte();
+[v _c `uc ~T0 @X0 1 a ]
+[e = _c ( _RealTimeClock_read_byte ..  ]
+"108
+[; ;realtimeclock.c: 108:     RB5 = 0;
+[e = _RB5 -> -> 0 `i `b ]
+"109
+[; ;realtimeclock.c: 109:     return __hex_to_int(c);
+[e ) ( ___hex_to_int (1 _c ]
+[e $UE 128  ]
+"110
+[; ;realtimeclock.c: 110: }
+[e :UE 128 ]
+}
+"112
+[; ;realtimeclock.c: 112: int RealTimeClock_get_day_of_month(void) {
+[v _RealTimeClock_get_day_of_month `(i ~T0 @X0 1 ef ]
+{
+[e :U _RealTimeClock_get_day_of_month ]
+[f ]
+"113
+[; ;realtimeclock.c: 113:     RB5 = 1;
+[e = _RB5 -> -> 1 `i `b ]
+"114
+[; ;realtimeclock.c: 114:     RealTimeClock_write_byte(0x87);
+[e ( _RealTimeClock_write_byte (1 -> -> 135 `i `uc ]
+"115
+[; ;realtimeclock.c: 115:     unsigned char c = RealTimeClock_read_byte();
+[v _c `uc ~T0 @X0 1 a ]
+[e = _c ( _RealTimeClock_read_byte ..  ]
+"116
+[; ;realtimeclock.c: 116:     RB5 = 0;
+[e = _RB5 -> -> 0 `i `b ]
+"117
+[; ;realtimeclock.c: 117:     return __hex_to_int(c);
+[e ) ( ___hex_to_int (1 _c ]
+[e $UE 129  ]
+"118
+[; ;realtimeclock.c: 118: }
+[e :UE 129 ]
+}
+"120
+[; ;realtimeclock.c: 120: int RealTimeClock_get_month(void) {
+[v _RealTimeClock_get_month `(i ~T0 @X0 1 ef ]
+{
+[e :U _RealTimeClock_get_month ]
+[f ]
+"121
+[; ;realtimeclock.c: 121:     RB5 = 1;
+[e = _RB5 -> -> 1 `i `b ]
+"122
+[; ;realtimeclock.c: 122:     RealTimeClock_write_byte(0x89);
+[e ( _RealTimeClock_write_byte (1 -> -> 137 `i `uc ]
+"123
+[; ;realtimeclock.c: 123:     unsigned char c = RealTimeClock_read_byte();
+[v _c `uc ~T0 @X0 1 a ]
+[e = _c ( _RealTimeClock_read_byte ..  ]
+"124
+[; ;realtimeclock.c: 124:     RB5 = 0;
+[e = _RB5 -> -> 0 `i `b ]
+"125
+[; ;realtimeclock.c: 125:     return __hex_to_int(c);
+[e ) ( ___hex_to_int (1 _c ]
+[e $UE 130  ]
+"126
+[; ;realtimeclock.c: 126: }
+[e :UE 130 ]
+}
+"128
+[; ;realtimeclock.c: 128: int RealTimeClock_get_day_of_week(void) {
+[v _RealTimeClock_get_day_of_week `(i ~T0 @X0 1 ef ]
+{
+[e :U _RealTimeClock_get_day_of_week ]
+[f ]
+"129
+[; ;realtimeclock.c: 129:     RB5 = 1;
+[e = _RB5 -> -> 1 `i `b ]
+"130
+[; ;realtimeclock.c: 130:     RealTimeClock_write_byte(0x8b);
+[e ( _RealTimeClock_write_byte (1 -> -> 139 `i `uc ]
+"131
+[; ;realtimeclock.c: 131:     unsigned char c = RealTimeClock_read_byte();
+[v _c `uc ~T0 @X0 1 a ]
+[e = _c ( _RealTimeClock_read_byte ..  ]
+"132
+[; ;realtimeclock.c: 132:     RB5 = 0;
+[e = _RB5 -> -> 0 `i `b ]
+"133
+[; ;realtimeclock.c: 133:     return __hex_to_int(c);
+[e ) ( ___hex_to_int (1 _c ]
+[e $UE 131  ]
+"134
+[; ;realtimeclock.c: 134: }
+[e :UE 131 ]
+}
+"136
+[; ;realtimeclock.c: 136: int RealTimeClock_get_year(void) {
+[v _RealTimeClock_get_year `(i ~T0 @X0 1 ef ]
+{
+[e :U _RealTimeClock_get_year ]
+[f ]
+"137
+[; ;realtimeclock.c: 137:     RB5 = 1;
+[e = _RB5 -> -> 1 `i `b ]
+"138
+[; ;realtimeclock.c: 138:     RealTimeClock_write_byte(0x8d);
+[e ( _RealTimeClock_write_byte (1 -> -> 141 `i `uc ]
+"139
+[; ;realtimeclock.c: 139:     unsigned char c = RealTimeClock_read_byte();
+[v _c `uc ~T0 @X0 1 a ]
+[e = _c ( _RealTimeClock_read_byte ..  ]
+"140
+[; ;realtimeclock.c: 140:     RB5 = 0;
+[e = _RB5 -> -> 0 `i `b ]
+"141
+[; ;realtimeclock.c: 141:     return __hex_to_int(c);
+[e ) ( ___hex_to_int (1 _c ]
+[e $UE 132  ]
+"142
+[; ;realtimeclock.c: 142: }
+[e :UE 132 ]
+}
+"144
+[; ;realtimeclock.c: 144: void RealTimeClock_set_seconds(int seconds) {
+[v _RealTimeClock_set_seconds `(v ~T0 @X0 1 ef1`i ]
+{
+[e :U _RealTimeClock_set_seconds ]
+[v _seconds `i ~T0 @X0 1 r1 ]
+[f ]
+"145
+[; ;realtimeclock.c: 145:     RB5 = 1;
+[e = _RB5 -> -> 1 `i `b ]
+"146
+[; ;realtimeclock.c: 146:     RealTimeClock_write_byte(0x80);
+[e ( _RealTimeClock_write_byte (1 -> -> 128 `i `uc ]
+"147
+[; ;realtimeclock.c: 147:     RealTimeClock_write_byte(__int_to_hex(seconds));
+[e ( _RealTimeClock_write_byte (1 ( ___int_to_hex (1 _seconds ]
+"148
+[; ;realtimeclock.c: 148:     RB5 = 0;
+[e = _RB5 -> -> 0 `i `b ]
+"149
+[; ;realtimeclock.c: 149: }
+[e :UE 133 ]
+}
+"151
+[; ;realtimeclock.c: 151: void RealTimeClock_set_minutes(int minutes) {
+[v _RealTimeClock_set_minutes `(v ~T0 @X0 1 ef1`i ]
+{
+[e :U _RealTimeClock_set_minutes ]
+[v _minutes `i ~T0 @X0 1 r1 ]
+[f ]
+"152
+[; ;realtimeclock.c: 152:     RB5 = 1;
+[e = _RB5 -> -> 1 `i `b ]
+"153
+[; ;realtimeclock.c: 153:     RealTimeClock_write_byte(0x82);
+[e ( _RealTimeClock_write_byte (1 -> -> 130 `i `uc ]
+"154
+[; ;realtimeclock.c: 154:     RealTimeClock_write_byte(__int_to_hex(minutes));
+[e ( _RealTimeClock_write_byte (1 ( ___int_to_hex (1 _minutes ]
+"155
+[; ;realtimeclock.c: 155:     RB5 = 0;
+[e = _RB5 -> -> 0 `i `b ]
+"156
+[; ;realtimeclock.c: 156: }
+[e :UE 134 ]
+}
+"158
+[; ;realtimeclock.c: 158: void RealTimeClock_set_hours(int hours) {
+[v _RealTimeClock_set_hours `(v ~T0 @X0 1 ef1`i ]
+{
+[e :U _RealTimeClock_set_hours ]
+[v _hours `i ~T0 @X0 1 r1 ]
+[f ]
+"159
+[; ;realtimeclock.c: 159:     RB5 = 1;
+[e = _RB5 -> -> 1 `i `b ]
+"160
+[; ;realtimeclock.c: 160:     RealTimeClock_write_byte(0x84);
+[e ( _RealTimeClock_write_byte (1 -> -> 132 `i `uc ]
+"161
+[; ;realtimeclock.c: 161:     RealTimeClock_write_byte(__int_to_hex(hours));
+[e ( _RealTimeClock_write_byte (1 ( ___int_to_hex (1 _hours ]
+"162
+[; ;realtimeclock.c: 162:     RB5 = 0;
+[e = _RB5 -> -> 0 `i `b ]
+"163
+[; ;realtimeclock.c: 163: }
+[e :UE 135 ]
+}
+"165
+[; ;realtimeclock.c: 165: void RealTimeClock_set_day_of_week(int day) {
+[v _RealTimeClock_set_day_of_week `(v ~T0 @X0 1 ef1`i ]
+{
+[e :U _RealTimeClock_set_day_of_week ]
+[v _day `i ~T0 @X0 1 r1 ]
+[f ]
+"166
+[; ;realtimeclock.c: 166:     RB5 = 1;
+[e = _RB5 -> -> 1 `i `b ]
+"167
+[; ;realtimeclock.c: 167:     RealTimeClock_write_byte(0x8a);
+[e ( _RealTimeClock_write_byte (1 -> -> 138 `i `uc ]
+"168
+[; ;realtimeclock.c: 168:     RealTimeClock_write_byte(__int_to_hex(day));
+[e ( _RealTimeClock_write_byte (1 ( ___int_to_hex (1 _day ]
+"169
+[; ;realtimeclock.c: 169:     RB5 = 0;
+[e = _RB5 -> -> 0 `i `b ]
+"170
+[; ;realtimeclock.c: 170: }
+[e :UE 136 ]
 }

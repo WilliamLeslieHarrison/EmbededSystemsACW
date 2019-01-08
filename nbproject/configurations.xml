@@ -8,10 +8,12 @@
       <itemPath>KeyMatrix.h</itemPath>
       <itemPath>LCD.h</itemPath>
       <itemPath>Buzzer.h</itemPath>
+      <itemPath>Thermometer.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
                    projectFiles="true">
+      <itemPath>Thermometer.c</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"

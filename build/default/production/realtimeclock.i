@@ -1724,13 +1724,64 @@ extern __bank0 __bit __timeout;
 
 # 1 "./realtimeclock.h" 1
 # 17 "./realtimeclock.h"
+int __RealTimeClock_buff[7];
+
+
+int __hex_to_int(unsigned char hex);
+unsigned char __int_to_hex(int integer);
+
+
 void RealTimeClock_write_byte(unsigned char time_tx);
-void RealTimeClock_set_time(unsigned char* time);
-void RealTimeClock_read_byte(unsigned char time_rx);
-void RealTimeClock_get_time(unsigned char* time);
+void RealTimeClock_set_burst_time(int* time);
+unsigned char RealTimeClock_read_byte(void);
+int* RealTimeClock_get_burst_time(void);
+
 void RealTimeClock_init(void);
+
+int RealTimeClock_get_seconds(void);
+void RealTimeClock_set_seconds(int seconds);
+
+int RealTimeClock_get_minutes(void);
+void RealTimeClock_set_minutes(int minutes);
+
+int RealTimeClock_get_hours(void);
+void RealTimeClock_set_hours(int hours);
+
+int RealTimeClock_get_day_of_month(void);
+void RealTimeClock_set_day_of_month(int day);
+
+int RealTimeClock_get_month(void);
+void RealTimeClock_set_month(int month);
+
+int RealTimeClock_get_day_of_week(void);
+void RealTimeClock_set_day_of_week(int day);
+
+int RealTimeClock_get_year(void);
+void RealTimeClock_set_year(int year);
 # 2 "realtimeclock.c" 2
 
+
+
+int __hex_to_int(unsigned char hex) {
+    int t = 0;
+    for(int i = 0; i < hex; ++i) {
+        ++t;
+        if(t && t % 10 == 0)
+            i+=6;
+    }
+    return t;
+}
+
+unsigned char __int_to_hex(int integer) {
+    int t = 0;
+    for(int i = 0; i < integer; ++i) {
+        ++t;
+        if(i && i % 10 == 0) {
+            t+=6;
+        }
+    }
+    return t;
+}
 
 void RealTimeClock_write_byte(unsigned char time_tx) {
     for(int i = 0; i < 8; ++i) {
@@ -1745,41 +1796,135 @@ void RealTimeClock_write_byte(unsigned char time_tx) {
     RB0 = 0;
 }
 
-void RealTimeClock_read_byte(unsigned char time_rx) {
+unsigned char RealTimeClock_read_byte(void) {
+
+    unsigned char time_rx = 0;
     TRISB4 = 1;
     for(int i = 0; i < 8; ++i) {
-        RB0 = 0;
-        time_rx = time_rx >> 1;
-        time_rx = time_rx | (((unsigned char)RB4) << 7);
         RB0 = 1;
+
+
+        if(RB4) time_rx += 1 << i;
+        RB0 = 0;
     }
-    TRISB4 = 0;
     RB0 = 0;
+    TRISB4 = 0;
+    return time_rx;
 }
 
-void RealTimeClock_set_time(unsigned char* time) {
+void RealTimeClock_set_burst_time(int* time) {
     RB5 = 1;
     RealTimeClock_write_byte(0xbe);
     for(int i = 0; i < 8; ++i) {
-        RealTimeClock_write_byte(time[i]);
+        RealTimeClock_write_byte(__int_to_hex(time[i]));
     }
     RB5 = 0;
 }
 
-void RealTimeClock_get_time(unsigned char* time) {
+int* RealTimeClock_get_burst_time(void) {
     RB5 = 1;
     RealTimeClock_write_byte(0xbf);
     for(int i = 0; i < 7; ++i) {
-        RealTimeClock_read_byte(time[i]);
+        __RealTimeClock_buff[i] = __hex_to_int(RealTimeClock_read_byte());
     }
     RB5 = 0;
+    return __RealTimeClock_buff;
 }
 
 void RealTimeClock_init(void) {
-    TRISB = 0x00;
+    RB5 = 0;
+    ADCON1 = 0x06;
+
+    TRISB0 = 0;
+    TRISB4 = 0;
+    TRISB5 = 0;
     RB0 = 0;
     RB5 = 1;
     RealTimeClock_write_byte(0x8e);
-    RealTimeClock_write_byte(0x00);
+    RealTimeClock_write_byte(0);
+    RB5 = 0;
+}
+
+int RealTimeClock_get_seconds(void) {
+    RB5 = 1;
+    RealTimeClock_write_byte(0x81);
+    unsigned char c = RealTimeClock_read_byte();
+    RB5 = 0;
+    return __hex_to_int(c);
+}
+
+int RealTimeClock_get_minutes(void) {
+    RB5 = 1;
+    RealTimeClock_write_byte(0x83);
+    unsigned char c = RealTimeClock_read_byte();
+    RB5 = 0;
+    return __hex_to_int(c);
+}
+
+int RealTimeClock_get_hours(void) {
+    RB5 = 1;
+    RealTimeClock_write_byte(0x85);
+    unsigned char c = RealTimeClock_read_byte();
+    RB5 = 0;
+    return __hex_to_int(c);
+}
+
+int RealTimeClock_get_day_of_month(void) {
+    RB5 = 1;
+    RealTimeClock_write_byte(0x87);
+    unsigned char c = RealTimeClock_read_byte();
+    RB5 = 0;
+    return __hex_to_int(c);
+}
+
+int RealTimeClock_get_month(void) {
+    RB5 = 1;
+    RealTimeClock_write_byte(0x89);
+    unsigned char c = RealTimeClock_read_byte();
+    RB5 = 0;
+    return __hex_to_int(c);
+}
+
+int RealTimeClock_get_day_of_week(void) {
+    RB5 = 1;
+    RealTimeClock_write_byte(0x8b);
+    unsigned char c = RealTimeClock_read_byte();
+    RB5 = 0;
+    return __hex_to_int(c);
+}
+
+int RealTimeClock_get_year(void) {
+    RB5 = 1;
+    RealTimeClock_write_byte(0x8d);
+    unsigned char c = RealTimeClock_read_byte();
+    RB5 = 0;
+    return __hex_to_int(c);
+}
+
+void RealTimeClock_set_seconds(int seconds) {
+    RB5 = 1;
+    RealTimeClock_write_byte(0x80);
+    RealTimeClock_write_byte(__int_to_hex(seconds));
+    RB5 = 0;
+}
+
+void RealTimeClock_set_minutes(int minutes) {
+    RB5 = 1;
+    RealTimeClock_write_byte(0x82);
+    RealTimeClock_write_byte(__int_to_hex(minutes));
+    RB5 = 0;
+}
+
+void RealTimeClock_set_hours(int hours) {
+    RB5 = 1;
+    RealTimeClock_write_byte(0x84);
+    RealTimeClock_write_byte(__int_to_hex(hours));
+    RB5 = 0;
+}
+
+void RealTimeClock_set_day_of_week(int day) {
+    RB5 = 1;
+    RealTimeClock_write_byte(0x8a);
+    RealTimeClock_write_byte(__int_to_hex(day));
     RB5 = 0;
 }

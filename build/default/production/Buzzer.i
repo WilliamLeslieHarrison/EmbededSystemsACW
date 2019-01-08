@@ -1723,25 +1723,30 @@ extern __bank0 __bit __timeout;
 # 1 "Buzzer.c" 2
 
 # 1 "./Buzzer.h" 1
-# 12 "./Buzzer.h"
-void Init_Buzzer(char* Port);
+# 13 "./Buzzer.h"
+void Buzzer_Init(void);
 
-void Sound(char Mask);
+void SoundOn(void);
+
+void SoundOff(void);
 # 2 "Buzzer.c" 2
 
 
-char* PORT;
 
 
-void Init_Buzzer(char* Port)
+void Buzzer_Init(void)
 {
-    *Port = 0x00;
-    *PORT = *Port;
+    TRISB1 = 0;
 }
 
 
-void Sound(char Mask)
+void SoundOn(void)
 {
-    *PORT = Mask;
-    *PORT = ~Mask;
+    RB1 = 1;
+}
+
+
+void SoundOff(void)
+{
+    RB1 = 0;
 }

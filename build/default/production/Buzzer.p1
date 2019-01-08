@@ -1,4 +1,10 @@
 Version 4.0 HI-TECH Software Intermediate Code
+"2938 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f877a.h
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f877a.h: 2938: extern volatile __bit TRISB1 __attribute__((address(0x431)));
+[v _TRISB1 `Vb ~T0 @X0 0 e@1073 ]
+"2677
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f877a.h: 2677: extern volatile __bit RB1 __attribute__((address(0x31)));
+[v _RB1 `Vb ~T0 @X0 0 e@49 ]
 "54 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f877a.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f877a.h: 54: __asm("INDF equ 00h");
 [; <" INDF equ 00h ;# ">
@@ -179,52 +185,48 @@ Version 4.0 HI-TECH Software Intermediate Code
 "2363
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f877a.h: 2363: __asm("EECON2 equ 018Dh");
 [; <" EECON2 equ 018Dh ;# ">
-"4 Buzzer.c
-[; ;Buzzer.c: 4: char* PORT;
-[v _PORT `*uc ~T0 @X0 1 e ]
+"6 Buzzer.c
+[; ;Buzzer.c: 6: void Buzzer_Init(void)
+[v _Buzzer_Init `(v ~T0 @X0 1 ef ]
 "7
-[; ;Buzzer.c: 7: void Init_Buzzer(char* Port)
-[v _Init_Buzzer `(v ~T0 @X0 1 ef1`*uc ]
-"8
-[; ;Buzzer.c: 8: {
+[; ;Buzzer.c: 7: {
 {
-[e :U _Init_Buzzer ]
-"7
-[; ;Buzzer.c: 7: void Init_Buzzer(char* Port)
-[v _Port `*uc ~T0 @X0 1 r1 ]
-"8
-[; ;Buzzer.c: 8: {
+[e :U _Buzzer_Init ]
 [f ]
+"8
+[; ;Buzzer.c: 8:     TRISB1 = 0;
+[e = _TRISB1 -> -> 0 `i `b ]
 "9
-[; ;Buzzer.c: 9:     *Port = 0x00;
-[e = *U _Port -> -> 0 `i `uc ]
-"10
-[; ;Buzzer.c: 10:     *PORT = *Port;
-[e = *U _PORT *U _Port ]
-"11
-[; ;Buzzer.c: 11: }
+[; ;Buzzer.c: 9: }
 [e :UE 95 ]
 }
-"14
-[; ;Buzzer.c: 14: void Sound(char Mask)
-[v _Sound `(v ~T0 @X0 1 ef1`uc ]
-"15
-[; ;Buzzer.c: 15: {
+"12
+[; ;Buzzer.c: 12: void SoundOn(void)
+[v _SoundOn `(v ~T0 @X0 1 ef ]
+"13
+[; ;Buzzer.c: 13: {
 {
-[e :U _Sound ]
-"14
-[; ;Buzzer.c: 14: void Sound(char Mask)
-[v _Mask `uc ~T0 @X0 1 r1 ]
-"15
-[; ;Buzzer.c: 15: {
+[e :U _SoundOn ]
 [f ]
-"16
-[; ;Buzzer.c: 16:     *PORT = Mask;
-[e = *U _PORT _Mask ]
-"17
-[; ;Buzzer.c: 17:     *PORT = ~Mask;
-[e = *U _PORT -> ~ -> _Mask `i `uc ]
-"18
-[; ;Buzzer.c: 18: }
+"14
+[; ;Buzzer.c: 14:     RB1 = 1;
+[e = _RB1 -> -> 1 `i `b ]
+"15
+[; ;Buzzer.c: 15: }
 [e :UE 96 ]
+}
+"18
+[; ;Buzzer.c: 18: void SoundOff(void)
+[v _SoundOff `(v ~T0 @X0 1 ef ]
+"19
+[; ;Buzzer.c: 19: {
+{
+[e :U _SoundOff ]
+[f ]
+"20
+[; ;Buzzer.c: 20:     RB1 = 0;
+[e = _RB1 -> -> 0 `i `b ]
+"21
+[; ;Buzzer.c: 21: }
+[e :UE 97 ]
 }

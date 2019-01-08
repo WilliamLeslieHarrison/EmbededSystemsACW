@@ -265,8 +265,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :UE 103 ]
 }
 "17
-[; ;KeyMatrix.c: 17: char Keypad_Scan(void)
-[v _Keypad_Scan `(uc ~T0 @X0 1 ef ]
+[; ;KeyMatrix.c: 17: int Keypad_Scan(void)
+[v _Keypad_Scan `(i ~T0 @X0 1 ef ]
 "18
 [; ;KeyMatrix.c: 18: {
 {
@@ -292,8 +292,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e $U 106  ]
 [e :U 107 ]
 "24
-[; ;KeyMatrix.c: 24:             return '1';
-[e ) -> -> 49 `ui `uc ]
+[; ;KeyMatrix.c: 24:             return 1;
+[e ) -> 1 `i ]
 [e $UE 104  ]
 [e :U 106 ]
 "23
@@ -318,8 +318,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e $U 110  ]
 [e :U 111 ]
 "30
-[; ;KeyMatrix.c: 30:             return '2';
-[e ) -> -> 50 `ui `uc ]
+[; ;KeyMatrix.c: 30:             return 2;
+[e ) -> 2 `i ]
 [e $UE 104  ]
 [e :U 110 ]
 "29
@@ -344,8 +344,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e $U 114  ]
 [e :U 115 ]
 "36
-[; ;KeyMatrix.c: 36:             return '3';
-[e ) -> -> 51 `ui `uc ]
+[; ;KeyMatrix.c: 36:             return 3;
+[e ) -> 3 `i ]
 [e $UE 104  ]
 [e :U 114 ]
 "35
@@ -370,8 +370,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e $U 118  ]
 [e :U 119 ]
 "42
-[; ;KeyMatrix.c: 42:             return '4';
-[e ) -> -> 52 `ui `uc ]
+[; ;KeyMatrix.c: 42:             return 4;
+[e ) -> 4 `i ]
 [e $UE 104  ]
 [e :U 118 ]
 "41
@@ -402,8 +402,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e $U 122  ]
 [e :U 123 ]
 "49
-[; ;KeyMatrix.c: 49:             return '5';
-[e ) -> -> 53 `ui `uc ]
+[; ;KeyMatrix.c: 49:             return 5;
+[e ) -> 5 `i ]
 [e $UE 104  ]
 [e :U 122 ]
 "48
@@ -428,8 +428,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e $U 126  ]
 [e :U 127 ]
 "55
-[; ;KeyMatrix.c: 55:             return '6';
-[e ) -> -> 54 `ui `uc ]
+[; ;KeyMatrix.c: 55:             return 6;
+[e ) -> 6 `i ]
 [e $UE 104  ]
 [e :U 126 ]
 "54
@@ -454,8 +454,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e $U 130  ]
 [e :U 131 ]
 "61
-[; ;KeyMatrix.c: 61:             return '7';
-[e ) -> -> 55 `ui `uc ]
+[; ;KeyMatrix.c: 61:             return 7;
+[e ) -> 7 `i ]
 [e $UE 104  ]
 [e :U 130 ]
 "60
@@ -480,8 +480,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e $U 134  ]
 [e :U 135 ]
 "67
-[; ;KeyMatrix.c: 67:             return '8';
-[e ) -> -> 56 `ui `uc ]
+[; ;KeyMatrix.c: 67:             return 8;
+[e ) -> 8 `i ]
 [e $UE 104  ]
 [e :U 134 ]
 "66
@@ -512,8 +512,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e $U 138  ]
 [e :U 139 ]
 "74
-[; ;KeyMatrix.c: 74:             return '9';
-[e ) -> -> 57 `ui `uc ]
+[; ;KeyMatrix.c: 74:             return 9;
+[e ) -> 9 `i ]
 [e $UE 104  ]
 [e :U 138 ]
 "73
@@ -538,8 +538,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e $U 142  ]
 [e :U 143 ]
 "80
-[; ;KeyMatrix.c: 80:             return '0';
-[e ) -> -> 48 `ui `uc ]
+[; ;KeyMatrix.c: 80:             return 10;
+[e ) -> 10 `i ]
 [e $UE 104  ]
 [e :U 142 ]
 "79
@@ -564,8 +564,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e $U 146  ]
 [e :U 147 ]
 "86
-[; ;KeyMatrix.c: 86:             return 'a';
-[e ) -> -> 97 `ui `uc ]
+[; ;KeyMatrix.c: 86:             return 11;
+[e ) -> 11 `i ]
 [e $UE 104  ]
 [e :U 146 ]
 "85
@@ -590,8 +590,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e $U 150  ]
 [e :U 151 ]
 "92
-[; ;KeyMatrix.c: 92:             return 'b';
-[e ) -> -> 98 `ui `uc ]
+[; ;KeyMatrix.c: 92:             return 12;
+[e ) -> 12 `i ]
 [e $UE 104  ]
 [e :U 150 ]
 "91
@@ -622,8 +622,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e $U 154  ]
 [e :U 155 ]
 "99
-[; ;KeyMatrix.c: 99:             return 'c';
-[e ) -> -> 99 `ui `uc ]
+[; ;KeyMatrix.c: 99:             return 13;
+[e ) -> 13 `i ]
 [e $UE 104  ]
 [e :U 154 ]
 "98
@@ -648,8 +648,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e $U 158  ]
 [e :U 159 ]
 "105
-[; ;KeyMatrix.c: 105:             return 'd';
-[e ) -> -> 100 `ui `uc ]
+[; ;KeyMatrix.c: 105:             return 14;
+[e ) -> 14 `i ]
 [e $UE 104  ]
 [e :U 158 ]
 "104
@@ -674,8 +674,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e $U 162  ]
 [e :U 163 ]
 "111
-[; ;KeyMatrix.c: 111:             return 'e';
-[e ) -> -> 101 `ui `uc ]
+[; ;KeyMatrix.c: 111:             return 15;
+[e ) -> 15 `i ]
 [e $UE 104  ]
 [e :U 162 ]
 "110
@@ -700,8 +700,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e $U 166  ]
 [e :U 167 ]
 "117
-[; ;KeyMatrix.c: 117:             return 'f';
-[e ) -> -> 102 `ui `uc ]
+[; ;KeyMatrix.c: 117:             return 16;
+[e ) -> 16 `i ]
 [e $UE 104  ]
 [e :U 166 ]
 "116
@@ -713,42 +713,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 }
 [e :U 165 ]
 "120
-[; ;KeyMatrix.c: 120:         return 'n';
-[e ) -> -> 110 `ui `uc ]
+[; ;KeyMatrix.c: 120:         return 0;
+[e ) -> 0 `i ]
 [e $UE 104  ]
 "121
 [; ;KeyMatrix.c: 121: }
 [e :UE 104 ]
-}
-"123
-[; ;KeyMatrix.c: 123: char Switch_Scan(void)
-[v _Switch_Scan `(uc ~T0 @X0 1 ef ]
-"124
-[; ;KeyMatrix.c: 124: {
-{
-[e :U _Switch_Scan ]
-[f ]
-"125
-[; ;KeyMatrix.c: 125:     char key = 'n';
-[v _key `uc ~T0 @X0 1 a ]
-[e = _key -> -> 110 `ui `uc ]
-"126
-[; ;KeyMatrix.c: 126:     while(key == 'n')
-[e $U 170  ]
-[e :U 171 ]
-"127
-[; ;KeyMatrix.c: 127:         key = Keypad_Scan();
-[e = _key ( _Keypad_Scan ..  ]
-[e :U 170 ]
-"126
-[; ;KeyMatrix.c: 126:     while(key == 'n')
-[e $ == -> _key `ui -> 110 `ui 171  ]
-[e :U 172 ]
-"128
-[; ;KeyMatrix.c: 128:     return key;
-[e ) _key ]
-[e $UE 169  ]
-"129
-[; ;KeyMatrix.c: 129: }
-[e :UE 169 ]
 }
