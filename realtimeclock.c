@@ -186,7 +186,7 @@ void RealTimeClock_set_day_of_week(int day) {
 
 void RealTimeClock_set_year(int year) {
     rst = 1;
-    RealTimeClock_write_byte(0xdc);
+    RealTimeClock_write_byte(0x8c);
     RealTimeClock_write_byte(__int_to_hex(year));
     rst = 0;
 }
