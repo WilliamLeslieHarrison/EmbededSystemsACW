@@ -522,7 +522,7 @@ void SetDate(int Key)
     int thirtyOne = 0;
     int feb = 0;
     char* DateDis = ("Date:");
-    char* DateSet = ("Date/Day Set");
+    char* DateSet = ("Date Set");
     char Date[9] = {'0', '0', '/', '0', '0', '/', '0', '0', '\0'};
     int dateArray[3];
     //Takes in the date by integers
@@ -766,14 +766,14 @@ void CheckTime(void)
     {
         timeMins = RealTimeClock_get_minutes();
         timeHours = RealTimeClock_get_hours();        
-        if (timeHours < weekDayStart[0]) 
+        if (timeHours <= weekDayStart[0]) 
         {
             if(timeMins < weekDayStart[1])
                 IsHeatingOn = 0;
             else
                 IsHeatingOn = 1;
         }
-        else if(timeHours > weekDayEnd[0])
+        else if(timeHours >= weekDayEnd[0])
         {
             if(timeMins > weekDayEnd[1])
                 IsHeatingOn = 0;
