@@ -816,13 +816,14 @@ void HeatingControlOff(int Key, int temp, int temp2, int temp3)
     //Set cursor to home
     LCD_Command(0x03);
     //Tell the user the heating is off as the temperature is at the current trigger
-    LCD_SendString(Off); 
+    LCD_SendString(Off);   
     //Have a delay for the user to see that the heating is now off
     Main_Delay(200);
     //Clear the screen
     LCD_Command(0x01);
     while(1)
-    {            
+    {      
+        CheckTime();
         LCD_Command(0x03);
         //Carry on showing the mainscreen to see that temp is still rising
         MainScreen();
@@ -947,8 +948,6 @@ void SoundAlarm(int Key, int temp, int temp2, int temp3)
 //If it is outside of this time don't do anything.
 //Have a separate screen for Day and Date
 void main() {      
-    //Init_Buzzer(&PORTB);
-    //TRISB = 0x00;
     LCD_Init();
     Init_Keypad();
     Thermometer_Init();
@@ -956,8 +955,6 @@ void main() {
     //set the starting date Format{secs, mins, hours, day, month, day of week, year, control}
     int start_date[8] = {0,0,12,1,1,5,10,0};
     RealTimeClock_set_burst_time(start_date);
-    /*RealTimeClock_set_seconds(1);
-    RealTimeClock_set_day_of_month(2);*/
     Buzzer_Init();
     int Key = 0;
     DisableAlarm = 0;

@@ -8,19 +8,25 @@ int sendDataCallCount = 0;
 int commandCallCount = 0;
 int busyCallCount = 0;
 int keypadScanCheck = 17;
+char* getTempTest = '0';
 
 #define OK_TEST 1
 #define ERROR_TEST 0
 
 int TEST_GETTING_TEMP(void)
 {
+    Get_Temp(getTempTest);
+    if(getTempTest == '0')
+        return ERROR_TEST;
     
+    return OK_TEST;
+        
 }
 
 int TEST_KEYPAD_SCAN(void)
 {
-    int test = Keypad_Scan();
-    if(test == 17)
+    int keypadScanCheck = Keypad_Scan();
+    if(keypadScanCheck == 17)
 		return ERROR_TEST;
 		
 	return OK_TEST;

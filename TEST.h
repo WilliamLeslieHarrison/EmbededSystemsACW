@@ -10,6 +10,7 @@
 #define LCD_COMMAND_TEST(X) commandCallCount++
 #define LCD_BUSY() busyCallCount++
 #define KEYPAD_SCAN() keypadScanCheck
+#define GET_TEMP() getTempTest
 #define LCD_SEND_DATA(X) sendDataCallCount++
 #else
 #define LCD_SEND_DATA(X) LCD_SendData(X)
